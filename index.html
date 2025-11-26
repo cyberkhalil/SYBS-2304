@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>خطة مساق أمن الشبكات | Mahmoud Khalil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* التصميم العام */
+    *{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif}
+    body{background:#f5f7fa;color:#333;line-height:1.7;display:flex;flex-direction:column;min-height:100vh}
+    /* الخط */
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+    /* الهيدر */
+    header{background:#0d6efd;color:#fff;text-align:center;padding:3rem 1rem}
+    header h1{font-size:2.2rem;margin-bottom:.5rem}
+    header p{font-size:1.1rem;margin:.3rem 0}
+    /* المحتوى */
+    main{padding:2rem 1rem;max-width:900px;margin:auto;width:100%}
+    h2{color:#0d6efd;margin-bottom:1rem;border-bottom:2px solid #0d6efd;display:inline-block}
+    /* الأسبوع */
+    details{border:1px solid #dee2e6;border-radius:6px;margin-bottom:.75rem;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+    summary{padding:1rem;font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between}
+    summary::-webkit-details-marker{display:none}
+    summary i{color:#0d6efd}
+    .week-content{padding:0 1rem 1rem 1rem}
+    ul{margin-right:1.2rem}
+    /* التقييم */
+    .assess-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:1rem}
+    .assess-card{background:#fff;border:1px solid #dee2e6;border-radius:6px;text-align:center;padding:1.5rem 1rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+    .assess-card i{font-size:2rem;color:#0d6efd;margin-bottom:.5rem}
+    .assess-card h3{margin:.5rem 0;font-size:1.5rem;color:#0d6efd}
+    /* الفوتر */
+    footer{background:#0d6efd;color:#fff;text-align:center;padding:1.5rem 1rem;margin-top:auto}
+    footer a{color:#fff;text-decoration:underline}
+  </style>
+</head>
+
+<body>
+  <!-- الهيدر -->
+  <header>
+    <h1>مساق أمن الشبكات</h1>
+    <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية</p>
+    <p>منسق المساق: <strong>المهندس محمود الشيخ خليل</strong></p>
+  </header>
+
+  <!-- المحتوى -->
+  <main>
+    <h2>الخطة الأسبوعية (محاضرة واحدة × 3 ساعات)</h2>
+
+    <!-- الأسبوع 1 -->
+    <details>
+      <summary>الأسبوع 1: لماذا أمن الشبكات؟ <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>قصص اختراقات شهيرة (مقهى، منزل)</li>
+          <li>مثلث الأمن (CIA) بكلمات بسيطة</li>
+          <li>عملي: تفعيل WPA2 + كلمة مرور قوية على Packet Tracer</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 2 -->
+    <details>
+      <summary>الأسبوع 2: أول خطوات الحماية <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>سياسة كلمات المرور وإخفاء الـ SSID</li>
+          <li>تحديثات الأنظمة وثغرة EternalBlue</li>
+          <li>عملي: ACL بسيط لحجب Telnet خارجي</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 3 -->
+    <details>
+      <summary>الأسبوع 3: التشفير المبسّط <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>التماثلي vs الغير تماثلي (شرح يدوي)</li>
+          <li>ملفات التوثيق (Certificate) في المتصفح</li>
+          <li>عملي: توليد زوج مفاتيح باستخدام PuTTYgen</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 4 -->
+    <details>
+      <summary>الأسبوع 4: WPA2/3 وكيف يُكسر <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>Handshaking بكلمات بسيطة</li>
+          <li>هجوم dictionary (عرض)</li>
+          <li>عملي: ترقية الشبكة إلى WPA3</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 5 -->
+    <details>
+      <summary>الأسبوع 5: VPN سريعة <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>مفهوم النفق (Tunnel)</li>
+          <li>Site-to-site IPSec داخل Packet Tracer</li>
+          <li>عملي: إرسال ملف عبر النفق المشفر</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 6 -->
+    <details>
+      <summary>الأسبوع 6: جدران الحماية <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>Stateful vs Stateless firewall</li>
+          <li>Zone-Based Firewall المبسّط</li>
+          <li>عملي: حجب منفذ BitTorrent</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 7 -->
+    <details>
+      <summary>الأسبوع 7: IPS/IDS لمسة واحدة <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>الفرق بين IPS و IDS</li>
+          <li>تثبيت Snort وعرض تنبيه واحد</li>
+          <li>عملي: إظهار تنبيه ping flood</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 8 -->
+    <details>
+      <summary>الأسبوع 8: ARP Spoofing & الحماية <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>شرح الانتحال باستخدام قصة «بريد مزوّر»</li>
+          <li>مكافحة: DHCP Snooping + Dynamic ARP Inspection</li>
+          <li>عملي: تفعيل الأمرين داخل Switch</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 9 -->
+    <details>
+      <summary>الأسبوع 9: التصيّد والويب <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>مفهوم التصيّد (Phishing)</li>
+          <li>كيفية تمييز الرابط المزيّف</li>
+          <li>عملي: تصميم صفحة login وهمية محليًّا (XAMPP)</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 10 (معدّل) -->
+    <details>
+      <summary>الأسبوع 10: Nmap – خريطة الشبكة بسرعة <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>ما هو Nmap ولماذا نستخدمه؟</li>
+          <li>أشهر الخيارات: -sP, -sS, -O, -sV</li>
+          <li>عملي: اكتشاف الأجهزة والموانع المفتوحة داخل شبكتك</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 11 -->
+    <details>
+      <summary>الأسبوع 11: السجلات والمراقبة <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>Syslog + مركز الجمع (SIEM ببساطة)</li>
+          <li>Graylog VM جاهزة</li>
+          <li>عملي: استخراج رسالة تحذير من تسجيل دخول فاشل</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- الأسبوع 12 -->
+    <details>
+      <summary>الأسبوع 12: مشروع ختامي ومراجعة <i class="fas fa-chevron-down"></i></summary>
+      <div class="week-content">
+        <ul>
+          <li>مراجعة 12 نقطة أمنية بكرتون واحد</li>
+          <li>مشروع الفصل: شبكة مكتب صغير (3 إجراءات أمان كحد أدنى)</li>
+          <li>عرض جماعي 5 دقائق لكل فريق</li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- التقييم -->
+    <h2 style="margin-top:2rem">التوزيع النسبي للدرجات</h2>
+    <div class="assess-grid">
+      <div class="assess-card"><i class="fas fa-edit"></i><h3>40%</h3><p>اختبارات قصيرة نظرية وعملية <br>(1-12) أسبوع </p></div>
+	        <div class="assess-card"><i class="fas fa-graduation-cap"></i><h3>30%</h3><p>مشروع عملي نهائي</p></div>
+      <div class="assess-card"><i class="fas fa-user-check"></i><h3>30%</h3><p>الاختبار النهائي - نظري</p></div>
+    </div>
+  </main>
+
+  <!-- التذييل -->
+  <footer>
+    تواصل: <a href="mailto:makhalil@ucas.edu.ps">makhalil@ucas.edu.ps</a> | دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية &copy; 2025 cyberkhalil
+  </footer>
+</body>
+</html>
