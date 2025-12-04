@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأسبوع الأول: مقدمة في أمن الشبكات | دبلوم أمن المعلومات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* التصميم العام */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', 'Segoe UI', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.8;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
+        
+        /* الهيدر */
+        header {
+            background: linear-gradient(90deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+            font-weight: 800;
+        }
+        
+        .course-info {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        /* محتوى رئيسي */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        .main-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid #eaeaea;
+        }
+        
+        .card-header {
+            background: linear-gradient(90deg, #198754 0%, #157347 100%);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .week-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        h3 {
+            color: #0d6efd;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 0.5rem;
+        }
+        
+        h4 {
+            color: #198754;
+            margin: 1.2rem 0 0.8rem 0;
+            font-size: 1.2rem;
+        }
+        
+        /* قوائم */
+        ul, ol {
+            margin-right: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        
+        /* أقسام خاصة */
+        .learning-outcomes {
+            background: #e8f4ff;
+            border-right: 4px solid #0d6efd;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .learning-outcomes h3 {
+            color: #0a58ca;
+            border-bottom: none;
+            margin-top: 0;
+        }
+        
+        .important-note {
+            background: #fff3cd;
+            border: 1px solid #ffecb5;
+            border-right: 4px solid #ffc107;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .important-note h4 {
+            color: #856404;
+            margin-top: 0;
+        }
+        
+        .practical-section {
+            background: #d1e7dd;
+            border: 1px solid #badbcc;
+            border-right: 4px solid #198754;
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .practical-section h3 {
+            color: #0f5132;
+            border-bottom: none;
+            margin-top: 0;
+        }
+        
+        /* خطة الجلسة المعدلة */
+        .session-plan {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .session-plan h3 {
+            margin-top: 0;
+            color: #0a58ca;
+        }
+        
+        .session-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .session-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .session-icon {
+            color: #0d6efd;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            margin-top: 0.2rem;
+        }
+        
+        .session-content h4 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .session-content p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+        
+        /* حل النشاط */
+        .solution-section {
+            background: #e7f1ff;
+            border: 1px solid #cfe2ff;
+            border-right: 4px solid #0d6efd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .solution-section h3 {
+            color: #0a58ca;
+            border-bottom: none;
+            margin-top: 0;
+        }
+        
+        .solution-item {
+            margin-bottom: 1.2rem;
+        }
+        
+        .solution-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .solution-item h4 {
+            color: #0d6efd;
+        }
+        
+        /* روابط وأزرار */
+        .btn {
+            display: inline-block;
+            background: #0d6efd;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: #0a58ca;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        /* الفوتر */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1.5rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        /* التكيف مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .week-badge {
+                margin-top: 0.8rem;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        /* تأثيرات إضافية */
+        .highlight {
+            background: linear-gradient(120deg, #a5d8ff 0%, transparent 100%);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+        }
+        
+        .key-term {
+            color: #0d6efd;
+            font-weight: 700;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .activity-icon {
+            color: #198754;
+            margin-left: 0.8rem;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+        
+        .correct-answer {
+            color: #198754;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="header-content">
+            <h1>الأسبوع الأول: مقدمة في أمن الشبكات</h1>
+            <p>دبلوم أمن المعلومات | مساق أمن الشبكات (SYBS-2304)</p>
+            <div class="course-info">
+                <strong>المتطلبات السابقة:</strong> شبكات 1، شبكات 2 (نظري وعملي) | <strong>المحاضر:</strong> أ. محمود الشيخ خليل
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- البطاقة الرئيسية -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>مفاهيم أساسية وأطر أمنية</h2>
+                <div class="week-badge">الأسبوع الأول | 3 ساعات</div>
+            </div>
+            
+            <div class="card-body">
+                <!-- مخرجات التعلم -->
+                <div class="learning-outcomes">
+                    <h3><i class="fas fa-bullseye"></i> مخرجات التعلم</h3>
+                    <p>بنهاية هذا الأسبوع، سيكون الطالب قادراً على:</p>
+                    <ul>
+                        <li>فهم نموذج الأمن CIA (السرية، السلامة، التوفر) وأهميته في حماية المعلومات</li>
+                        <li>التعرف على أنواع التهديدات والهجمات الشائعة على الشبكات</li>
+                        <li>تحليل دراسة حالة لاختراق شبكة وتحديد نقاط الضعف</li>
+                        <li>التعرف على إطار عمل أمن الشبكات ومعايير الأمن العالمية</li>
+                        <li>تطبيق مفاهيم الأمن الأساسية على سيناريوهات عملية بسيطة</li>
+                    </ul>
+                </div>
+                
+                <!-- خطة الجلسة المعدلة -->
+                <div class="session-plan">
+                    <h3><i class="fas fa-clipboard-list"></i> محتوى الجلسة</h3>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-play session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>الافتتاح والتقديم</h4>
+                            <p>مقدمة عن المساق، أهدافه، والمنهجية المتبعة في الدراسة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-network-wired session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>مقدمة في أمن الشبكات</h4>
+                            <p>أهمية أمن الشبكات في العالم الرقمي، أمثلة واقعية لتأثير الاختراقات على المؤسسات والأفراد</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-shield-alt session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>نموذج CIA وأبعاد الأمن</h4>
+                            <p>السرية، السلامة، التوفر، والمفاهيم الإضافية كالمصادقة والترخيص وعدم الإنكار</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-bug session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>التهديدات والهجمات الشائعة</h4>
+                            <p>تحليل أنواع الهجمات وأمثلة عملية، مع التركيز على هجمات DoS/DDoS، MITM، التصيد، حقن SQL، والبرامج الضارة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-laptop-code session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>النشاط العملي</h4>
+                            <p>تحليل دراسة حالة لاختراق شبكة شركة "تكنو سولوشنز" وتحديد نقاط الضعف والانتهاكات الأمنية</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-tasks session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>الختام والواجبات</h4>
+                            <p>تلخيص المحتوى، حل النشاط العملي، وتوضيح الواجبات للأسابيع القادمة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- المحتوى النظري -->
+                <h3><i class="fas fa-book"></i> المحتوى النظري</h3>
+                
+                <h4>1. أهمية أمن الشبكات في العالم الرقمي</h4>
+                <p>في عصر التحول الرقمي والاتصال الدائم، أصبحت الشبكات العمود الفقري للمؤسسات والاقتصادات. مع هذا الاعتماد المتزايد، تزداد أهمية حماية هذه الشبكات من التهديدات المختلفة.</p>
+                
+                <div class="important-note">
+                    <h4><i class="fas fa-exclamation-triangle"></i> حقائق مهمة:</h4>
+                    <ul>
+                        <li>تتكلف الهجمات الإلكترونية العالم <span class="highlight">تريليونات الدولارات</span> سنوياً</li>
+                        <li>متوسط وقت اكتشاف الاختراق هو <span class="highlight">207 أيام</span> وفقاً لتقارير أمنية حديثة</li>
+                        <li>أكثر من <span class="highlight">90%</span> من الهجمات تبدأ بهجمات تصيد (Phishing)</li>
+                    </ul>
+                </div>
+                
+                <h4>2. نموذج CIA وأبعاد الأمن</h4>
+                <p>نموذج CIA هو حجر الأساس في أمن المعلومات ويتكون من ثلاثة مبادئ رئيسية:</p>
+                <ul>
+                    <li><span class="key-term">السرية (Confidentiality):</span> ضمان أن المعلومات لا تكشف إلا للأشخاص المصرح لهم</li>
+                    <li><span class="key-term">السلامة (Integrity):</span> ضمان دقة واكتمال المعلومات وعدم تغييرها بطريقة غير مصرح بها</li>
+                    <li><span class="key-term">التوفر (Availability):</span> ضمان أن المعلومات والأنظمة متاحة للمستخدمين المصرح لهم عند الحاجة</li>
+                </ul>
+                
+                <p><strong>أبعاد إضافية للأمن:</strong></p>
+                <ul>
+                    <li><span class="key-term">المصادقة (Authentication):</span> التحقق من هوية المستخدم أو النظام</li>
+                    <li><span class="key-term">الترخيص (Authorization):</span> تحديد صلاحيات المستخدم بعد مصادقته</li>
+                    <li><span class="key-term">عدم الإنكار (Non-repudiation):</span> منع أي طرف من إنكار إجراء معين قام به</li>
+                </ul>
+                
+                <h4>3. أنواع التهديدات والهجمات الشائعة</h4>
+                
+                <h5>أ. أنواع التهديدات:</h5>
+                <ul>
+                    <li><span class="key-term">تهديدات نشطة:</span> تحاول تغيير النظام أو البيانات (مثل هجمات الحقن)</li>
+                    <li><span class="key-term">تهديدات سلبية:</span> تراقب أو تجمع معلومات دون تغييرها (مثل التنصت)</li>
+                    <li><span class="key-term">تهديدات داخلية:</span> تأتي من داخل المؤسسة (موظفون، مقاولون)</li>
+                    <li><span class="key-term">تهديدات خارجية:</span> تأتي من خارج المؤسسة (مخترقون، منافسون)</li>
+                </ul>
+                
+                <h5>ب. الهجمات الشائعة على الشبكات:</h5>
+                <ul>
+                    <li><span class="key-term">هجمات حجب الخدمة (DoS/DDoS):</span> تهدف لجعل الخدمة غير متاحة للمستخدمين الشرعيين</li>
+                    <li><span class="key-term">هجمات الرجل في المنتصف (MITM):</span> اعتراض الاتصالات بين طرفين</li>
+                    <li><span class="key-term">هجمات التصيد (Phishing):</span> خداع المستخدمين لكشف معلومات حساسة</li>
+                    <li><span class="key-term">هجمات حقن SQL:</span> استغلال ثغرات في قواعد البيانات عن طريق إدخال أوامر خبيثة</li>
+                    <li><span class="key-term">هجمات البرامج الضارة (Malware):</span> فيروسات، ديدان، أحصنة طروادة</li>
+                </ul>
+                
+                <h4>4. أطر عمل ومعايير أمن الشبكات</h4>
+                <ul>
+                    <li><span class="key-term">ISO/IEC 27001:</span> المعيار الدولي لأنظمة إدارة أمن المعلومات</li>
+                    <li><span class="key-term">NIST Cybersecurity Framework:</span> إطار عمل من المعهد الوطني للمعايير والتقنية بالولايات المتحدة</li>
+                    <li><span class="key-term">CIS Controls:</span> مجموعة من الضوابط الأمنية الأساسية من مركز الأمن على الإنترنت</li>
+                </ul>
+                
+                <!-- النشاط العملي مع الحل -->
+                <div class="practical-section">
+                    <h3><i class="fas fa-laptop-code"></i> النشاط العملي: تحليل دراسة حالة</h3>
+                    <p>في هذا النشاط، سنقوم بتحليل دراسة حالة لاختراق شبكة شركة صغيرة وتحديد نقاط الضعف التي أدت للاختراق.</p>
+                    
+                    <h4>سيناريو الدراسة:</h4>
+                    <p>شركة "تكنو سولوشنز" هي شركة صغيرة توفر خدمات تقنية. تعرضت شبكتها للاختراق مما أدى إلى:</p>
+                    <ul>
+                        <li>سرقة بيانات العملاء</li>
+                        <li>توقف الخوادم عن العمل لمدة 8 ساعات</li>
+                        <li>تغيير في صفحات الويب الخاصة بالشركة</li>
+                    </ul>
+                    
+                    <h4>معلومات عن الشبكة قبل الاختراق:</h4>
+                    <ul>
+                        <li>كلمات مرور افتراضية على معظم الأجهزة</li>
+                        <li>عدم وجود جدار حماية فعال</li>
+                        <li>عدم تحديث الأنظمة والبرامج</li>
+                        <li>جميع الموظفين لديهم صلاحيات كاملة على الشبكة</li>
+                        <li>شبكة لاسلكية مفتوحة للزوار بدون عزل</li>
+                    </ul>
+                    
+                    <h4>مهام التحليل:</h4>
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 1:</strong> حدد أي مبادئ نموذج CIA تم انتهاكها في هذا الاختراق
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 2:</strong> اقترح ثلاثة إجراءات أمنية كانت ستقلل من خطر هذا الاختراق
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 3:</strong> صنف الهجوم حسب نوعه (نشط/سلبي، داخلي/خارجي)
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- حل النشاط العملي -->
+                <div class="solution-section">
+                    <h3><i class="fas fa-check-circle"></i> حل النشاط العملي</h3>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 1: تحديد مبادئ CIA التي تم انتهاكها</h4>
+                        <p><span class="correct-answer">الإجابة:</span> تم انتهاك جميع مبادئ نموذج CIA الثلاثة:</p>
+                        <ul>
+                            <li><span class="key-term">السرية (Confidentiality):</span> تم انتهاكها عند سرقة بيانات العملاء، حيث تم الكشف عن معلومات سرية لغير المصرح لهم.</li>
+                            <li><span class="key-term">السلامة (Integrity):</span> تم انتهاكها عند تغيير صفحات الويب، حيث تم تعديل المعلومات بطريقة غير مصرح بها.</li>
+                            <li><span class="key-term">التوفر (Availability):</span> تم انتهاكها عند توقف الخوادم عن العمل لمدة 8 ساعات، مما جعل الخدمة غير متاحة للمستخدمين الشرعيين.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 2: اقتراح إجراءات أمنية وقائية</h4>
+                        <p><span class="correct-answer">الإجابة:</span> ثلاثة إجراءات أمنية كانت ستقلل من خطر الاختراق:</p>
+                        <ol>
+                            <li><span class="key-term">تغيير كلمات المرور الافتراضية:</span> استخدام كلمات مرور قوية وفريدة لكل جهاز، مع تطبيق سياسة لتجديدها دورياً.</li>
+                            <li><span class="key-term">تفعيل وتكوين جدار حماية:</span> تثبيت جدار حماية (Firewall) وتكوينه لمراقبة حركة المرور والتحكم في الوصول للشبكة.</li>
+                            <li><span class="key-term">عزل الشبكة اللاسلكية للزوار:</span> فصل شبكة الزوار عن الشبكة الداخلية للشركة، مع تطبيق مصادقة قوية للشبكة اللاسلكية (مثل WPA2/WPA3).</li>
+                        </ol>
+                        <p><strong>إجراءات إضافية مقترحة:</strong> تحديث الأنظمة والبرامج بانتظام، تقييد صلاحيات الموظفين حسب الحاجة (مبدأ الامتياز الأقل)، تنفيذ نظام اكتشاف التسلل (IDS).</p>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 3: تصنيف الهجوم حسب النوع</h4>
+                        <p><span class="correct-answer">الإجابة:</span> الهجوم يمكن تصنيفه كالتالي:</p>
+                        <ul>
+                            <li><span class="key-term">نوع الهجوم:</span> <span class="correct-answer">نشط (Active)</span> - لأن الهجوم قام بتغيير النظام (تغيير صفحات الويب) وإلحاق الضرر (توقف الخوادم).</li>
+                            <li><span class="key-term">مصدر الهجوم:</span> <span class="correct-answer">خارجي على الأرجح (External)</span> - بسبب وجود شبكة لاسلكية مفتوحة للزوار بدون عزل، مما يسهل الوصول للمهاجمين من الخارج. لكن لا يمكن استبعاد احتمال داخلي إذا استغل أحد الموظفين هذه الثغرات.</li>
+                        </ul>
+                        <p><strong>ملاحظة:</strong> نقاط الضعف في الشبكة (كلمات المرور الافتراضية، عدم وجود جدار حماية، شبكة زوار مفتوحة) تشير بقوة إلى أن الهجوم كان خارجياً.</p>
+                    </div>
+                </div>
+                
+                <!-- الواجبات والمهام -->
+                <h3><i class="fas fa-tasks"></i> الواجبات والمهام</h3>
+                <ul>
+                    <li><strong>الواجب:</strong> ابحث عن خبر لاختراق شبكة حديث (خلال سنة) وقم بتحليل الهجوم حسب نموذج CIA</li>
+                    <li><strong>التحضير للأسبوع القادم:</strong> مراجعة المفاهيم التي تم دراستها في مساقات الشبكات السابقة</li>
+                </ul>
+                
+                <!-- التنقل بين الأسابيع -->
+                <div class="nav-buttons">
+                    <a href="#" class="btn"><i class="fas fa-arrow-right"></i> العودة للخطة الشاملة</a>
+                    <a href="#" class="btn"><i class="fas fa-arrow-left"></i> الانتقال للأسبوع الثاني</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بطاقة إضافية للتعريف بالمساق -->
+        <div class="main-card">
+            <div class="card-header" style="background: linear-gradient(90deg, #6f42c1 0%, #5a32a3 100%);">
+                <h2>معلومات عامة عن المساق</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>رمز المساق:</strong> SYBS-2304</p>
+                <p><strong>الساعات المعتمدة:</strong> 3 ساعات (نظري/عملي)</p>
+                <p><strong>الهدف العام:</strong> تمكين الطلاب من فهم وتطبيق مبادئ أمن الشبكات وحماية البنية التحتية للشبكات من التهديدات المختلفة.</p>
+                <p><strong>طريقة التقييم:</strong> واجبات أسبوعية (30%)، مشروع عملي نهائي (30%)، اختبار نهائي (40%)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية | مساق أمن الشبكات (SYBS-2304) © 2025</p>
+        <p>تم تصميم هذه المادة التعليمية لأغراض التدريس الأكاديمي</p>
+    </footer>
+
+    <!-- إضافة بعض التفاعل البسيط -->
+    <script>
+        // إضافة تفاعل للأزرار
+        document.addEventListener('DOMContentLoaded', function() {
+            // تفعيل الأزرار (يمكن تطويرها لاحقاً)
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') {
+                        e.preventDefault();
+                        alert('هذه الوظيفة قيد التطوير. في النسخة الكاملة، ستقوم هذه الأزرار بالتنقل بين الصفحات أو فتح الملفات.');
+                    }
+                });
+            });
+            
+            // رسالة ترحيب عند فتح الصفحة
+            console.log('مرحباً بك في منهج الأسبوع الأول من مساق أمن الشبكات!');
+        });
+    </script>
+</body>
+</html>

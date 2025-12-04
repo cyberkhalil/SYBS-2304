@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>خطة مساق أمن الشبكات | Mahmoud Khalil</title>
+  <title>خطة مساق أمن الشبكات | دبلوم أمن المعلومات</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     /* التصميم العام */
@@ -14,8 +14,9 @@
     header{background:#0d6efd;color:#fff;text-align:center;padding:3rem 1rem}
     header h1{font-size:2.2rem;margin-bottom:.5rem}
     header p{font-size:1.1rem;margin:.3rem 0}
+    .instructor-info{background:rgba(255,255,255,0.15);padding:.8rem;border-radius:5px;margin-top:.8rem;display:inline-block}
     /* المحتوى */
-    main{padding:2rem 1rem;max-width:900px;margin:auto;width:100%}
+    main{padding:2rem 1rem;max-width:1000px;margin:auto;width:100%}
     h2{color:#0d6efd;margin-bottom:1rem;border-bottom:2px solid #0d6efd;display:inline-block}
     /* الأسبوع */
     details{border:1px solid #dee2e6;border-radius:6px;margin-bottom:.75rem;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.05)}
@@ -23,170 +24,382 @@
     summary::-webkit-details-marker{display:none}
     summary i{color:#0d6efd}
     .week-content{padding:0 1rem 1rem 1rem}
-    ul{margin-right:1.2rem}
+    .week-header{display:flex;justify-content:space-between;margin-bottom:.5rem;color:#666;font-size:.9rem}
+    .week-topic{color:#0d6efd;font-weight:bold;margin:.5rem 0}
+    ul{margin-right:1.2rem;margin-bottom:.5rem}
+    .learning-outcomes{background:#e8f4ff;padding:.8rem;border-radius:5px;margin:.5rem 0 .8rem 0}
+    .learning-outcomes h4{margin-bottom:.3rem;color:#0a58ca}
     /* التقييم */
     .assess-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:1rem}
     .assess-card{background:#fff;border:1px solid #dee2e6;border-radius:6px;text-align:center;padding:1.5rem 1rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
     .assess-card i{font-size:2rem;color:#0d6efd;margin-bottom:.5rem}
     .assess-card h3{margin:.5rem 0;font-size:1.5rem;color:#0d6efd}
+    /* معلومات المساق */
+    .course-info{background:#fff;border:1px solid #dee2e6;border-radius:6px;padding:1.5rem;margin-bottom:2rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+    .course-info h3{color:#0d6efd;margin-bottom:1rem}
+    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+    .info-item{margin-bottom:.8rem}
     /* الفوتر */
     footer{background:#0d6efd;color:#fff;text-align:center;padding:1.5rem 1rem;margin-top:auto}
     footer a{color:#fff;text-decoration:underline}
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
   <!-- الهيدر -->
   <header>
     <h1>مساق أمن الشبكات</h1>
     <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية</p>
-    <p>منسق المساق: <strong>المهندس محمود الشيخ خليل</strong></p>
+    <p>رمز المساق: <strong>SYBS-2304</strong> | المتطلبات السابقة: مبادئ الشبكات - الشبكات المتقدمة (نظري وعملي)</p>
+    <div class="instructor-info">
+      <strong>المحاضر:</strong> م. محمود الشيخ خليل
+    </div>
   </header>
 
   <!-- المحتوى -->
   <main>
+    <!-- معلومات عامة عن المساق -->
+    <div class="course-info">
+      <h3>معلومات عامة عن المساق</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>رمز المساق:</strong> SYBS-2304
+        </div>
+        <div class="info-item">
+          <strong>الساعات المعتمدة:</strong> 3 ساعات (نظري/عملي)
+        </div>
+        <div class="info-item">
+          <strong>المدة:</strong> 12 أسبوعًا
+        </div>
+        <div class="info-item">
+          <strong>المتطلبات:</strong> معرفة TCP/IP، التوجيه، التبديل
+        </div>
+      </div>
+      <p><strong>وصف المساق:</strong> يقدم هذا المساق المفاهيم الأساسية والمتقدمة في أمن الشبكات، مع التركيز على التطبيق العملي للأدوات والتقنيات المستخدمة في حماية البنية التحتية للشبكات. سيتعلم الطلاب كيفية تحليل الثغرات الأمنية وتصميم شبكات آمنة وتنفيذ آليات الحماية المختلفة.</p>
+    </div>
+
     <h2>الخطة الأسبوعية (محاضرة واحدة × 3 ساعات)</h2>
 
     <!-- الأسبوع 1 -->
-    <details>
-      <summary>الأسبوع 1: لماذا أمن الشبكات؟ <i class="fas fa-chevron-down"></i></summary>
+    <details open>
+      <summary>الأسبوع 1: مقدمة في أمن الشبكات <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الأول</span>
+        </div>
+        <div class="week-topic">المفاهيم الأساسية والأطر الأمنية</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم نموذج الأمن CIA (السرية، السلامة، التوفر)</li>
+            <li>التعرف على أنواع التهديدات والهجمات الشائعة</li>
+            <li>التعرف على إطار عمل أمن الشبكات</li>
+          </ul>
+        </div>
         <ul>
-          <li>قصص اختراقات شهيرة (مقهى، منزل)</li>
-          <li>مثلث الأمن (CIA) بكلمات بسيطة</li>
-          <li>عملي: تفعيل WPA2 + كلمة مرور قوية على Packet Tracer</li>
+          <li>مقدمة عن أمن الشبكات وأهميته في العالم الرقمي</li>
+          <li>نموذج CIA وأبعاد الأمن الإضافية (المصادقة، عدم الإنكار)</li>
+          <li>أنواع التهديدات (نشطة/سلبية، داخلية/خارجية)</li>
+          <li>الهجمات الشائعة (DoS، MITM، التصيد، حقن SQL)</li>
+          <li>إطار عمل أمن الشبكات (ISO/IEC 27001، NIST)</li>
+          <li><strong>عملي:</strong> تحليل دراسة حالة لاختراق شبكة (مقهى إنترنت، شركة صغيرة)</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 2 -->
     <details>
-      <summary>الأسبوع 2: أول خطوات الحماية <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 2: تأمين طبقة الوصول للشبكة <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الثاني</span>
+        </div>
+        <div class="week-topic">تأمين الشبكات المحلية واللاسلكية</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم مخاطر الشبكات اللاسلكية وطرق تأمينها</li>
+            <li>تطبيق إعدادات أمنية أساسية على نقاط الوصول</li>
+            <li>تطبيق تقنيات مصادقة المستخدمين في الشبكات</li>
+          </ul>
+        </div>
         <ul>
-          <li>سياسة كلمات المرور وإخفاء الـ SSID</li>
-          <li>تحديثات الأنظمة وثغرة EternalBlue</li>
-          <li>عملي: ACL بسيط لحجب Telnet خارجي</li>
+          <li>مخاطر الشبكات اللاسلكية وأنواع الهجمات عليها</li>
+          <li>بروتوكولات الأمن اللاسلكي (WEP، WPA، WPA2، WPA3)</li>
+          <li>تكوين نقاط الوصول الآمنة (إخفاء SSID، تصفية MAC)</li>
+          <li>مصادقة 802.1X و RADIUS</li>
+          <li>حماية الشبكات السلكية (Port Security، DHCP Snooping)</li>
+          <li><strong>عملي:</strong> إعداد شبكة لاسلكية آمنة باستخدام WPA2-Enterprise على Packet Tracer</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 3 -->
     <details>
-      <summary>الأسبوع 3: التشفير المبسّط <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 3: جدران الحماية (Firewalls) <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الثالث</span>
+        </div>
+        <div class="week-topic">أنواع وتقنيات جدران الحماية</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>التعرف على أنواع جدران الحماية وطرق عملها</li>
+            <li>تكوين قواعد جدار حماية أساسية</li>
+            <li>فهم الفرق بين Stateful و Stateless Firewalls</li>
+          </ul>
+        </div>
         <ul>
-          <li>التماثلي vs الغير تماثلي (شرح يدوي)</li>
-          <li>ملفات التوثيق (Certificate) في المتصفح</li>
-          <li>عملي: توليد زوج مفاتيح باستخدام PuTTYgen</li>
+          <li>مفهوم جدران الحماية وأهميتها</li>
+          <li>أنواع جدران الحماية (Network-based، Host-based)</li>
+          <li>تقنيات الفلترة (Packet Filtering، Stateful Inspection، Application-level)</li>
+          <li>مقارنة بين Stateful و Stateless Firewalls</li>
+          <li>تصميم سياسات الأمن للجدران النارية</li>
+          <li><strong>عملي:</strong> تكوين جدار حماية على Cisco ASA باستخدام ASDM</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 4 -->
     <details>
-      <summary>الأسبوع 4: WPA2/3 وكيف يُكسر <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 4: أنظمة كشف ومنع التسلل (IDS/IPS) <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الرابع</span>
+        </div>
+        <div class="week-topic">مراقبة الشبكة والكشف عن الأنشطة الضارة</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم الفرق بين IDS و IPS</li>
+            <li>تطبيق أساسيات كشف التسلل</li>
+            <li>تحليل سجلات IDS لتحديد الهجمات</li>
+          </ul>
+        </div>
         <ul>
-          <li>Handshaking بكلمات بسيطة</li>
-          <li>هجوم dictionary (عرض)</li>
-          <li>عملي: ترقية الشبكة إلى WPA3</li>
+          <li>مقدمة عن أنظمة كشف ومنع التسلل</li>
+          <li>الفرق بين IDS و IPS</li>
+          <li>أنواع IDS (Network-based، Host-based)</li>
+          <li>تقنيات الكشف (التوقيعات، السلوك، الأنومالي)</li>
+          <li>تثبيت وتكوين Snort كنظام IDS مفتوح المصدر</li>
+          <li><strong>عملي:</strong> تحليل حركة المرور وكشف هجمات باستخدام Snort</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 5 -->
     <details>
-      <summary>الأسبوع 5: VPN سريعة <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 5: الشبكات الخاصة الافتراضية (VPN) <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الخامس</span>
+        </div>
+        <div class="week-topic">تأمين الاتصالات عبر الشبكات العامة</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم مبادئ وأنواع VPN</li>
+            <li>تكوين اتصال VPN آمن</li>
+            <li>تحليل بروتوكولات VPN المختلفة</li>
+          </ul>
+        </div>
         <ul>
-          <li>مفهوم النفق (Tunnel)</li>
-          <li>Site-to-site IPSec داخل Packet Tracer</li>
-          <li>عملي: إرسال ملف عبر النفق المشفر</li>
+          <li>مقدمة عن VPN وأهميتها</li>
+          <li>أنواع VPN (Remote Access، Site-to-Site)</li>
+          <li>بروتوكولات VPN (IPSec، SSL/TLS، OpenVPN)</li>
+          <li>تكوين IPSec VPN باستخدام التشفير والمصادقة</li>
+          <li>مقارنة بين VPNs المختلفة</li>
+          <li><strong>عملي:</strong> إعداد اتصال Site-to-Site VPN بين موقعين</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 6 -->
     <details>
-      <summary>الأسبوع 6: جدران الحماية <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 6: التشفير في الشبكات <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع السادس</span>
+        </div>
+        <div class="week-topic">مبادئ التشفير وتطبيقاته في أمن الشبكات</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم أساسيات التشفير وأنواعه</li>
+            <li>التعرف على خوارزميات التشفير الشائعة</li>
+            <li>تطبيق التشفير في حماية البيانات المنقولة</li>
+          </ul>
+        </div>
         <ul>
-          <li>Stateful vs Stateless firewall</li>
-          <li>Zone-Based Firewall المبسّط</li>
-          <li>عملي: حجب منفذ BitTorrent</li>
+          <li>مبادئ التشفير والأمن (السرية، السلامة، المصادقة)</li>
+          <li>التشفير المتماثل وغير المتماثل</li>
+          <li>خوارزميات التشفير (AES، RSA، ECC)</li>
+          <li>بروتوكولات التشفير في الشبكات (SSL/TLS، SSH، IPsec)</li>
+          <li>إدارة المفاتيح والتوزيع الآمن</li>
+          <li><strong>عملي:</strong> استخدام OpenSSL لإنشاء شهادات رقمية وتشفير البيانات</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 7 -->
     <details>
-      <summary>الأسبوع 7: IPS/IDS لمسة واحدة <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 7: أمن طبقة التطبيقات <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع السابع</span>
+        </div>
+        <div class="week-topic">تأمين خدمات الشبكة الشائعة</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>تحليل ثغرات طبقة التطبيقات</li>
+            <li>تطبيق إجراءات أمنية لخدمات الشبكة</li>
+            <li>تأمين خوادم الويب وقواعد البيانات</li>
+          </ul>
+        </div>
         <ul>
-          <li>الفرق بين IPS و IDS</li>
-          <li>تثبيت Snort وعرض تنبيه واحد</li>
-          <li>عملي: إظهار تنبيه ping flood</li>
+          <li>أمن خدمات الشبكة (DNS، DHCP، HTTP/HTTPS، FTP)</li>
+          <li>تأمين خوادم الويب (Apache، Nginx)</li>
+          <li>تقنيات الهجوم على تطبيقات الويب (SQL Injection، XSS)</li>
+          <li>جدران حماية تطبيقات الويب (WAF)</li>
+          <li>أمن البريد الإلكتروني وتقنيات مكافحة التصيد</li>
+          <li><strong>عملي:</strong> تحليل حركة مرور HTTP/HTTPS باستخدام Wireshark</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 8 -->
     <details>
-      <summary>الأسبوع 8: ARP Spoofing & الحماية <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 8: أمن الشبكات اللاسلكية المتقدم <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الثامن</span>
+        </div>
+        <div class="week-topic">تقنيات متقدمة في أمن الشبكات اللاسلكية</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>تحليل نقاط الضعف في الشبكات اللاسلكية</li>
+            <li>تطبيق تقنيات حماية متقدمة للشبكات اللاسلكية</li>
+            <li>كشف ومعالجة الهجمات اللاسلكية</li>
+          </ul>
+        </div>
         <ul>
-          <li>شرح الانتحال باستخدام قصة «بريد مزوّر»</li>
-          <li>مكافحة: DHCP Snooping + Dynamic ARP Inspection</li>
-          <li>عملي: تفعيل الأمرين داخل Switch</li>
+          <li>تحليل عميق لبروتوكولات الأمن اللاسلكي وعيوبها</li>
+          <li>هجمات الشبكات اللاسلكية (Evil Twin، Deauth، KRACK)</li>
+          <li>تقنيات الحماية المتقدمة (WPA3، 802.1X مع EAP-TLS)</li>
+          <li>مراقبة الشبكات اللاسلكية وكشف التهديدات</li>
+          <li>تأمين الشبكات اللاسلكية للمؤسسات</li>
+          <li><strong>عملي:</strong> استخدام Aircrack-ng لتحليل أمن الشبكات اللاسلكية (في بيئة معزولة)</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 9 -->
     <details>
-      <summary>الأسبوع 9: التصيّد والويب <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 9: اختبار الاختراق الأخلاقي للشبكات <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع التاسع</span>
+        </div>
+        <div class="week-topic">تقييم أمن الشبكات باستخدام أدوات الاختبار</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم منهجية اختبار الاختراق الأخلاقي</li>
+            <li>استخدام أدوات المسح والاختبار الأمني</li>
+            <li>تقييم نقاط الضعف في البنية الشبكية</li>
+          </ul>
+        </div>
         <ul>
-          <li>مفهوم التصيّد (Phishing)</li>
-          <li>كيفية تمييز الرابط المزيّف</li>
-          <li>عملي: تصميم صفحة login وهمية محليًّا (XAMPP)</li>
+          <li>مقدمة في اختبار الاختراق الأخلاقي وأخلاقياته</li>
+          <li>منهجية اختبار الاختراق (Reconnaissance، Scanning، Gaining Access، etc.)</li>
+          <li>أدوات مسح الشبكات (Nmap، Nessus، OpenVAS)</li>
+          <li>تحليل الثغرات وتقييم المخاطر</li>
+          <li>تقرير النتائج والتوصيات الأمنية</li>
+          <li><strong>عملي:</strong> إجراء مسح أمني كامل لشبكة افتراضية باستخدام Nmap</li>
         </ul>
       </div>
     </details>
 
-    <!-- الأسبوع 10 (معدّل) -->
+    <!-- الأسبوع 10 -->
     <details>
-      <summary>الأسبوع 10: Nmap – خريطة الشبكة بسرعة <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 10: إدارة السجلات والمراقبة الأمنية <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع العاشر</span>
+        </div>
+        <div class="week-topic">تحليل السجلات والكشف عن الحوادث الأمنية</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم أهمية إدارة السجلات الأمنية</li>
+            <li>تحليل سجلات الأنظمة والشبكات</li>
+            <li>استخدام أدوات SIEM للكشف عن التهديدات</li>
+          </ul>
+        </div>
         <ul>
-          <li>ما هو Nmap ولماذا نستخدمه؟</li>
-          <li>أشهر الخيارات: -sP, -sS, -O, -sV</li>
-          <li>عملي: اكتشاف الأجهزة والموانع المفتوحة داخل شبكتك</li>
+          <li>أهمية إدارة السجلات الأمنية (Log Management)</li>
+          <li>بروتوكولات جمع السجلات (Syslog، SNMP)</li>
+          <li>مراكز عمليات الأمن (SOC) وأدوارها</li>
+          <li>أنظمة إدارة المعلومات والأحداث الأمنية (SIEM)</li>
+          <li>تحليل السجلات للكشف عن الأنشطة المشبوهة</li>
+          <li><strong>عملي:</strong> إعداد نظام Syslog وجمع السجلات من أجهزة الشبكة</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 11 -->
     <details>
-      <summary>الأسبوع 11: السجلات والمراقبة <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 11: أمن الشبكات في بيئات السحابة والافتراضية <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الحادي عشر</span>
+        </div>
+        <div class="week-topic">تحديات وتقنيات أمن الشبكات الحديثة</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>فهم تحديات أمن الشبكات في البيئات السحابية</li>
+            <li>تطبيق مبادئ أمن الشبكات الافتراضية</li>
+            <li>تصميم بنية شبكية آمنة للبيئات الحديثة</li>
+          </ul>
+        </div>
         <ul>
-          <li>Syslog + مركز الجمع (SIEM ببساطة)</li>
-          <li>Graylog VM جاهزة</li>
-          <li>عملي: استخراج رسالة تحذير من تسجيل دخول فاشل</li>
+          <li>تحديات أمن الشبكات في بيئات السحابة</li>
+          <li>مفاهيم الأمن في الشبكات المعرفة بالبرمجيات (SDN)</li>
+          <li>أمن الشبكات في بيئات الافتراضية (Virtual Networking)</li>
+          <li>مستقبل أمن الشبكات (Zero Trust، SASE)</li>
+          <li>أفضل الممارسات لتأمين البنية التحتية الحديثة</li>
+          <li><strong>عملي:</strong> تكوين شبكة افتراضية آمنة باستخدام VMware أو VirtualBox</li>
         </ul>
       </div>
     </details>
 
     <!-- الأسبوع 12 -->
     <details>
-      <summary>الأسبوع 12: مشروع ختامي ومراجعة <i class="fas fa-chevron-down"></i></summary>
+      <summary>الأسبوع 12: مشروع التخرج ومراجعة عامة <i class="fas fa-chevron-down"></i></summary>
       <div class="week-content">
+        <div class="week-header">
+          <span>تاريخ: الأسبوع الثاني عشر</span>
+        </div>
+        <div class="week-topic">تطبيق المعرفة في مشروع عملي شامل</div>
+        <div class="learning-outcomes">
+          <h4>مخرجات التعلم:</h4>
+          <ul>
+            <li>تطبيق مفاهيم أمن الشبكات في مشروع عملي</li>
+            <li>تصميم وتنفيذ شبكة آمنة متكاملة</li>
+            <li>تقديم وتقييم الحلول الأمنية المطبقة</li>
+          </ul>
+        </div>
         <ul>
-          <li>مراجعة 12 نقطة أمنية بكرتون واحد</li>
-          <li>مشروع الفصل: شبكة مكتب صغير (3 إجراءات أمان كحد أدنى)</li>
-          <li>عرض جماعي 5 دقائق لكل فريق</li>
+          <li>مراجعة شاملة لمفاهيم وأدوات أمن الشبكات</li>
+          <li>عرض مشاريع الطلاب وتقييمها</li>
+          <li>مناقشة أفضل الممارسات في مجال أمن الشبكات</li>
+          <li>التوجهات المستقبلية وأهم الشهادات المهنية</li>
+          <li>تجهيز للاختبار النهائي</li>
+          <li><strong>عملي:</strong> تقديم مشاريع الطلاب ومناقشتها</li>
         </ul>
       </div>
     </details>
@@ -194,15 +407,48 @@
     <!-- التقييم -->
     <h2 style="margin-top:2rem">التوزيع النسبي للدرجات</h2>
     <div class="assess-grid">
-      <div class="assess-card"><i class="fas fa-edit"></i><h3>40%</h3><p>اختبارات قصيرة نظرية وعملية <br>(1-12) أسبوع </p></div>
-	        <div class="assess-card"><i class="fas fa-graduation-cap"></i><h3>30%</h3><p>مشروع عملي نهائي</p></div>
-      <div class="assess-card"><i class="fas fa-user-check"></i><h3>30%</h3><p>الاختبار النهائي - نظري</p></div>
+      <div class="assess-card">
+        <i class="fas fa-edit"></i>
+        <h3>30%</h3>
+        <p>الواجبات والتطبيقات العملية</p>
+        <small>موزعة على 11 أسبوع</small>
+      </div>
+      <div class="assess-card">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>30%</h3>
+        <p>المشروع العملي النهائي</p>
+        <small>تصميم وتنفيذ شبكة آمنة</small>
+      </div>
+      <div class="assess-card">
+        <i class="fas fa-user-check"></i>
+        <h3>40%</h3>
+        <p>الاختبار النهائي</p>
+        <small>نظري وعملي</small>
+      </div>
+    </div>
+    
+    <!-- الكتب والمراجع -->
+    <h2 style="margin-top:2rem; margin-bottom:1rem;">الكتب والمراجع المقترحة</h2>
+    <div class="course-info">
+      <ul>
+        <li><strong>الكتاب الرئيسي:</strong> Network Security Essentials, William Stallings</li>
+        <li><strong>كتاب عملي:</strong> CCNA Security 210-260 Official Cert Guide</li>
+        <li><strong>مراجع إضافية:</strong> 
+          <ul>
+            <li>Computer Networking: A Top-Down Approach, Kurose & Ross</li>
+            <li>Network Security: Private Communications in a Public World, Kaufman et al.</li>
+            <li>The Basics of Hacking and Penetration Testing, Patrick Engebretson</li>
+          </ul>
+        </li>
+        <li><strong>أدوات عملية:</strong> Wireshark, Nmap, Snort, Metasploit, Kali Linux</li>
+        <li><strong>منصات تعلم:</strong> Cisco NetAcad, TryHackMe, HackTheBox (للتمارين المتقدمة)</li>
+      </ul>
     </div>
   </main>
 
   <!-- التذييل -->
   <footer>
-    تواصل: <a href="mailto:makhalil@ucas.edu.ps">makhalil@ucas.edu.ps</a> | دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية &copy; 2025 cyberkhalil
+    الكلية الجامعية للعلوم التطبيقية | دبلوم أمن المعلومات  © 2025
   </footer>
 </body>
 </html>
