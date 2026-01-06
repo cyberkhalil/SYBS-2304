@@ -4,62 +4,64 @@
   <meta charset="UTF-8">
   <title>خطة مساق أمن الشبكات | دبلوم أمن المعلومات</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    /* التصميم العام */
-    *{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif}
-    body{background:#f5f7fa;color:#333;line-height:1.7;display:flex;flex-direction:column;min-height:100vh}
-    /* الخط */
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-    /* الهيدر */
-    header{background:#0d6efd;color:#fff;text-align:center;padding:3rem 1rem}
-    header h1{font-size:2.2rem;margin-bottom:.5rem}
-    header p{font-size:1.1rem;margin:.3rem 0}
-    .instructor-info{background:rgba(255,255,255,0.15);padding:.8rem;border-radius:5px;margin-top:.8rem;display:inline-block}
-    /* المحتوى */
-    main{padding:2rem 1rem;max-width:1000px;margin:auto;width:100%}
-    h2{color:#0d6efd;margin-bottom:1rem;border-bottom:2px solid #0d6efd;display:inline-block}
-    /* الأسبوع */
-    details{border:1px solid #dee2e6;border-radius:6px;margin-bottom:.75rem;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.05)}
-    summary{padding:1rem;font-weight:700;cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between}
-    summary::-webkit-details-marker{display:none}
-    summary i{color:#0d6efd}
-    .week-content{padding:0 1rem 1rem 1rem}
-    .week-header{display:flex;justify-content:space-between;margin-bottom:.5rem;color:#666;font-size:.9rem}
-    .week-topic{color:#0d6efd;font-weight:bold;margin:.5rem 0}
-    ul{margin-right:1.2rem;margin-bottom:.5rem}
-    .learning-outcomes{background:#e8f4ff;padding:.8rem;border-radius:5px;margin:.5rem 0 .8rem 0}
-    .learning-outcomes h4{margin-bottom:.3rem;color:#0a58ca}
-    /* التقييم */
-    .assess-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:1rem}
-    .assess-card{background:#fff;border:1px solid #dee2e6;border-radius:6px;text-align:center;padding:1.5rem 1rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
-    .assess-card i{font-size:2rem;color:#0d6efd;margin-bottom:.5rem}
-    .assess-card h3{margin:.5rem 0;font-size:1.5rem;color:#0d6efd}
-    /* معلومات المساق */
-    .course-info{background:#fff;border:1px solid #dee2e6;border-radius:6px;padding:1.5rem;margin-bottom:2rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
-    .course-info h3{color:#0d6efd;margin-bottom:1rem}
-    .info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-    .info-item{margin-bottom:.8rem}
-    /* الفوتر */
-    footer{background:#0d6efd;color:#fff;text-align:center;padding:1.5rem 1rem;margin-top:auto}
-    footer a{color:#fff;text-decoration:underline}
-  </style>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* أنماط إضافية خاصة بصفحة الفهرس */
+    details {
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      margin-bottom: .75rem;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,.05);
+    }
+    
+    summary {
+      padding: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    summary i {
+      color: #0d6efd;
+    }
+    
+    .week-content {
+      padding: 0 1rem 1rem 1rem;
+    }
+    
+    main {
+      padding: 2rem 1rem;
+      max-width: 1000px;
+      margin: auto;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
   <!-- الهيدر -->
   <header>
-    <h1>مساق أمن الشبكات</h1>
-    <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية</p>
-    <p>رمز المساق: <strong>SYBS-2304</strong> | المتطلبات السابقة: مبادئ الشبكات - الشبكات المتقدمة (نظري وعملي)</p>
-    <div class="instructor-info">
-      <strong>المحاضر:</strong> م. محمود الشيخ خليل
+    <div class="header-content">
+      <h1>مساق أمن الشبكات</h1>
+      <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية</p>
+      <div class="course-info">
+		<strong>المتطلبات السابقة:</strong> شبكات 1، شبكات 2 (نظري وعملي) | <strong>المحاضر:</strong> أ. محمود الشيخ خليل
+      </div>
     </div>
   </header>
 
   <!-- المحتوى -->
   <main>
     <!-- معلومات عامة عن المساق -->
-    <div class="course-info">
+    <div class="course-info-block">
       <h3>معلومات عامة عن المساق</h3>
       <div class="info-grid">
         <div class="info-item">
@@ -429,7 +431,7 @@
     
     <!-- الكتب والمراجع -->
     <h2 style="margin-top:2rem; margin-bottom:1rem;">الكتب والمراجع المقترحة</h2>
-    <div class="course-info">
+    <div class="course-info-block">
       <ul>
         <li><strong>الكتاب الرئيسي:</strong> Network Security Essentials, William Stallings</li>
         <li><strong>كتاب عملي:</strong> CCNA Security 210-260 Official Cert Guide</li>
@@ -448,7 +450,10 @@
 
   <!-- التذييل -->
   <footer>
-    الكلية الجامعية للعلوم التطبيقية | دبلوم أمن المعلومات  © 2025
+    <p>الكلية الجامعية للعلوم التطبيقية | دبلوم أمن المعلومات</p>
+    <div class="copyright">
+      © 2026 سايبر خليل - جميع الحقوق محفوظة.
+    </div>
   </footer>
 </body>
 </html>
