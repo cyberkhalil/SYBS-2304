@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأسبوع الثالث: جدران الحماية (Firewalls) | دبلوم أمن المعلومات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="header-content">
+            <h1>الأسبوع الثالث: جدران الحماية (Firewalls)</h1>
+            <p>دبلوم أمن المعلومات | مساق أمن الشبكات (SYBS-2304)</p>
+            <div class="course-info">
+                <strong>المتطلبات السابقة:</strong> شبكات 1، شبكات 2 (نظري وعملي) | <strong>المحاضر:</strong> أ. محمود الشيخ خليل
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- البطاقة الرئيسية -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>أنواع وتقنيات جدران الحماية</h2>
+                <div class="week-badge">الأسبوع الثالث | 3 ساعات</div>
+            </div>
+            
+            <div class="card-body">
+                <!-- مخرجات التعلم -->
+                <div class="learning-outcomes">
+                    <h3><i class="fas fa-bullseye"></i> مخرجات التعلم</h3>
+                    <p>بنهاية هذا الأسبوع، سيكون الطالب قادراً على:</p>
+                    <ul>
+                        <li>التعرف على أنواع جدران الحماية وطرق عملها</li>
+                        <li>فهم الفرق بين Stateful و Stateless Firewalls</li>
+                        <li>تكوين قواعد جدار حماية أساسية</li>
+                        <li>تصميم سياسات الأمن للجدران النارية</li>
+                        <li>تطبيق إعدادات جدار حماية على Cisco ASA باستخدام ASDM</li>
+                        <li>تحليل حركة المرور واتخاذ قرارات الفلترة المناسبة</li>
+                        <li>فهم دور جدران الحماية في الدفاع عن طبقات الشبكة</li>
+                    </ul>
+                </div>
+                
+                <!-- خطة الجلسة -->
+                <div class="session-plan">
+                    <h3><i class="fas fa-clipboard-list"></i> محتوى الجلسة</h3>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-play session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>الافتتاح والمراجعة</h4>
+                            <p>مراجعة سريعة لمفاهيم الأسبوع الثاني (تأمين طبقة الوصول) وربطها بموضوع جدران الحماية</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-shield-alt session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>مقدمة في جدران الحماية</h4>
+                            <p>مفهوم جدران الحماية، تاريخها، وأهميتها في أمن الشبكات الحديثة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-layer-group session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>أنواع جدران الحماية</h4>
+                            <p>المقارنة بين Network-based و Host-based Firewalls، ومزايا وعيوب كل نوع</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-filter session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>تقنيات الفلترة</h4>
+                            <p>شرح Packet Filtering، Stateful Inspection، Application-level Gateway</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-exchange-alt session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>Stateful vs Stateless</h4>
+                            <p>الفرق الأساسي بين الجدران النارية ذات الحالة وعديمة الحالة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-cogs session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>تصميم سياسات الأمن</h4>
+                            <p>مبادئ تصميم قواعد جدار الحماية، مبدأ الامتياز الأقل، سياسة الرفض الافتراضي</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-laptop-code session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>النشاط العملي</h4>
+                            <p>تكوين جدار حماية على Cisco ASA باستخدام ASDM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-tasks session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>الختام والواجبات</h4>
+                            <p>تلخيص المحتوى، حل النشاط العملي، وتوضيح الواجبات للأسابيع القادمة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- المحتوى النظري -->
+                <h3><i class="fas fa-book"></i> المحتوى النظري</h3>
+                
+                <h4>1. مقدمة في جدران الحماية</h4>
+                <p>جدار الحماية (Firewall) هو نظام أمني للشبكة يراقب حركة المرور الواردة والصادرة ويقرر السماح أو حظر حزم البيانات بناءً على مجموعة من قواعد الأمان المحددة مسبقاً. يعتبر خط الدفاع الأول بين الشبكة الداخلية الموثوقة والشبكات الخارجية غير الموثوقة (مثل الإنترنت).</p>
+                
+                <div class="important-note">
+                    <h4><i class="fas fa-exclamation-triangle"></i> حقائق مهمة:</h4>
+                    <ul>
+                        <li>أول جدار حماية تجاري ظهر في أواخر <span class="highlight">الثمانينات</span> من قبل شركة DEC</li>
+                        <li>حوالي <span class="highlight">94%</span> من المؤسسات تستخدم جدران الحماية كجزء من بنيتها الأمنية</li>
+                        <li>الجدران النارية تمنع <span class="highlight">85%</span> من الهجمات الخارجية عند تكوينها بشكل صحيح</li>
+                    </ul>
+                </div>
+                
+                <h4>2. أنواع جدران الحماية</h4>
+                <p>يمكن تصنيف جدران الحماية بناءً على عدة معايير:</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>نوع الجدار الناري</th>
+                            <th>المستوى</th>
+                            <th>المميزات</th>
+                            <th>العيوب</th>
+                            <th>الاستخدام الأمثل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Network-based Firewall</strong></td>
+                            <td>على مستوى الشبكة</td>
+                            <td>حماية شبكة كاملة، أداء عالي، مركزي</td>
+                            <td>لا يحمي من الهجمات الداخلية، تكلفة عالية</td>
+                            <td>حافة الشبكة (بين LAN و WAN)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Host-based Firewall</strong></td>
+                            <td>على مستوى الجهاز</td>
+                            <td>حماية فردية، تكلفة منخفضة، يحمي من الهجمات الداخلية</td>
+                            <td>صعوبة الإدارة المركزية، استهلاك موارد الجهاز</td>
+                            <td>أجهزة المستخدمين النهائيين، الخوادم الحساسة</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hardware Firewall</strong></td>
+                            <td>جهاز مادي</td>
+                            <td>أداء عالي، موثوقية، مخصص للأمن</td>
+                            <td>تكلفة مرتفعة، يحتاج خبرة في التكوين</td>
+                            <td>الشركات المتوسطة والكبيرة</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Software Firewall</strong></td>
+                            <td>برنامج</td>
+                            <td>مرونة، تكلفة منخفضة، تحديثات سهلة</td>
+                            <td>يعتمد على نظام التشغيل، استهلاك موارد</td>
+                            <td>المستخدمين الأفراد، الشركات الصغيرة</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cloud Firewall</strong></td>
+                            <td>سحابي</td>
+                            <td>مرونة عالية، قابلة للتوسع، إدارة سهلة</td>
+                            <td>اعتماد على مزود الخدمة، تأخير محتمل</td>
+                            <td>الشركات ذات البنية السحابية</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>3. تقنيات الفلترة في جدران الحماية</h4>
+                
+                <h5>أ. فلترة الحزم (Packet Filtering):</h5>
+                <ul>
+                    <li><span class="key-term">المبدأ:</span> فحص رؤوس الحزم (Headers) فقط (عنوان IP المصدر والوجهة، المنفذ، البروتوكول)</li>
+                    <li><span class="key-term">المميزات:</span> سريع، لا يؤثر على الأداء، بسيط التنفيذ</li>
+                    <li><span class="key-term">العيوب:</span> لا يفحص محتوى الحزم، عرضة لاختراق IP Spoofing</li>
+                    <li><span class="key-term">المستوى:</span> يعمل في الطبقة الثالثة والرابعة (Network و Transport)</li>
+                </ul>
+                
+                <h5>ب. الفحص ذو الحالة (Stateful Inspection):</h5>
+                <ul>
+                    <li><span class="key-term">المبدأ:</span> يتتبع حالة اتصالات الشبكة ويصنع قرارات بناءً على سياق الاتصال</li>
+                    <li><span class="key-term">المميزات:</span> أكثر أماناً، يتعرف على الاتصالات المشروعة ويرفض غير المشروعة</li>
+                    <li><span class="key-term">العيوب:</span> أكثر تعقيداً، يستهلك موارد أكثر</li>
+                    <li><span class="key-term">المثال:</span> يسمح بردود TCP القادمة فقط إذا كان هناك طلب خارجي مسبق</li>
+                </ul>
+                
+                <h5>ج. بوابة مستوى التطبيق (Application-level Gateway):</h5>
+                <ul>
+                    <li><span class="key-term">المبدأ:</span> يعمل كوكيل (Proxy) بين المستخدم والخدمة، يفحص محتوى التطبيق</li>
+                    <li><span class="key-term">المميزات:</span> أعلى مستوى أمان، يمكنه كشف الهجمات على مستوى التطبيق</li>
+                    <li><span class="key-term">العيوب:</span> بطيء، يحتاج تكوين لكل تطبيق، قد يكسر بعض التطبيقات</li>
+                    <li><span class="key-term">المستوى:</span> يعمل في الطبقة السابعة (Application)</li>
+                </ul>
+                
+                <div class="important-note">
+                    <h4><i class="fas fa-lightbulb"></i> ملاحظة تقنية:</h4>
+                    <p>معظم جدران الحماية الحديثة تستخدم <strong>Stateful Inspection</strong> مع قدرات <strong>Deep Packet Inspection (DPI)</strong> التي تفحص محتوى الحزم لا رؤوسها فقط، مما يوفر حماية متعددة الطبقات.</p>
+                </div>
+                
+                <h4>4. Stateful vs Stateless Firewalls: الفروق الأساسية</h4>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>المعيار</th>
+                            <th>Stateful Firewall</th>
+                            <th>Stateless Firewall</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>تتبع الحالة</strong></td>
+                            <td>يتتبع حالة الاتصالات (state table)</td>
+                            <td>لا يتتبع الحالة، كل حزمة مستقلة</td>
+                        </tr>
+                        <tr>
+                            <td><strong>قرار الفلترة</strong></td>
+                            <td>بناءً على سياق الاتصال والحالة</td>
+                            <td>بناءً على رؤوس الحزم فقط</td>
+                        </tr>
+                        <tr>
+                            <td><strong>الأداء</strong></td>
+                            <td>أبطأ قليلاً بسبب تتبع الحالة</td>
+                            <td>أسرع لعدم وجود حالة تتبع</td>
+                        </tr>
+                        <tr>
+                            <td><strong>الأمان</strong></td>
+                            <td>أعلى، يتعرف على الاتصالات المشروعة</td>
+                            <td>أقل، عرضة للهجمات المعقدة</td>
+                        </tr>
+                        <tr>
+                            <td><strong>التعقيد</strong></td>
+                            <td>أكثر تعقيداً في التكوين</td>
+                            <td>أبسط في التكوين</td>
+                        </tr>
+                        <tr>
+                            <td><strong>الاستخدام</strong></td>
+                            <td>الشبكات الحديثة، الاتصالات عبر الإنترنت</td>
+                            <td>الشبكات البسيطة، الفلترة الأساسية</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>5. تصميم سياسات الأمن للجدران النارية</h4>
+                <p>تصميم سياسات جدار الحماية بشكل صحيح هو فن وعلم. إليك المبادئ الأساسية:</p>
+                
+                <div class="mitigation-steps">
+                    <h5>مبادئ تصميم قواعد جدار الحماية:</h5>
+                    <ol>
+                        <li><strong>مبدأ الرفض الافتراضي (Default Deny):</strong> ارفض كل شيء إلا ما تم السماح به صراحةً</li>
+                        <li><strong>مبدأ الامتياز الأقل (Least Privilege):</strong> امنح فقط الصلاحيات اللازمة لأداء المهمة</li>
+                        <li><strong>مبدأ الدفاع بالعمق (Defense in Depth):</strong> استخدم طبقات متعددة من الحماية</li>
+                        <li><strong>مبدأ الفصل بين الواجبات (Separation of Duties):</strong> قسم المسؤوليات لمنع التجاوزات</li>
+                    </ol>
+                </div>
+                
+                <h5>أفضل الممارسات في ترتيب القواعد:</h5>
+                <ul>
+                    <li><span class="key-term">الأكثر تحديداً أولاً:</span> ضع القواعد الأكثر تحديداً في الأعلى</li>
+                    <li><span class="key-term">حركة المرور الكثيرة أولاً:</span> ضع قواعد الحركة الأكثر استخداماً في الأعلى للأداء</li>
+                    <li><span class="key-term">قاعدة الرفض الصريحة في النهاية:</span> ارفض كل الحركة غير مصرح بها</li>
+                    <li><span class="key-term">التسجيل (Logging):</span> سجل الحركة المرفوضة للتحليل اللاحق</li>
+                    <li><span class="key-term">التحديث الدوري:</span> راجع القواعد دورياً وحذف غير المستخدمة</li>
+                </ul>
+                
+                <div class="attack-section">
+                    <h3><i class="fas fa-bug"></i> هجمات شائعة على جدران الحماية وكيفية التصدي لها</h3>
+                    
+                    <h4>1. هجوم IP Spoofing:</h4>
+                    <p><strong>الوصف:</strong> يقوم المهاجم بتزوير عنوان IP المصدر لجعل الحزمة تبدو قادمة من مصدر موثوق.</p>
+                    <p><strong>الوقاية:</strong> استخدام مصادقة قوية، فلترة الحزم القادمة من الخارج التي عنوانها من الشبكة الداخلية.</p>
+                    
+                    <h4>2. هجوم Port Scanning:</h4>
+                    <p><strong>الوصف:</strong> مسح المنافذ المفتوحة للكشف عن الخدمات النشطة ونقاط الضعف.</p>
+                    <p><strong>الوقاية:</strong> إغلاق جميع المنافذ غير الضرورية، استخدام أنظمة كشف التسلل (IDS).</p>
+                    
+                    <h4>3. هجوم Firewall Bypass:</h4>
+                    <p><strong>الوصف:</strong> محاولة تجاوز جدار الحماية عن طريق استخدام منافذ مفتوحة أو بروتوكولات مسموح بها.</p>
+                    <p><strong>الوقاية:</strong> فحص شامل للحزم (Deep Packet Inspection)، تحديث قواعد جدار الحماية باستمرار.</p>
+                    
+                    <h4>4. هجوم DoS على جدار الحماية:</h4>
+                    <p><strong>الوصف:</strong> إغراق جدار الحماية بحركة مرور كثيرة لتعطيل عمله.</p>
+                    <p><strong>الوقاية:</strong> استخدام أجهزة متخصصة لمكافحة هجمات DDoS، تكوين حد للاتصالات.</p>
+                </div>
+                
+                <h4>6. جدران الحماية من الجيل التالي (NGFW)</h4>
+                <p>جدران الحماية من الجيل التالي (Next-Generation Firewalls) تضيف قدرات متقدمة تتجاوز الفلترة التقليدية:</p>
+                
+                <ul>
+                    <li><span class="key-term">فحص الحزم العميق (DPI):</span> فحص محتوى الحزم وليس رؤوسها فقط</li>
+                    <li><span class="key-term">التحكم في التطبيقات:</span> التعرف على التطبيقات والتحكم فيها بغض النظر عن المنفذ</li>
+                    <li><span class="key-term">منع التسلل (IPS):</span> مدمج مع نظام منع التسلل</li>
+                    <li><span class="key-term">الذكاء ضد التهديدات:</span> تحديثات تلقائية لقواعد التهديدات</li>
+                    <li><span class="key-term">SSL Inspection:</span> فحص حركة المرور المشفرة</li>
+                    <li><span class="key-term">التكامل مع أنظمة الأمن:</span> تكامل مع SIEM، أنظمة المصادقة، وغيرها</li>
+                </ul>
+                
+                <div class="important-note">
+                    <h4><i class="fas fa-chart-bar"></i> مقارنة سريعة: Traditional vs NGFW</h4>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>الميزة</th>
+                                <th>Traditional Firewall</th>
+                                <th>Next-Gen Firewall</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>فحص المحتوى</strong></td>
+                                <td>رؤوس الحزم فقط</td>
+                                <td>فحص عميق للمحتوى (DPI)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>التحكم في التطبيقات</strong></td>
+                                <td>حسب المنفذ فقط</td>
+                                <td>حسب التطبيق بغض النظر عن المنفذ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>كشف التسلل</strong></td>
+                                <td>غير موجود</td>
+                                <td>مدمج (IPS)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>الذكاء ضد التهديدات</strong></td>
+                                <td>قواعد ثابتة</td>
+                                <td>تحديثات ذكية مستمرة</td>
+                            </tr>
+                            <tr>
+                                <td><strong>التكامل</strong></td>
+                                <td>محدود</td>
+                                <td>واسع مع أنظمة الأمن</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- النشاط العملي -->
+                <div class="practical-section">
+                    <h3><i class="fas fa-laptop-code"></i> النشاط العملي: تكوين قواعد الوصول (Access Rules) في جدار الحماية</h3>
+                    
+                    <p>في هذا النشاط العملي، ستقوم بتكوين جدار حماية Cisco ASA بناءً على التصميم الشبكي التالي:</p>
+                    
+                    <!-- إضافة الصورة -->
+                    <div style="text-align: center; margin: 1.5rem 0;">
+                        <img src="Img_Lecture3_1.png" alt="تصميم الشبكة للأسبوع الثالث - تكوين جدار الحماية" 
+                             style="max-width: 100%; border: 2px solid #dee2e6; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">شكل 1: التصميم الشبكي للنشاط العملي (طبقاً للصورة المرفقة)</p>
+                    </div>
+                    
+                    <h4>تحليل التصميم الشبكي:</h4>
+                    <p>بناءً على الصورة أعلاه، يتكون التصميم من:</p>
+                    <ul>
+                        <li><strong>الشبكة الداخلية (Inside Network):</strong>
+                            <ul>
+                                <li>جهاز كمبيوتر (PC-PT) بعنوان IP: 192.168.1.10</li>
+                                <li>مفتاح شبكة (Switch0)</li>
+                                <li>واجهة Inside على ASA: 192.168.1.1</li>
+                            </ul>
+                        </li>
+                        <li><strong>منطقة DMZ (Demilitarized Zone):</strong>
+                            <ul>
+                                <li>خادم ويب (Server-PT) بعنوان IP: 10.10.10.10</li>
+                                <li>مفتاح شبكة (Switch1)</li>
+                                <li>واجهة DMZ على ASA: 10.10.10.1</li>
+                            </ul>
+                        </li>
+                        <li><strong>الشبكة الخارجية (Outside Network):</strong>
+                            <ul>
+                                <li>واجهة Outside على ASA متصلة بالإنترنت</li>
+                                <li>تمثل شبكة غير موثوقة (مثل الإنترنت العام)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <div class="important-note">
+                        <h4><i class="fas fa-lightbulb"></i> مفهوم DMZ:</h4>
+                        <p>منطقة DMZ هي شبكة فرعية معزولة تحتوي على الخدمات التي تحتاج إلى الوصول من الإنترنت (مثل خوادم الويب والبريد)، مما يوفر طبقة حماية إضافية للشبكة الداخلية.</p>
+                    </div>
+                    
+                    <h4>الهدف من النشاط:</h4>
+                    <p>تكوين قواعد وصول (Access Rules) على جدار الحماية Cisco ASA للسماح <strong>باتصالات HTTP فقط</strong> من الإنترنت إلى خادم الويب في DMZ، مع <strong>منع جميع الاتصالات الأخرى</strong> من الإنترنت إلى أي جزء من الشبكة.</p>
+                    
+                    <h4>المتطلبات الأمنية التفصيلية:</h4>
+                    <ol>
+                        <li><strong>من الإنترنت إلى DMZ:</strong>
+                            <ul>
+                                <li>السماح بجميع اتصالات HTTP (المنفذ 80) من أي عنوان على الإنترنت إلى خادم الويب 10.10.10.10</li>
+                                <li>منع جميع الاتصالات الأخرى من الإنترنت إلى منطقة DMZ</li>
+                            </ul>
+                        </li>
+                        <li><strong>من الإنترنت إلى الشبكة الداخلية:</strong>
+                            <ul>
+                                <li>منع جميع الاتصالات من الإنترنت إلى الشبكة الداخلية (192.168.1.0/24)</li>
+                            </ul>
+                        </li>
+                        <li><strong>من الشبكة الداخلية إلى DMZ والإنترنت:</strong>
+                            <ul>
+                                <li>السماح لجميع أجهزة الشبكة الداخلية بالوصول الكامل إلى منطقة DMZ</li>
+                                <li>السماح لأجهزة الشبكة الداخلية بالوصول إلى الإنترنت (HTTP، HTTPS، DNS)</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    
+                    <div class="mitigation-steps">
+                        <h4><i class="fas fa-shield-alt"></i> مبادئ الأمان المطبقة:</h4>
+                        <ul>
+                            <li><strong>مبدأ الامتياز الأقل (Least Privilege):</strong> نمنح فقط الصلاحيات الضرورية للاتصالات</li>
+                            <li><strong>الرفض الافتراضي (Default Deny):</strong> كل شيء ممنوع إلا ما تم السماح به صراحة</li>
+                            <li><strong>الدفاع بالعمق (Defense in Depth):</strong> استخدام مناطق شبكية متعددة (Inside، DMZ، Outside)</li>
+                        </ul>
+                    </div>
+                    
+                    <h4>مهام التكوين الرئيسية:</h4>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-network-wired activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 1: تكوين واجهات ASA</strong>
+                            <p>تكوين واجهات الشبكة الثلاث (Inside، DMZ، Outside) مع عناوين IP المناسبة ومستويات الأمان.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-filter activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 2: إنشاء قواعد الوصول (Access Rules)</strong>
+                            <p>إنشاء قواعد الأمان التي تسمح باتصالات HTTP فقط إلى الخادم 10.10.10.10 وتمنع باقي الاتصالات.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-exchange-alt activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 3: تكوين NAT</strong>
+                            <p>تكوين ترجمة العناوين للسماح لأجهزة الشبكة الداخلية بالوصول إلى الإنترنت.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-check-circle activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 4: اختبار التكوين</strong>
+                            <p>اختبار الاتصالات للتأكد من تطبيق القواعد بشكل صحيح.</p>
+                        </div>
+                    </div>
+                    
+                    <h4>خطوات العمل المفصلة:</h4>
+                    
+                    <h5>الخطوة 1: تكوين واجهات ASA في ASDM</h5>
+                    <ol>
+                        <li>افتح متصفح الويب وتوجه إلى https://192.168.1.1 للوصول إلى ASDM</li>
+                        <li>سجل الدخول باستخدام بيانات الاعتماد الافتراضية (admin/Cisco123)</li>
+                        <li>اذهب إلى Configuration → Device Setup → Interfaces</li>
+                        <li>عيّن الواجهات الثلاث كما يلي:
+                            <table class="comparison-table" style="font-size: 0.9rem; margin: 0.5rem 0;">
+                                <thead>
+                                    <tr><th>الواجهة</th><th>العنوان IP</th><th>مستوى الأمان</th><th>الوصف</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Inside</td><td>192.168.1.1/24</td><td>100</td><td>الشبكة الداخلية الموثوقة</td></tr>
+                                    <tr><td>DMZ</td><td>10.10.10.1/24</td><td>50</td><td>منطقة الخدمات العامة</td></tr>
+                                    <tr><td>Outside</td><td>DHCP أو IP ثابت</td><td>0</td><td>الشبكة الخارجية (الإنترنت)</td></tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    </ol>
+                    
+                    <h5>الخطوة 2: إنشاء قواعد الوصول (Access Rules)</h5>
+                    <ol>
+                        <li>اذهب إلى Configuration → Firewall → Access Rules</li>
+                        <li>أنشئ القواعد التالية بالترتيب المحدد:
+                            
+                            <div class="important-note" style="margin: 0.5rem 0; padding: 0.8rem;">
+                                <strong>ملاحظة:</strong> الترتيب مهم! يتم فحص القواعد من الأعلى إلى الأسفل
+                            </div>
+                            
+                            <table class="comparison-table" style="font-size: 0.85rem; margin: 0.5rem 0;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th><th>المصدر</th><th>الوجهة</th><th>الخدمة</th><th>الإجراء</th><th>الوصف</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td><td>any</td><td>10.10.10.10</td><td>tcp/80 (HTTP)</td><td>Permit</td>
+                                        <td>السماح بـ HTTP من الإنترنت إلى خادم الويب</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td><td>192.168.1.0/24</td><td>10.10.10.0/24</td><td>ip</td><td>Permit</td>
+                                        <td>السماح بكل الاتصالات من Inside إلى DMZ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td><td>192.168.1.0/24</td><td>any</td><td>tcp/80, tcp/443, udp/53</td><td>Permit</td>
+                                        <td>السماح للإنترنت (HTTP, HTTPS, DNS) من Inside</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <p>سيتم تطبيق قاعدة الرفض الافتراضية (Default Deny) تلقائياً على جميع الاتصالات الأخرى.</p>
+                        </li>
+                    </ol>
+                    
+                    <h5>الخطوة 3: تكوين NAT للشبكة الداخلية</h5>
+                    <ol>
+                        <li>اذهب إلى Configuration → Firewall → NAT Rules</li>
+                        <li>انقر على Add → Add "Network Object" NAT Rule</li>
+                        <li>عيّن:
+                            <ul>
+                                <li>النوع: Dynamic PAT (Hide)</li>
+                                <li>المصدر: 192.168.1.0/24</li>
+                                <li>العنوان المترجم: interface outside</li>
+                            </ul>
+                        </li>
+                        <li>انقر على OK ثم Apply</li>
+                    </ol>
+                    
+                    <h5>الخطوة 4: اختبار التكوين</h5>
+                    <p>بعد الانتهاء من التكوين، قم بالاختبارات التالية:</p>
+                    
+                    <table class="comparison-table" style="font-size: 0.85rem; margin: 0.5rem 0;">
+                        <thead>
+                            <tr><th>الاختبار</th><th>من</th><th>إلى</th><th>النتيجة المتوقعة</th><th>كيفية الاختبار</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td><td>الإنترنت</td><td>http://[عنوان-خارجي]</td><td>✓ ناجح</td>
+                                <td>فتح متصفح من خارج الشبكة</td>
+                            </tr>
+                            <tr>
+                                <td>2</td><td>الإنترنت</td><td>https://[عنوان-خارجي]</td><td>✗ فاشل</td>
+                                <td>حاول الوصول عبر HTTPS</td>
+                            </tr>
+                            <tr>
+                                <td>3</td><td>الإنترنت</td><td>192.168.1.10</td><td>✗ فاشل</td>
+                                <td>ping أو أي اتصال آخر</td>
+                            </tr>
+                            <tr>
+                                <td>4</td><td>PC الداخلي</td><td>10.10.10.10</td><td>✓ ناجح</td>
+                                <td>ping أو تصفح داخل الشبكة</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="ethical-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>ملاحظة أمنية:</strong>
+                        <p>في بيئة إنتاجية حقيقية، يجب تفعيل HTTPS (المنفذ 443) لخادم الويب بدلاً من HTTP فقط، حيث أن HTTP ينقل البيانات بشكل غير مشفر.</p>
+                    </div>
+                </div>
+                
+                <!-- حل النشاط العملي -->
+                <div class="solution-section">
+                    <h3><i class="fas fa-check-circle"></i> حل النشاط العملي (إرشادات عامة)</h3>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 1: تكوين واجهات ASA</h4>
+                        <p><span class="correct-answer">الإرشادات:</span></p>
+                        <ol>
+                            <li>في ASDM، اذهب إلى Configuration → Device Setup → Interfaces.</li>
+                            <li>لواجهة Inside (مثلاً GigabitEthernet0/1):
+                                <ul>
+                                    <li>Name: inside</li>
+                                    <li>Security Level: 100</li>
+                                    <li>IP Address: 192.168.1.1</li>
+                                    <li>Subnet Mask: 255.255.255.0</li>
+                                </ul>
+                            </li>
+                            <li>لواجهة DMZ (مثلاً GigabitEthernet0/2):
+                                <ul>
+                                    <li>Name: dmz</li>
+                                    <li>Security Level: 50</li>
+                                    <li>IP Address: 10.10.10.1</li>
+                                    <li>Subnet Mask: 255.255.255.0</li>
+                                </ul>
+                            </li>
+                            <li>لواجهة Outside (مثلاً GigabitEthernet0/0):
+                                <ul>
+                                    <li>Name: outside</li>
+                                    <li>Security Level: 0</li>
+                                    <li>IP Address: من DHCP أو ثابت من مزود الإنترنت.</li>
+                                </ul>
+                            </li>
+                            <li>انقر Apply لحفظ التغييرات.</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 2: إنشاء قواعد الوصول (Access Rules)</h4>
+                        <p><span class="correct-answer">الإرشادات:</span></p>
+                        <ol>
+                            <li>اذهب إلى Configuration → Firewall → Access Rules.</li>
+                            <li>أنشئ القواعد التالية:
+                                <ul>
+                                    <li>من inside إلى dmz:
+                                        <ul>
+                                            <li>Source: 192.168.1.0/24</li>
+                                            <li>Destination: 10.10.10.0/24</li>
+                                            <li>Service: ip (أو يمكن تحديد البروتوكولات المطلوبة)</li>
+                                            <li>Action: Permit</li>
+                                        </ul>
+                                    </li>
+                                    <li>من inside إلى outside:
+                                        <ul>
+                                            <li>Source: 192.168.1.0/24</li>
+                                            <li>Destination: any</li>
+                                            <li>Service: tcp/http, tcp/https, udp/domain</li>
+                                            <li>Action: Permit</li>
+                                        </ul>
+                                    </li>
+                                    <li>من outside إلى dmz:
+                                        <ul>
+                                            <li>Source: any</li>
+                                            <li>Destination: 10.10.10.10</li>
+                                            <li>Service: tcp/http, tcp/https</li>
+                                            <li>Action: Permit</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>تأكد من وجود قاعدة الرفض الافتراضي (سيتم تطبيقها تلقائياً للاتجاهات غير المصرح بها).</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 3: تكوين NAT</h4>
+                        <p><span class="correct-answer">الإرشادات:</span></p>
+                        <ol>
+                            <li>اذهب إلى Configuration → Firewall → NAT Rules.</li>
+                            <li>أنشئ قاعدة Dynamic PAT للشبكة الداخلية:
+                                <ul>
+                                    <li>Type: Dynamic PAT (Hide)</li>
+                                    <li>Source: 192.168.1.0/24</li>
+                                    <li>Translated Addr: interface outside</li>
+                                </ul>
+                            </li>
+                            <li>إذا كان خادم DMZ يحتاج إلى عنوان عام ثابت، أنشئ قاعدة Static NAT:
+                                <ul>
+                                    <li>Type: Static</li>
+                                    <li>Source: 10.10.10.10</li>
+                                    <li>Translated Addr: العنوان العام المخصص للخادم.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 4: اختبار التكوين</h4>
+                        <p><span class="correct-answer">الإرشادات:</span></p>
+                        <ol>
+                            <li>من PC الداخلي (192.168.1.10):
+                                <ul>
+                                    <li>ping إلى خادم DMZ (10.10.10.10) - يجب أن يعمل.</li>
+                                    <li>تصفح موقع ويب عبر HTTP/HTTPS - يجب أن يعمل.</li>
+                                </ul>
+                            </li>
+                            <li>من خارج الشبكة (محاكاة من خلال جهاز في شبكة خارجية):
+                                <ul>
+                                    <li>الوصول إلى خادم DMZ على العنوان العام عبر المنفذ 80/443 - يجب أن يعمل.</li>
+                                    <li>محاولة الوصول إلى أي عنوان في الشبكة الداخلية (مثل 192.168.1.10) - يجب أن يرفض.</li>
+                                </ul>
+                            </li>
+                            <li>مراقبة السجلات في ASDM (Monitoring → Logging → Real-time Log Viewer) للتحقق من تطبيق القواعد.</li>
+                        </ol>
+                        <p><strong>ملاحظة:</strong> يمكن تعديل القواعد والتفاصيل حسب إصدار ASDM والبيئة المستخدمة. تأكد من حفظ التكوين بعد الانتهاء.</p>
+                    </div>
+                </div>
+                
+                <!-- الواجبات والمهام -->
+                <h3><i class="fas fa-tasks"></i> الواجبات والمهام</h3>
+                
+                <div class="homework-section">
+                    <h3><i class="fas fa-laptop-code"></i> الواجب العملي: تصميم سياسة جدار حماية لشركة "الأمن التقني"</h3>
+                    
+                    <div class="homework-instructions">
+                        <h4>السيناريو:</h4>
+                        <p>أنت مسؤول أمن في شركة "الأمن التقني" التي لديها البنية الشبكية التالية بناءً على التصميم المشابه للنشاط العملي:</p>
+                        
+                        <ul>
+                            <li><strong>الشبكة الداخلية (Inside):</strong> 172.16.10.0/24</li>
+                            <li><strong>منطقة DMZ:</strong> 192.168.100.0/24</li>
+                            <li><strong>خادم ويب في DMZ:</strong> 192.168.100.10</li>
+                            <li><strong>خادم تطبيقات في DMZ:</strong> 192.168.100.20</li>
+                            <li><strong>اتصال بالإنترنت عبر جدار حماية Cisco ASA</strong></li>
+                        </ul>
+                        
+                        <h4>المتطلبات الأمنية:</h4>
+                        <ol>
+                            <li>جميع أجهزة الشبكة الداخلية يمكنها الوصول الكامل إلى منطقة DMZ.</li>
+                            <li>الشبكة الداخلية يمكنها الوصول إلى الإنترنت عبر HTTP، HTTPS، DNS فقط.</li>
+                            <li>الإنترنت يمكنه الوصول إلى خادم الويب في DMZ على المنفذ 80 (HTTP) فقط.</li>
+                            <li>الإنترنت يمكنه الوصول إلى خادم التطبيقات في DMZ على المنفذ 8080 (HTTP البديل) فقط.</li>
+                            <li>حظر جميع الاتصالات الأخرى من الإنترنت إلى أي جزء من الشبكة.</li>
+                            <li>منع أي اتصال من منطقة DMZ إلى الشبكة الداخلية (إلا ردود الطلبات).</li>
+                        </ol>
+                        
+                        <h4>المطلوب:</h4>
+                        <ol>
+                            <li><strong>الجزء الأول:</strong> صمم جدول قواعد جدار الحماية مع الأعمدة التالية:
+                                <ul>
+                                    <li>رقم القاعدة</li>
+                                    <li>المصدر (Source)</li>
+                                    <li>الوجهة (Destination)</li>
+                                    <li>الخدمة/المنفذ (Service/Port)</li>
+                                    <li>الإجراء (Action: Permit/Deny)</li>
+                                    <li>التعليق (Comment)</li>
+                                </ul>
+                            </li>
+                            <li><strong>الجزء الثاني:</strong> رتّب القواعد حسب أفضل الممارسات مع التبرير (لماذا اخترت هذا الترتيب؟)</li>
+                            <li><strong>الجزء الثالث:</strong> اقترح نوع جدار الحماية المناسب للشركة مع ثلاثة أسباب على الأقل.</li>
+                        </ol>
+                        
+                        <div class="submission-requirements">
+                            <h4>آلية التسليم:</h4>
+                            <ul>
+                                <li>مستند Word أو PDF يحتوي على جدول القواعد مع التبرير والتوصية.</li>
+                                <li>يجب أن يحتوي الجدول على 6-8 قواعد على الأقل.</li>
+                                <li>استخدم نفس مبادئ الأمان التي تم دراستها (الامتياز الأقل، الرفض الافتراضي).</li>
+                            </ul>
+                            <p><strong>موعد التسليم:</strong> نهاية الأسبوع الرابع</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="homework-section">
+                    <h3><i class="fas fa-file-alt"></i> الواجب النظري: تقرير عن جدران الحماية من الجيل التالي</h3>
+                    
+                    <div class="homework-instructions">
+                        <h4>المطلوب:</h4>
+                        <p>أكتب تقريراً بحثياً عن جدران الحماية من الجيل التالي (NGFW) بحيث يحتوي على:</p>
+                        
+                        <ol>
+                            <li><strong>مقدمة عن تطور جدران الحماية:</strong>
+                                <ul>
+                                    <li>الجيل الأول: فلترة الحزم</li>
+                                    <li>الجيل الثاني: الفحص ذو الحالة</li>
+                                    <li>الجيل الثالث: جدران حماية التطبيقات</li>
+                                    <li>الجيل الرابع: الجدران الذكية (NGFW)</li>
+                                </ul>
+                            </li>
+                            <li><strong>مميزات NGFW مقارنة بالجدران التقليدية:</strong>
+                                <ul>
+                                    <li>فحص الحزم العميق (DPI)</li>
+                                    <li>التحكم في التطبيقات</li>
+                                    <li>منع التسلل المدمج (IPS)</li>
+                                    <li>الذكاء ضد التهديدات</li>
+                                    <li>التكامل مع الأنظمة الأمنية الأخرى</li>
+                                </ul>
+                            </li>
+                            <li><strong>دراسة حالة لشركة طبقت NGFW:</strong>
+                                <ul>
+                                    <li>اختر شركة حقيقية (مثل Cisco، Palo Alto، Fortinet)</li>
+                                    <li>اذكر المشاكل التي واجهتها قبل التطبيق</li>
+                                    <li>صف كيف حلت NGFW هذه المشاكل</li>
+                                    <li>النتائج المتحققة بعد التطبيق</li>
+                                </ul>
+                            </li>
+                            <li><strong>التحديات والعقبات في تطبيق NGFW:</strong>
+                                <ul>
+                                    <li>التكلفة</li>
+                                    <li>التعقيد التقني</li>
+                                    <li>الأداء والتأخير</li>
+                                    <li>صعوبة الإدارة</li>
+                                </ul>
+                            </li>
+                            <li><strong>المستقبل والتوجهات الحديثة:</strong>
+                                <ul>
+                                    <li>الجدران النارية المستندة إلى السحابة (Cloud Firewalls)</li>
+                                    <li>التكامل مع الذكاء الاصطناعي والتعلم الآلي</li>
+                                    <li>جدران الحماية في بيئات IoT</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        
+                        <div class="submission-requirements">
+                            <h4>متطلبات التقرير:</h4>
+                            <ul>
+                                <li>يجب ألا يقل التقرير عن 3 صفحات</li>
+                                <li>استخدم لغة عربية سليمة ومصطلحات تقنية دقيقة</li>
+                                <li>أضف جداول ومقارنات إن أمكن</li>
+                                <li>استخدم صوراً توضيحية مع ذكر المصدر</li>
+                                <li>اذكر جميع المراجع المستخدمة</li>
+                            </ul>
+                            <p><strong>موعد التسليم:</strong> سيتم التحديد عبر المنصة التعليمية</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- التنقل بين الأسابيع -->
+                <div class="nav-buttons">
+                    <a href="Lecture2.html" class="btn"><i class="fas fa-arrow-right"></i> العودة للأسبوع الثاني</a>
+                    <a href="Lecture4.html" class="btn"><i class="fas fa-arrow-left"></i> الانتقال للأسبوع الرابع</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بطاقة إضافية للمصطلحات -->
+        <div class="main-card">
+            <div class="card-header" style="background: linear-gradient(90deg, #6f42c1 0%, #5a32a3 100%);">
+                <h2>المصطلحات الرئيسية للأسبوع الثالث</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>جدار الحماية (Firewall):</strong> نظام أمني يراقب حركة مرور الشبكة ويقرر السماح أو حظر الحزم بناءً على قواعد أمنية.</p>
+                <p><strong>Stateful Firewall:</strong> جدار حماية يتتبع حالة اتصالات الشبكة ويصنع قرارات بناءً على سياق الاتصال.</p>
+                <p><strong>Stateless Firewall:</strong> جدار حماية يعالج كل حزمة بشكل مستقل دون تتبع حالة الاتصال.</p>
+                <p><strong>Packet Filtering:</strong> تقنية فلترة تعتمد على فحص رؤوس الحزم فقط (العناوين، المنافذ، البروتوكولات).</p>
+                <p><strong>Stateful Inspection:</strong> تقنية فحص متقدمة تتتبع حالة الاتصالات وتفحص الحزم في سياق تدفق الاتصال.</p>
+                <p><strong>Application-level Gateway (Proxy Firewall):</strong> جدار حماية يعمل كوكيل بين المستخدم والخدمة، يفحص محتوى التطبيق.</p>
+                <p><strong>Network-based Firewall:</strong> جدار حماية يحمي شبكة كاملة، عادة ما يكون جهازاً مخصصاً.</p>
+                <p><strong>Host-based Firewall:</strong> جدار حماية مثبت على جهاز فردي لحماية ذلك الجهاز فقط.</p>
+                <p><strong>NGFW (Next-Generation Firewall):</strong> جدران حماية حديثة تضم قدرات متقدمة مثل فحص الحزم العميق، التحكم في التطبيقات، ومنع التسلل المدمج.</p>
+                <p><strong>Default Deny Policy:</strong> سياسة أمان ترفض كل الحركة إلا ما تم السماح به صراحةً.</p>
+                <p><strong>Access Control List (ACL):</strong> قائمة بالقواعد التي تحدد حركة المرور المسموح بها أو المرفوضة.</p>
+                <p><strong>ASA (Adaptive Security Appliance):</strong> جهاز جدار حماية من سيسكو يجمع بين وظائف الجدار الناري، VPN، وIPS.</p>
+                <p><strong>ASDM (Adaptive Security Device Manager):</strong> واجهة إدارة رسومية لأجهزة سيسكو ASA.</p>
+                <p><strong>NAT (Network Address Translation):</strong> تقنية تعيين عناوين IP تسمح لأجهزة متعددة بمشاركة عنوان IP عام واحد.</p>
+                <p><strong>PAT (Port Address Translation):</strong> نوع من NAT يستخدم منافذ TCP/UDP لتمييز الاتصالات الداخلية.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية | مساق أمن الشبكات (SYBS-2304)</p>
+        <div class="copyright">
+            © 2026 سايبر خليل - جميع الحقوق محفوظة.
+        </div>
+    </footer>
+</body>
+</html>
