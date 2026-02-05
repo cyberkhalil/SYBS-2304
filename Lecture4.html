@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأسبوع الرابع: أنظمة كشف ومنع التسلل (IDS/IPS) | دبلوم أمن المعلومات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- الهيدر -->
+    <header>
+        <div class="header-content">
+            <h1>الأسبوع الرابع: أنظمة كشف ومنع التسلل (IDS/IPS)</h1>
+            <p>دبلوم أمن المعلومات | مساق أمن الشبكات (SYBS-2304)</p>
+            <div class="course-info">
+                <strong>المتطلبات السابقة:</strong> شبكات 1، شبكات 2 (نظري وعملي) | <strong>المحاضر:</strong> أ. محمود الشيخ خليل
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        <!-- البطاقة الرئيسية -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>مراقبة الشبكة والكشف عن الأنشطة الضارة</h2>
+                <div class="week-badge">الأسبوع الرابع | 3 ساعات</div>
+            </div>
+            
+            <div class="card-body">
+                <!-- مخرجات التعلم -->
+                <div class="learning-outcomes">
+                    <h3><i class="fas fa-bullseye"></i> مخرجات التعلم</h3>
+                    <p>بنهاية هذا الأسبوع، سيكون الطالب قادراً على:</p>
+                    <ul>
+                        <li>فهم الفرق الأساسي بين أنظمة كشف التسلل (IDS) وأنظمة منع التسلل (IPS)</li>
+                        <li>التمييز بين أنواع IDS المختلفة (Network-based و Host-based)</li>
+                        <li>فهم تقنيات الكشف عن التهديدات (التوقيعات، السلوك، الشذوذ)</li>
+                        <li>تثبيت وتكوين Snort كنظام IDS/IPS مفتوح المصدر</li>
+                        <li>تحليل سجلات النظام وتحديد أنماط الهجمات المحتملة</li>
+                        <li>تطبيق قواعد (Rules) للكشف عن هجمات شبكية محددة</li>
+                    </ul>
+                </div>
+                
+                <!-- خطة الجلسة -->
+                <div class="session-plan">
+                    <h3><i class="fas fa-clipboard-list"></i> محتوى الجلسة</h3>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-play session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>الافتتاح والمراجعة</h4>
+                            <p>مراجعة مفاهيم جدران الحماية (Stateful vs Stateless) وربطها بأنظمة كشف التسلل</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-shield-alt session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>مقدمة في IDS/IPS</h4>
+                            <p>تعريف أنظمة كشف ومنع التسلل، تاريخها، وأهميتها في الدفاع عن الشبكات</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-exchange-alt session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>الفرق بين IDS و IPS</h4>
+                            <p>مقارنة شاملة بين الكشف (Detection) والمنع (Prevention) ومواقع النشر في الشبكة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-layer-group session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>أنواع أنظمة الكشف عن التسلل</h4>
+                            <p>شرح NIDS مقابل HIDS، ومزايا وعيوب كل نوع</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-search session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>تقنيات الكشف عن التهديدات</h4>
+                            <p>الكشف المبني على التوقيعات، كشف الشذوذ، والكشف المبني على السلوك</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-bug session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>مقدمة في Snort</h4>
+                            <p>تعريف بـ Snort كأشهر أنظمة IDS/IPS مفتوحة المصدر، مكوناته وآلية عمله</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-laptop-code session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>النشاط العملي</h4>
+                            <p>تثبيت Snort على Ubuntu، كتابة قواعد للكشف عن هجمات (Ping Flood, Port Scan)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div><i class="fas fa-tasks session-icon"></i></div>
+                        <div class="session-content">
+                            <h4>الختام والواجبات</h4>
+                            <p>حل النشاط العملي، توضيح الواجبات ومناقشة سيناريوهات واقعية</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- المحتوى النظري -->
+                <h3><i class="fas fa-book"></i> المحتوى النظري</h3>
+                
+                <h4>1. مقدمة في أنظمة كشف ومنع التسلل</h4>
+                <p>تُعتبر أنظمة كشف التسلل (Intrusion Detection Systems - IDS) وأنظمة منع التسلل (Intrusion Prevention Systems - IPS) من الركائز الأساسية في استراتيجية الدفاع العميق (Defense in Depth). تقوم هذه الأنظمة بمراقبة حركة مرور الشبكة أو سلوك الأنظمة لاكتشاف الأنشطة غير المصرح بها أو الضارة.</p>
+                
+                <div class="important-note">
+                    <h4><i class="fas fa-exclamation-triangle"></i> حقائق مهمة:</h4>
+                    <ul>
+                        <li>أول نظام IDS تجاري ظهر في عام <span class="highlight">1980</span> بواسطة Dorothy Denning</li>
+                        <li>أكثر من <span class="highlight">60%</span> من الهجمات تتخطى جدران الحماية التقليدية دون اكتشاف</li>
+                        <li>متوسط الوقت لاكتشاف الاختراق (Dwell Time) هو <span class="highlight">277 يوماً</span> بدون أنظمة IDS/IPS فعالة</li>
+                    </ul>
+                </div>
+                
+                <h4>2. الفرق بين IDS و IPS</h4>
+                <p>على الرغم من التشابه في آلية الكشف، إلا أن هناك فرقاً جوهرياً في آلية الاستجابة:</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>المعيار</th>
+                            <th>IDS (نظام كشف التسلل)</th>
+                            <th>IPS (نظام منع التسلل)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>الوظيفة الرئيسية</strong></td>
+                            <td>الكشف والإنذار فقط</td>
+                            <td>الكشف والمنع الفوري</td>
+                        </tr>
+                        <tr>
+                            <td><strong>التفاعل مع الحركة</strong></td>
+                            <td>سلبي (مراقبة فقط)</td>
+                            <td>فاعل (إسقاط الحزم المشبوهة)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>موقع النشر</strong></td>
+                            <td>خارج خط البيانات (Out-of-band)</td>
+                            <td>داخل خط البيانات (In-line)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>التأثير على الأداء</strong></td>
+                            <td>بسيط - لا يؤخر الحزم</td>
+                            <td>متوسط إلى عالي - يفحص في الوقت الفعلي</td>
+                        </tr>
+                        <tr>
+                            <td><strong>إمكانية حظر الشرعي</strong></td>
+                            <td>لا يحظر (أقل خطراً)</td>
+                            <td>ممكن (False Positive يسبب انقطاع خدمة)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>الاستخدام الأمثل</strong></td>
+                            <td>رصد وتحقيق جنائي</td>
+                            <td>حماية فورية للأصول الحساسة</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4>3. أنواع أنظمة كشف التسلل</h4>
+                
+                <h5>أ. نظام كشف الشبكة (Network-based IDS - NIDS):</h5>
+                <ul>
+                    <li><span class="key-term">الوصف:</span> يراقب حركة المرور على مستوى الشبكة بأكملها من خلال تحليل الحزم المرورية</li>
+                    <li><span class="key-term">الموقع:</span> عادة ما يُنشر عند نقاط استراتيجية (by the perimeter, DMZ, segments)</li>
+                    <li><span class="key-term">المميزات:</span> حماية شبكة كاملة، صعوبة اكتشافه من قبل المهاجم، لا يؤثر على أداء الأجهزة المضيفة</li>
+                    <li><span class="key-term">العيوب:</span> صعوبة فحص حركة مرور مشفرة، قد يصبح عنق زجاجة إذا لم يُحسن</li>
+                </ul>
+                
+                <h5>ب. نظام كشف المضيف (Host-based IDS - HIDS):</h5>
+                <ul>
+                    <li><span class="key-term">الوصف:</span> مثبت على جهاز فردي ويراقب سجلات النظام، ملفاته، وعملياته</li>
+                    <li><span class="key-term">المراقبة:</span> مكالمات النظام، سجلات الأحداث (Event Logs)، تغييرات ملفات النظام</li>
+                    <li><span class="key-term">المميزات:</span> رؤية داخلية للجهاز، قدرة على كشف هجمات التشفير من الطرف إلى الطرف، كشف التعديلات على الملفات</li>
+                    <li><span class="key-term">العيوب:</span> استهلاك موارد الجهاز، يحتاج صيانة على كل جهاز، لا يرى حركة الشبكة العابرة</li>
+                </ul>
+                
+                <div class="important-note">
+                    <h4><i class="fas fa-lightbulb"></i> الاستخدام الأمثل:</h4>
+                    <p>أفضل الممارسات تقتضي استخدام <strong>NIDS و HIDS معاً</strong> (Hybrid Approach) حيث يكمل كل منهما الآخر. NIDS يرى حركة الشبكة الواسعة بينما HIDS يرى ما يحدث داخل الجهاز بعد تجاوز حدود الشبكة.</p>
+                </div>
+                
+                <h4>4. تقنيات الكشف عن التهديدات</h4>
+                
+                <h5>أ. الكشف المبني على التوقيعات (Signature-based Detection):</h5>
+                <ul>
+                    <li><span class="key-term">المبدأ:</span> مقارنة حركة المرور مع قاعدة بيانات من أنماط الهجمات المعروفة (توقيعات)</li>
+                    <li><span class="key-term">الدقة:</span> عالية ضد الهجمات المعروفة (منخفضة False Negatives)</li>
+                    <li><span class="key-term">القيود:</span> غير قادر على كشف الهجمات الجديدة (Zero-day) أو المعدلة</li>
+                    <li><span class="key-term">مثال:</span> كشف فيروس معين من خلال مقارنة البايتات مع توقيع الفيروس المعروف</li>
+                </ul>
+                
+                <h5>ب. الكشف المبني على الشذوذ (Anomaly-based Detection):</h5>
+                <ul>
+                    <li><span class="key-term">المبدأ:</span> إنشاء خط أساس (Baseline) للسلوك الطبيعي، والإنذار عند أي انحراف</li>
+                    <li><span class="key-term">البدء:</span> يتطلب فترة تعلم (Learning Period) لبناء الملف الطبيعي</li>
+                    <li><span class="key-term">المميزات:</span> قدرة على كشف هجمات جديدة وغير معروفة سابقاً</li>
+                    <li><span class="key-term">العيوب:</span> معدل إنذارات كاذبة مرتفع (High False Positive Rate)، صعوبة تعريف "الطبيعي"</li>
+                </ul>
+                
+                <h5>ج. الكشف المبني على السلوك (Behavior-based / Heuristic):</h5>
+                <ul>
+                    <li><span class="key-term">المبدأ:</span> مراقبة السلوك طويل المدى واكتشاف الأنماط الضارة المعقدة</li>
+                    <li><span class="key-term">الاستخدام:</span> كشف هجمات APT (Advanced Persistent Threats) والأنشطة المستمرة البطيئة</li>
+                    <li><span class="key-term">التطبيق:</span> غالباً ما يستخدم الذكاء الاصطناعي والتعلم الآلي</li>
+                </ul>
+                
+                <h4>5. مقدمة في Snort - نظام IDS/IPS مفتوح المصدر</h4>
+                <p>Snort هو أشهر وأقدم أنظمة IDS/IPS مفتوحة المصدر، تم تطويره عام 1998 بواسطة Martin Roesch. يستخدمه الآلاف من المؤسسات حول العالم.</p>
+                
+                <div class="important-note">
+                    <h4><i class="fas fa-info-circle"></i> مكونات Snort الرئيسية:</h4>
+                    <ul>
+                        <li><strong>Packet Decoder:</strong> فك ترميز الحزم من مختلف بروتوكولات الشبكة</li>
+                        <li><strong>Detection Engine:</strong> محرك الكشف الذي يطبق القواعد على الحزم</li>
+                        <li><strong>Logger/Alert System:</strong> نظام تسجيل الأحداث وإرسال الإنذارات</li>
+                        <li><strong>Rules Engine:</strong> محرك القواعد الذي يحتوي على آلاف القواعد الجاهزة للكشف عن الهجمات المعروفة</li>
+                    </ul>
+                </div>
+                
+                <h5>أوضاع تشغيل Snort:</h5>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>الوضع</th>
+                            <th>الوصف</th>
+                            <th>الاستخدام</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sniffer Mode</strong></td>
+                            <td>قراءة وعرض حزم الشبكة على الشاشة فقط</td>
+                            <td>تحليل سريع، تصحيح أخطاء</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Packet Logger Mode</strong></td>
+                            <td>تسجيل الحزم على القرص للتحليل اللاحق</td>
+                            <td>جمع أدلة جنائية، تحليل عميق</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network IDS Mode</strong></td>
+                            <td>مراقبة الشبكة وتطبيق القواعد وإرسال الإنذارات</td>
+                            <td>الاستخدام الأساسي كـ IDS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Inline Mode (IPS)</strong></td>
+                            <td>الوقوف بين الشبكات وإسقاط الحزم الضارة مباشرة</td>
+                            <td>العمل كـ IPS فعال</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="attack-section">
+                    <h3><i class="fas fa-bug"></i> هجمات شائعة يمكن كشفها باستخدام IDS/IPS</h3>
+                    
+                    <h4>1. هجوم Ping Flood (ICMP Flood):</h4>
+                    <p><strong>الوصف:</strong> إغراق الهدف بحزم ICMP Echo Request (Ping) لاستنفاد موارده.</p>
+                    <p><strong>كيفية الكشف:</strong> مراقبة معدل حزم ICMP غير الطبيعي من نفس المصدر.</p>
+                    
+                    <h4>2. هجوم Port Scanning:</h4>
+                    <p><strong>الوصف:</strong> مسح المنافذ لاكتشاف الخدمات المفتوحة.</p>
+                    <p><strong>كيفية الكشف:</strong> اكتشاف محاولات الاتصال المتتالية على منافذ مختلفة في وقت قصير.</p>
+                    
+                    <h4>3. هجوم brute-force على SSH:</h4>
+                    <p><strong>الوصف:</strong> محاولات متعددة لتسجيل الدخول بكلمات مرور مختلفة.</p>
+                    <p><strong>كيفية الكشف:</strong> عدد كبير من محاولات تسجيل الدخول الفاشلة من نفس IP.</p>
+                </div>
+                
+                <!-- النشاط العملي -->
+                <div class="practical-section">
+                    <h3><i class="fas fa-laptop-code"></i> النشاط العملي: تثبيت وتكوين Snort لكشف الهجمات</h3>
+                    <p>في هذا النشاط، سنقوم بتثبيت Snort على نظام Linux (Ubuntu) وتهيئته ليكشف عن هجمات محددة.</p>
+                    
+                    <h4>سيناريو النشاط:</h4>
+                    <p>أنت مسؤول أمن في شركة صغيرة وتريد نشر نظام IDS لمراقبة الشبكة الداخلية (192.168.1.0/24). تريد كشف المحاولات الضالة التالية:</p>
+                    <ul>
+                        <li>محاولات مسح المنفذ 22 (SSH) من خارج الشبكة</li>
+                        <li>هجمات Ping Flood (أكثر من 50 ping في الثانية)</li>
+                        <li>محاولات الوصول إلى صفحات إدارية غير مصرح بها (/admin, /wp-admin)</li>
+                    </ul>
+                    
+                    <h4>المتطلبات:</h4>
+                    <ul>
+                        <li>نظام Ubuntu 20.04/22.04 (حقيقي أو افتراضي)</li>
+                        <li>صلاحيات Root أو Sudo</li>
+                        <li>اتصال بالشبكة على الواجهة eth0 (أو أي واجهة أخرى)</li>
+                    </ul>
+                    
+                    <h4>خطوات العمل:</h4>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 1: تثبيت Snort</strong>
+                            <p>تثبيت Snort والتبعيات المطلوبة على نظام Ubuntu.</p>
+                            <div class="code-block">
+sudo apt update<br>
+sudo apt install snort -y
+                            </div>
+                            <p>أثناء التثبيت، سيسألك عن نطاق الشبكة (Home Net). أدخل: <code>192.168.1.0/24</code></p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 2: التحقق من التثبيت</strong>
+                            <p>التأكد من أن Snort يعمل بشكل صحيح في وضع Sniffer.</p>
+                            <div class="code-block">
+sudo snort -v -i eth0
+                            </div>
+                            <p>ثم اضغط Ctrl+C للخروج. يجب أن ترى حزم الشبكة تمر على الشاشة.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 3: إنشاء قاعدة مخصصة (Custom Rule)</strong>
+                            <p>إنشاء قاعدة لكشف محاولات مسح منفذ SSH (22).</p>
+                            <p>افتح ملف القواعد:</p>
+                            <div class="code-block">
+sudo nano /etc/snort/rules/local.rules
+                            </div>
+                            <p>أضف السطر التالي:</p>
+                            <div class="code-block">
+alert tcp any any -> 192.168.1.0/24 22 (msg:"SSH Scan Detected"; flags:S; threshold:type both, track by_src, count 5, seconds 60; sid:1000001; rev:1;)
+                            </div>
+                            <p><strong>شرح القاعدة:</strong></p>
+                            <ul>
+                                <li><code>alert</code>: نوع الإجراء (إنذار)</li>
+                                <li><code>tcp any any</code>: بروتوكول TCP من أي مصدر/منفذ</li>
+                                <li><code>-> 192.168.1.0/24 22</code>: إلى الشبكة الداخلية على المنفذ 22</li>
+                                <li><code>flags:S</code>: حزم SYN (بداية الاتصال)</li>
+                                <li><code>threshold</code>: لا تنبه إلا إذا حدث 5 محاولات في 60 ثانية</li>
+                                <li><code>sid</code>: معرف فريد للقاعدة (يجب أن يكون فوق 1,000,000 للقواعد المخصصة)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 4: تشغيل Snort في وضع IDS</strong>
+                            <p>تشغيل Snort مع تفعيل القواعد المحلية.</p>
+                            <div class="code-block">
+sudo snort -q -l /var/log/snort -i eth0 -A console -c /etc/snort/snort.conf
+                            </div>
+                            <p>المعاملات:</p>
+                            <ul>
+                                <li><code>-q</code>: وضع الهدوء (بدون عرض حزم)</li>
+                                <li><code>-l</code>: مجلد السجلات</li>
+                                <li><code>-i</code>: اسم الواجهة</li>
+                                <li><code>-A console</code>: عرض الإنذارات على الشاشة</li>
+                                <li><code>-c</code>: ملف الإعداد</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 5: اختبار النظام</strong>
+                            <p>من جهاز آخر على الشبكة، قم بتنفيذ الأمر:</p>
+                            <div class="code-block">
+nmap -p 22 192.168.1.1<br>
+# أو<br>
+hping3 -S -p 22 --flood 192.168.1.1
+                            </div>
+                            <p>يجب أن ترى إنذاراً على شاشة Snort يشير إلى "SSH Scan Detected".</p>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div><i class="fas fa-tasks activity-icon"></i></div>
+                        <div>
+                            <strong>المهمة 6: إضافة قاعدة Ping Flood (اختياري)</strong>
+                            <p>أضف قاعدة لكشف هجمات ICMP Flood.</p>
+                            <div class="code-block">
+alert icmp any any -> 192.168.1.0/24 any (msg:"ICMP Flood Detected"; itype:8; threshold:type both, track by_src, count 50, seconds 1; sid:1000002; rev:1;)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- حل النشاط العملي -->
+                <div class="solution-section">
+                    <h3><i class="fas fa-check-circle"></i> حل النشاط العملي (إرشادات)</h3>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 1-2: التثبيت والتحقق</h4>
+                        <p>إذا ظهرت لك رسالة خطأ حول واجهة الشبكة، تأكد من اسم الواجهة الصحيح باستخدام:</p>
+                        <div class="code-block">ip addr show</div>
+                        <p>ابحث عن الواجهة المتصلة (عادة eth0, ens33, أو enp0s3).</p>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 3: فهم القاعدة</h4>
+                        <p>القاعدة تستخدم <code>threshold</code> لتجنب الإنذارات الكاذبة. فقط محاولات المسح الفعلية (5 محاولات في دقيقة) ست trigger الإنذار.</p>
+                        <p><strong>ملاحظة:</strong> تأكد من عدم وجود مسافات زائدة في القاعدة، واستخدم علامات الاقتباس المستقيمة (") وليست المائلة (").</p>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>المهمة 4-5: التشغيل والاختبار</h4>
+                        <p>عند اكتشاف الهجوم، يجب أن ترى شيئاً مشابهاً:</p>
+                        <div class="code-block">
+07/15-12:30:45.123456 [**] [1:1000001:1] SSH Scan Detected [**] [Priority: 0] {TCP} 192.168.1.100:54321 -> 192.168.1.10:22
+                        </div>
+                        <p>لحفظ الإنذارات في ملف بدلاً من الشاشة، استخدم <code>-A fast</code> بدلاً من <code>-A console</code>.</p>
+                    </div>
+                    
+                    <div class="solution-item">
+                        <h4>التحليل الإضافي:</h4>
+                        <p>لقراءة سجلات Snort لاحقاً:</p>
+                        <div class="code-block">
+sudo snort -r /var/log/snort/snort.log.xxxxxx
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- الواجبات -->
+                <h3><i class="fas fa-tasks"></i> الواجبات والمهام</h3>
+                
+                <div class="homework-section">
+                    <h3><i class="fas fa-laptop-code"></i> الواجب العملي: إعداد Snort لكشف محاولات اختراق الويب</h3>
+                    
+                    <div class="homework-instructions">
+                        <h4>السيناريو:</h4>
+                        <p>أنت مسؤول أمن في شركة "الأمن التقني" وتريد إضافة طبقة حماية لخادم الويب الداخلي (192.168.1.50) لكشف:</p>
+                        <ol>
+                            <li>محاولات الوصول إلى ملفات حساسة (/etc/passwd, /shadow, .env)</li>
+                            <li>هجمات SQL Injection البسيطة (محاولات إدخال كلمات مثل ' OR 1=1 --)</li>
+                            <li>محاولات استخدام أدوات الفحص الشهيرة (sqlmap, nmap, dirbuster)</li>
+                        </ol>
+                        
+                        <h4>المطلوب:</h4>
+                        <ol>
+                            <li>اكتب 3 قوا snacks (rules) لـ Snort تحقق المتطلبات أعلاه.</li>
+                            <li>اشرح كل قاعدة (ما تفعله، ولماذا اخترت هذه المعاملات).</li>
+                            <li>اختبر قاعدة واحدة على الأقل (يمكنك استخدام VMware أو Packet Tracer إذا كان متاحاً فيه Snort).</li>
+                        </ol>
+                        
+                        <div class="submission-requirements">
+                            <h4>آلية التسليم:</h4>
+                            <ul>
+                                <li>ملف نصي يحتوي على القواعد الثلاث مع الشرح.</li>
+                                <li>لقطة شاشة للاختبار إذا كان ممكناً.</li>
+                                <li>توضيح لكيفية تجنب False Positives في قواعدك.</li>
+                            </ul>
+                            <p><strong>موعد التسليم:</strong> نهاية الأسبوع الخامس</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="homework-section">
+                    <h3><i class="fas fa-file-alt"></i> الواجب النظري: مقارنة بين IDS التجارية والمفتوحة المصدر</h3>
+                    
+                    <div class="homework-instructions">
+                        <h4>المطلوب:</h4>
+                        <p>أعد تقريراً مقارناً (2-3 صفحات) بين:</p>
+                        <ol>
+                            <li><strong>Snort</strong> (مفتوح المصدر)</li>
+                            <li><strong>Suricata</strong> (مفتوح المصدر)</li>
+                            <li><strong>Cisco Firepower</strong> (تجاري)</li>
+                        </ol>
+                        
+                        <p>يجب أن يشمل التقرير:</p>
+                        <ul>
+                            <li>جدول مقارنة للمميزات التقنية (الأداء، سهولة التهيئة، التكلفة، الدعم).</li>
+                            <li>متى تختار المفتوح المصدر ومتى تختار التجاري؟ (من حيث حجم المؤسسة والميزانية).</li>
+                            <li>دراسة حالة: مؤسسة متوسطة (100 موظف) - ما الحل الأمثل لها ولماذا؟</li>
+                        </ul>
+                        
+                        <div class="submission-requirements">
+                            <h4>متطلبات التقرير:</h4>
+                            <ul>
+                                <li>يغطي النقاط الثلاث أعلاه.</li>
+                                <li>استخدم مصادر موثوقة (مواقع رسمية، أوراق علمية).</li>
+                                <li>اذكر المراجع في النهاية.</li>
+                            </ul>
+                            <p><strong>موعد التسليم:</strong> نهاية الأسبوع الخامس</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- التنقل -->
+                <div class="nav-buttons">
+                    <a href="Lecture3.html" class="btn"><i class="fas fa-arrow-right"></i> العودة للأسبوع الثالث</a>
+                    <a href="Lecture5.html" class="btn"><i class="fas fa-arrow-left"></i> الانتقال للأسبوع الخامس</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بطاقة المصطلحات -->
+        <div class="main-card">
+            <div class="card-header" style="background: linear-gradient(90deg, #6f42c1 0%, #5a32a3 100%);">
+                <h2>المصطلحات الرئيسية للأسبوع الرابع</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>IDS (Intrusion Detection System):</strong> نظام كشف التسلل - يراقب الشبكة أو النظام ويُنذر عند اكتشاف نشاط مشبوه.</p>
+                <p><strong>IPS (Intrusion Prevention System):</strong> نظام منع التسلل - يكشف ويتخذ إجراء فورياً لمنع الهجوم (إسقاط الحزم، إغلاق الاتصال).</p>
+                <p><strong>NIDS (Network-based IDS):</strong> نظام كشف على مستوى الشبكة - يراقب حركة المرور الشبكية كلها.</p>
+                <p><strong>HIDS (Host-based IDS):</strong> نظام كشف على مستوى المضيف - مثبت على جهاز واحد يراقب سجلاته وملفاته.</p>
+                <p><strong>Signature-based Detection:</strong> الكشف بالتوقيعات - مقارنة الحركة مع قاعدة بيانات أنماط هجمات معروفة.</p>
+                <p><strong>Anomaly-based Detection:</strong> الكشف بالشذوذ - اكتشاف الانحرافات عن السلوك الطبيعي المعتاد.</p>
+                <p><strong>False Positive:</strong> إنذار كاذب - تحديد نشاط شرعي كهجوم.</p>
+                <p><strong>False Negative:</strong> فشل في الكشف - عدم اكتشاف هجوم حقيقي.</p>
+                <p><strong>Snort:</strong> نظام IDS/IPS مفتوح المصدر واسع الاستخدام.</p>
+                <p><strong>Rule/Signature:</strong> قاعدة أو توقيع - النمط الذي يتم البحث عنه لاكتشاف هجوم.</p>
+                <p><strong>Baseline:</strong> خط الأساس - السلوك الطبيعي الذي يُقاس عليه الشذوذ.</p>
+                <p><strong>Inline Mode:</strong> الوضع المباشر - وضع IPS حيث يُوضع الجهاز مباشرة في مسار حركة المرور.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية | مساق أمن الشبكات (SYBS-2304)</p>
+        <div class="copyright">
+            © 2026 سايبر خليل - جميع الحقوق محفوظة.
+        </div>
+    </footer>
+</body>
+</html>
