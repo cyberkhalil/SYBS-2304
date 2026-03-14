@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المشروع العملي: Snort IDS/IPS | دبلوم أمن المعلومات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* أنماط إضافية لصفحة المشروع */
+        .project-header {
+            background: linear-gradient(90deg, #6610f2 0%, #520dc2 100%);
+        }
+        .task-box {
+            background: #f8f9fa;
+            border: 2px dashed #0d6efd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        .question {
+            background: #e9ecef;
+            border-right: 4px solid #198754;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        .image-upload-area {
+            border: 2px dashed #adb5bd;
+            background: #f1f3f5;
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: #495057;
+            transition: border-color 0.3s ease;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .image-upload-area.dragover {
+            border-color: #0d6efd;
+            background: #e2eafc;
+        }
+        .image-upload-area.active {
+            border-color: #198754;
+            background: #d1e7dd;
+        }
+        .image-upload-area img {
+            max-width: 100%;
+            max-height: 200px;
+            margin-top: 0.5rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .image-upload-area .placeholder-icon {
+            font-size: 2rem;
+            color: #6c757d;
+            margin-bottom: 0.5rem;
+        }
+        .image-upload-area .placeholder-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        .image-upload-area .remove-btn {
+            margin-top: 0.5rem;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .answer-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+        .student-info {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .student-info input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .command-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 6px;
+            direction: ltr;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+        }
+        .print-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(13,110,253,0.3);
+            cursor: pointer;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .print-btn:hover {
+            background: #0a58ca;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: default;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: right;
+        }
+        th {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> تحميل الصفحة كـ PDF</button>
+
+    <!-- الهيدر خاص بالمشروع -->
+    <header class="project-header">
+        <div class="header-content">
+            <h1>المشروع العملي: تطبيق Snort كنظام IDS/IPS</h1>
+            <p>دبلوم أمن المعلومات | مساق أمن الشبكات (SYBS-2304)</p>
+            <div class="course-info student-info">
+                <input type="text" id="studentName" placeholder="الاسم" style="flex:2;">
+                <input type="text" id="studentId" placeholder="الرقم الجامعي" style="flex:1;">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- بطاقة تعريف المشروع -->
+        <div class="main-card">
+            <div class="card-header" style="background: #6f42c1;">
+                <h2>تعليمات المشروع</h2>
+            </div>
+            <div class="card-body">
+                <p><i class="fas fa-info-circle"></i> هذا المشروع يهدف إلى تطبيق عملي شامل لنظام كشف ومنع التسلل Snort على بيئة Ubuntu داخل VMware. يجب عليك تنفيذ الخطوات الموضحة، وتوثيق كل خطوة بصورة، والإجابة على الأسئلة المطروحة. في النهاية، قم بتحميل هذه الصفحة كملف PDF وتقديمه عبر المنصة التعليمية.</p>
+                <ul>
+                    <li><strong>درجة المشروع:</strong> 30% من التقييم النهائي.</li>
+                    <li><strong>المتطلبات:</strong> جهاز مثبت عليه VMware، ملف Ubuntu 20.04/22.04 ISO، اتصال بالإنترنت.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- المهمة 1: إعداد البيئة -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 1: إعداد البيئة الافتراضية</h2>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li>قم بإنشاء آلة افتراضية جديدة في VMware باسم "Snort-Lab".</li>
+                    <li>اختر نظام التشغيل Linux (Ubuntu 64-bit).</li>
+                    <li>خصص الذاكرة 2GB على الأقل، والمعالج بنواة واحدة.</li>
+                    <li>أنشئ قرص صلب بسعة 20GB (موحد الملفات).</li>
+                    <li>قم بتثبيت Ubuntu على الآلة الافتراضية (استخدم إعدادات اللغة الإنجليزية، واسم المستخدم وكلمة المرور من اختيارك).</li>
+                </ol>
+                <div class="question">
+                    <p><strong>سؤال 1:</strong> لماذا نستخدم بيئة افتراضية بدلاً من التثبيت المباشر على الجهاز الفعلي؟ (اذكر سببين)</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="image-upload-area" data-id="upload1">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 2: تثبيت Snort -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 2: تثبيت Snort على Ubuntu</h2>
+            </div>
+            <div class="card-body">
+                <p>بعد تشغيل Ubuntu، قم بتحديث الحزم وتثبيت Snort باستخدام الأوامر التالية:</p>
+                <div class="command-box">
+sudo apt update<br>
+sudo apt install snort -y
+                </div>
+                <p>أثناء التثبيت، سيُطلب منك تحديد نطاق الشبكة الداخلية (HOME_NET). اكتب نطاق الشبكة الذي تستخدمه (مثلاً 192.168.1.0/24 إذا كانت واجهتك تحمل هذا النطاق). إذا كنت لا تعرف، استخدم الأمر <code>ip addr</code> لمعرفة عنوان IP الخاص بك.</p>
+                <div class="question">
+                    <p><strong>سؤال 2:</strong> ما هو عنوان IP الذي حصلت عليه واجهة الشبكة في Ubuntu؟ وما هو نطاق الشبكة الذي أدخلته أثناء تثبيت Snort؟</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="image-upload-area" data-id="upload2">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 3: التحقق من التثبيت وأوضاع Snort -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 3: التعرف على أوضاع Snort</h2>
+            </div>
+            <div class="card-body">
+                <p>Snort يمكن أن يعمل بعدة أوضاع. جرب الأمر التالي لعرض الحزم مباشرة (وضع الـ sniffer):</p>
+                <div class="command-box">
+sudo snort -v -i eth0   # تأكد من استبدال eth0 باسم واجهتك الصحيح
+                </div>
+                <p>اضغط Ctrl+C بعد رؤية بعض الحزم.</p>
+                <div class="question">
+                    <p><strong>سؤال 3:</strong> ما الفرق بين وضع الـ sniffer ووضع IDS في Snort؟</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="question">
+                    <p><strong>سؤال 4: (اختر)</strong> أي من الأوامر التالية يستخدم لتشغيل Snort في وضع IDS مع قراءة قواعد من ملف التكوين؟</p>
+                    <div class="checkbox-item"><input type="checkbox"> <code>snort -v -i eth0</code></div>
+                    <div class="checkbox-item"><input type="checkbox"> <code>snort -c /etc/snort/snort.conf -A console -i eth0</code></div>
+                    <div class="checkbox-item"><input type="checkbox"> <code>snort -r snort.log</code></div>
+                    <div class="checkbox-item"><input type="checkbox"> <code>snort -D -c /etc/snort/snort.conf</code></div>
+                </div>
+                <div class="image-upload-area" data-id="upload3">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 4: بنية ملفات Snort وقواعده -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 4: استكشاف بنية Snort</h2>
+            </div>
+            <div class="card-body">
+                <p>الملفات الرئيسية لـ Snort موجودة في <code>/etc/snort</code>. استعرض محتويات المجلد:</p>
+                <div class="command-box">
+ls -la /etc/snort
+                </div>
+                <p>ملف القواعد المحلية هو <code>/etc/snort/rules/local.rules</code>. افتحه وأضف القاعدة التالية لكشف محاولات الاتصال على منفذ 22 (SSH):</p>
+                <div class="command-box">
+alert tcp any any -> $HOME_NET 22 (msg:"SSH connection detected"; sid:1000001; rev:1;)
+                </div>
+                <div class="question">
+                    <p><strong>سؤال 5:</strong> اشرح مكونات القاعدة السابقة: ماذا يعني <code>alert</code>، <code>tcp</code>، <code>$HOME_NET</code>، <code>sid:1000001</code>؟</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="image-upload-area" data-id="upload4">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 5: تشغيل Snort في وضع IDS واختبار القاعدة -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 5: اختبار القاعدة في وضع IDS</h2>
+            </div>
+            <div class="card-body">
+                <p>شغل Snort في وضع IDS مع تفعيل القواعد المحلية:</p>
+                <div class="command-box">
+sudo snort -c /etc/snort/snort.conf -A console -i eth0
+                </div>
+                <p>من جهاز آخر على نفس الشبكة (أو حتى من نفس الجهاز باستخدام <code>ssh localhost</code>) قم بمحاولة اتصال SSH على الجهاز المستضيف.</p>
+                <p>يجب أن ترى رسالة تنبيه "SSH connection detected" على شاشة Snort.</p>
+                <div class="question">
+                    <p><strong>سؤال 6:</strong> إذا لم تظهر أي تنبيهات، ما هي الأسباب المحتملة؟ اذكر ثلاثة أسباب.</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="image-upload-area" data-id="upload5">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 6: تسجيل التنبيهات في ملف -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 6: تسجيل التنبيهات في ملف</h2>
+            </div>
+            <div class="card-body">
+                <p>بدلاً من عرض التنبيهات على الشاشة، يمكن تسجيلها في ملف. جرب الأمر:</p>
+                <div class="command-box">
+sudo snort -c /etc/snort/snort.conf -l /var/log/snort -i eth0
+                </div>
+                <p>ثم قم بتكرار محاولة SSH. بعد ذلك، اقرأ ملف السجل باستخدام:</p>
+                <div class="command-box">
+sudo snort -r /var/log/snort/snort.log.xxxxxx
+                </div>
+                <div class="question">
+                    <p><strong>سؤال 7:</strong> ما الفرق بين الملفين <code>alert</code> و <code>snort.log.xxxxxx</code> داخل مجلد السجلات؟</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="image-upload-area" data-id="upload6">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 7: إنشاء قواعد إضافية -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 7: كتابة قواعد متقدمة</h2>
+            </div>
+            <div class="card-body">
+                <p>أضف القواعد التالية إلى local.rules:</p>
+                <div class="command-box">
+# كشف محاولات ping (ICMP echo requests)<br>
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping detected"; itype:8; sid:1000002; rev:1;)<br><br>
+# كشف محاولات مسح المنافذ (أكثر من 5 محاولات خلال ثانيتين)<br>
+alert tcp any any -> $HOME_NET any (msg:"Port scan detected"; flags:S; threshold:type both, track by_src, count 5, seconds 2; sid:1000003; rev:1;)
+                </div>
+                <div class="question">
+                    <p><strong>سؤال 8:</strong> ماذا تعني المعلمة <code>itype:8</code> في قاعدة ICMP؟</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="question">
+                    <p><strong>سؤال 9:</strong> اشرح كيف تعمل قاعدة كشف مسح المنافذ (sid:1000003). ما دور <code>threshold</code>؟</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="image-upload-area" data-id="upload7">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 8: اختبار القواعد الجديدة -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 8: اختبار القواعد الجديدة</h2>
+            </div>
+            <div class="card-body">
+                <p>أعد تشغيل Snort في وضع IDS، ثم من جهاز آخر (أو من نفس الجهاز) قم بتشغيل:</p>
+                <div class="command-box">
+ping 192.168.x.x   # عنوان الـ Ubuntu<br>
+nmap -sS 192.168.x.x
+                </div>
+                <p>لاحظ ظهور التنبيهات.</p>
+                <div class="question">
+                    <p><strong>سؤال 10:</strong> إذا أردت تحويل Snort إلى نظام IPS (Inline) بدلاً من IDS، ما هي المتطلبات الأساسية؟ (اذكر خطوة واحدة على الأقل).</p>
+                    <textarea class="answer-textarea" placeholder="اكتب إجابتك هنا..."></textarea>
+                </div>
+                <div class="image-upload-area" data-id="upload8">
+                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                    <input type="file" accept="image/*" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 9: تحليل تنبيه معين -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 9: تحليل تنبيه</h2>
+            </div>
+            <div class="card-body">
+                <p>اختر أحد التنبيهات التي ظهرت (مثل تنبيه SSH) وانقل محتواه كاملاً هنا:</p>
+                <textarea class="answer-textarea" placeholder="الصق محتوى التنبيه هنا..."></textarea>
+                <div class="question">
+                    <p><strong>سؤال 11:</strong> من خلال قراءة سطر التنبيه، استخرج:</p>
+                    <ul>
+                        <li>البروتوكول: <input type="text" style="width:150px;"></li>
+                        <li>عنوان IP المصدر: <input type="text" style="width:150px;"></li>
+                        <li>عنوان IP الوجهة: <input type="text" style="width:150px;"></li>
+                        <li>رقم القاعدة (SID): <input type="text" style="width:150px;"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 10: اقتراح قواعد -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2>المهمة 10: تصميم قواعد مخصصة</h2>
+            </div>
+            <div class="card-body">
+                <p>بناءً على ما تعلمته، اكتب قواعد Snort مناسبة للسيناريوهات التالية (استخدم أرقام SID أعلى من 1000000):</p>
+                <ol>
+                    <li>كشف محاولة الوصول إلى موقع إداري (مثل /admin) على خادم ويب (منفذ 80).</li>
+                    <li>كشف محاولة تحميل ملف تنفيذي (مثل .exe) عبر HTTP.</li>
+                    <li>كشف هجوم SQL Injection بسيط يحتوي على عبارة ' OR 1=1 --.</li>
+                </ol>
+                <textarea class="answer-textarea" placeholder="اكتب قواعدك هنا..." style="min-height: 150px;"></textarea>
+            </div>
+        </div>
+
+        <!-- خاتمة -->
+        <div class="main-card">
+            <div class="card-header" style="background: #198754;">
+                <h2>انتهت المهام</h2>
+            </div>
+            <div class="card-body">
+                <p>يرجى مراجعة جميع الإجابات والتأكد من إرفاق الصور المطلوبة. بعد الانتهاء، استخدم زر "تحميل الصفحة كـ PDF" في أعلى الصفحة لحفظ المشروع كملف PDF، ثم قم برفعه على المنصة التعليمية.</p>
+                <p style="color: #dc3545;"><strong>ملاحظة:</strong> تأكد من ظهور الصور التي أرفقتها بشكل صحيح قبل الحفظ.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية | مساق أمن الشبكات (SYBS-2304)</p>
+        <div class="copyright">
+            © 2026 سايبر خليل - جميع الحقوق محفوظة.
+        </div>
+    </footer>
+
+    <script>
+        // متغير لتخزين آخر منطقة تفاعل (نشطة)
+        let activeUploadArea = null;
+
+        // تحديد جميع مناطق رفع الصور
+        const uploadAreas = document.querySelectorAll('.image-upload-area');
+
+        // إضافة أحداث النقر والتركيز لكل منطقة
+        uploadAreas.forEach(area => {
+            const fileInput = area.querySelector('input[type="file"]');
+
+            // عند النقر على المنطقة، نضعها كنشطة ونفتح نافذة اختيار الملف
+            area.addEventListener('click', (e) => {
+                // نتأكد أن النقر لم يكن على الصورة أو زر الحذف
+                if (e.target.tagName !== 'IMG' && e.target.tagName !== 'BUTTON') {
+                    setActiveArea(area);
+                    fileInput.click();
+                }
+            });
+
+            // عند النقر على الصورة أو زر الحذف، لا نجعل المنطقة نشطة (نترك الحدث للزر)
+            // لكننا نريد أن تظل المنطقة نشطة حتى عند التعامل معها
+            area.addEventListener('mouseenter', () => {
+                // يمكننا جعل المنطقة نشطة عند دخول الماوس (اختياري)
+                // لكن الأفضل أن تكون بالنقر
+            });
+
+            // نضيف حدث focus للمنطقة (إذا أمكن)
+            area.setAttribute('tabindex', '-1'); // لجعلها قابلة للتركيز
+            area.addEventListener('focus', () => setActiveArea(area));
+        });
+
+        // دالة لتعيين منطقة نشطة
+        function setActiveArea(area) {
+            // إزالة class active من جميع المناطق
+            uploadAreas.forEach(a => a.classList.remove('active'));
+            // إضافة class active للمنطقة المحددة
+            area.classList.add('active');
+            activeUploadArea = area;
+        }
+
+        // التعامل مع اختيار الملف من input
+        uploadAreas.forEach(area => {
+            const fileInput = area.querySelector('input[type="file"]');
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImage(file, area);
+                }
+                // إعادة تعيين input ليسمح بإعادة اختيار نفس الملف لاحقاً
+                fileInput.value = '';
+            });
+        });
+
+        // التعامل مع السحب والإفلات
+        uploadAreas.forEach(area => {
+            area.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                area.classList.add('dragover');
+            });
+
+            area.addEventListener('dragleave', () => {
+                area.classList.remove('dragover');
+            });
+
+            area.addEventListener('drop', (e) => {
+                e.preventDefault();
+                area.classList.remove('dragover');
+                setActiveArea(area); // تعيين المنطقة النشطة عند الإفلات
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    handleImage(file, area);
+                } else {
+                    alert('يرجى إفلات ملف صورة فقط.');
+                }
+            });
+        });
+
+        // التعامل مع اللصق من الحافظة (Ctrl+V)
+        document.addEventListener('paste', (e) => {
+            // إذا لم تكن هناك منطقة نشطة، نستخدم أول منطقة أو لا نفعل شيئاً
+            if (!activeUploadArea) {
+                // يمكن اختيار أول منطقة افتراضياً، أو نطلب من المستخدم النقر على منطقة أولاً
+                alert('الرجاء النقر على منطقة رفع الصورة أولاً قبل اللصق.');
+                return;
+            }
+
+            const items = e.clipboardData.items;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                    const blob = items[i].getAsFile();
+                    handleImage(blob, activeUploadArea);
+                    break;
+                }
+            }
+        });
+
+        // دالة معالجة الصورة وتحويلها إلى Base64
+        function handleImage(file, area) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.alt = 'صورة مرفوعة';
+                
+                // مسح المحتوى الحالي وإضافة الصورة
+                area.innerHTML = '';
+                area.appendChild(img);
+                
+                // إضافة زر حذف
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'حذف الصورة';
+                removeBtn.className = 'remove-btn';
+                removeBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    area.innerHTML = ''; // إعادة تعيين المنطقة
+                    // إعادة المحتوى الافتراضي
+                    area.innerHTML = `
+                        <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+                        <input type="file" accept="image/*" style="display: none;">
+                    `;
+                    // إعادة ربط الحدث مع input الجديد
+                    const newFileInput = area.querySelector('input[type="file"]');
+                    newFileInput.addEventListener('change', (e) => {
+                        const file = e.target.files[0];
+                        if (file) handleImage(file, area);
+                        newFileInput.value = '';
+                    });
+                });
+                area.appendChild(removeBtn);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // جعل أول منطقة نشطة افتراضياً (اختياري)
+        if (uploadAreas.length > 0) {
+            setActiveArea(uploadAreas[0]);
+        }
+    </script>
+</body>
+</html>
