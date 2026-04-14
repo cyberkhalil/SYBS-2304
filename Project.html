@@ -5,25 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المشروع العملي: Snort IDS/IPS | دبلوم أمن المعلومات</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
     <style>
-        /* ========== التنسيقات العامة ========== */
+        /* ========== التنسيقات العامة (مدمجة من styles.css + إضافات) ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'Segoe UI', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.8;
+            padding-bottom: 2rem;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
         .project-header {
             background: linear-gradient(90deg, #6610f2 0%, #520dc2 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        .task-box {
-            background: #f8f9fa;
-            border: 2px dashed #0d6efd;
-            border-radius: 8px;
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header-content h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .main-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid #eaeaea;
+        }
+        .card-header {
+            background: linear-gradient(90deg, #198754 0%, #157347 100%);
+            color: white;
+            padding: 1.2rem 1.5rem;
+        }
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.4rem;
+        }
+        .card-body {
             padding: 1.5rem;
-            margin: 2rem 0;
         }
         .question {
             background: #e9ecef;
             border-right: 4px solid #198754;
             padding: 1rem;
             margin: 1.5rem 0;
-            border-radius: 4px;
+            border-radius: 8px;
         }
         .image-upload-area {
             border: 2px dashed #adb5bd;
@@ -32,7 +74,6 @@
             text-align: center;
             margin: 1rem 0;
             border-radius: 8px;
-            color: #495057;
             transition: border-color 0.3s ease;
             min-height: 150px;
             display: flex;
@@ -45,27 +86,21 @@
             border-color: #0d6efd;
             background: #e2eafc;
         }
-        .image-upload-area.active {
-            border-color: #198754;
-            background: #d1e7dd;
-        }
         .image-upload-area img {
             max-width: 100%;
             max-height: 200px;
             margin-top: 0.5rem;
             border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        .image-upload-area .placeholder-icon {
+        .placeholder-icon {
             font-size: 2rem;
             color: #6c757d;
-            margin-bottom: 0.5rem;
         }
-        .image-upload-area .placeholder-text {
+        .placeholder-text {
             font-size: 0.9rem;
             color: #6c757d;
         }
-        .image-upload-area .remove-btn {
+        .remove-btn {
             margin-top: 0.5rem;
             background: #dc3545;
             color: white;
@@ -79,10 +114,10 @@
             width: 100%;
             padding: 0.75rem;
             border: 1px solid #dee2e6;
-            border-radius: 4px;
+            border-radius: 8px;
             font-family: 'Tajawal', sans-serif;
             font-size: 1rem;
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
         }
         .student-info-card {
@@ -94,23 +129,23 @@
             display: flex;
             gap: 2rem;
             flex-wrap: wrap;
-            align-items: center;
+            align-items: flex-end;
         }
-        .student-info-card .info-item {
+        .info-item {
             flex: 1;
             min-width: 200px;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
         }
-        .student-info-card label {
+        .info-item label {
             font-weight: bold;
             color: #520dc2;
         }
-        .student-info-card input {
+        .info-item input {
             padding: 0.5rem;
             border: 1px solid #ced4da;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 1rem;
         }
         .command-box {
@@ -121,6 +156,7 @@
             direction: ltr;
             font-family: 'Courier New', monospace;
             margin: 1rem 0;
+            overflow-x: auto;
         }
         .print-btn {
             position: fixed;
@@ -133,519 +169,335 @@
             padding: 0.8rem 1.5rem;
             font-size: 1rem;
             font-weight: bold;
-            box-shadow: 0 4px 12px rgba(13,110,253,0.3);
             cursor: pointer;
             z-index: 1000;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(13,110,253,0.3);
         }
-        .print-btn:hover {
-            background: #0a58ca;
-        }
+        .print-btn:hover { background: #0a58ca; }
         .checkbox-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             margin: 0.5rem 0;
         }
-        .checkbox-item input[type="checkbox"] {
+        .checkbox-item input {
             width: 20px;
             height: 20px;
         }
-        /* عناصر الطباعة المخفية في الشاشة */
-        .print-value {
-            display: none;
-            color: #000;
-            font-weight: normal;
-            border-bottom: 1px solid #000;
-            min-width: 100px;
-            padding: 2px 5px;
+        .start-btn {
+            background: #198754;
+            padding: 0.6rem 1.5rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
         }
-
-        /* ========== تنسيقات الطباعة الموحدة ========== */
+        .start-btn:hover {
+            background: #0f5132;
+            transform: translateY(-2px);
+        }
+        .disabled-overlay {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .lock-message {
+            background: #fff3cd;
+            border: 1px solid #ffecb5;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(90deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+        }
         @media print {
-            /* إجبار المتصفح على طباعة الألوان والخلفيات */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            /* إخفاء عناصر التحكم */
-            .print-btn, .remove-btn, .placeholder-icon, .placeholder-text, input[type="file"] {
-                display: none !important;
-            }
-
-            /* إظهار القيم المخزنة بدلاً من الحقول */
-            .print-value {
-                display: inline-block !important;
-                background: transparent !important;
-                border-bottom: 1px solid #333 !important;
-            }
-
-            /* إخفاء حقول الإدخال والنصوص */
-            input:not([type="file"]), textarea, .answer-textarea {
-                display: none !important;
-            }
-
-            /* تنسيق صناديق الصور */
-            .image-upload-area {
-                border: 1px solid #ccc !important;
-                background: white !important;
-                page-break-inside: avoid;
-            }
-            .image-upload-area img {
-                max-width: 100% !important;
-                border: 1px solid #ccc !important;
-            }
-
-            /* تنسيق البطاقات والأسئلة */
-            .main-card {
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-                page-break-inside: avoid;
-                margin-bottom: 20px;
-            }
-            .question {
-                background: #f2f2f2 !important;
-                border-right: 5px solid #198754 !important;
-            }
-            .command-box {
-                background: #f8f9fa !important;
-                color: #000 !important;
-                border: 1px solid #ccc !important;
-            }
-
-            /* رأس المشروع */
-            .project-header {
-                background: #6610f2 !important;
-                color: white !important;
-                border-radius: 0 0 10px 10px;
-            }
-            .project-header .print-value {
-                background: white !important;
-                color: black !important;
-                border-radius: 4px;
-                padding: 5px 10px;
-            }
-
-            /* بطاقة معلومات الطالب */
-            .student-info-card {
-                border: 2px solid #6610f2 !important;
-                background: #f8f9fa !important;
-            }
-            .student-info-card input {
-                display: none !important;
-            }
-            .student-info-card .print-value {
-                display: inline-block !important;
-                background: white !important;
-                padding: 0.5rem;
-                border: 1px solid #333 !important;
-                min-width: 200px;
-            }
+            .print-btn, .student-info-card input, .start-btn, .lock-message, .remove-btn, .placeholder-icon, .placeholder-text, input[type="file"] { display: none !important; }
+            .image-upload-area { border: 1px solid #ccc !important; background: white !important; }
+            .answer-textarea { display: none !important; }
+            .print-value { display: block !important; background: #f8f9fa; padding: 0.5rem; border: 1px solid #ddd; margin-top: 0.5rem; white-space: pre-wrap; }
+            .student-info-card .print-value { display: inline-block !important; }
+            .main-card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
         }
+        .print-value { display: none; }
+        .student-info-card .print-value { display: none; }
     </style>
 </head>
 <body>
-    <button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> تحميل الصفحة كـ PDF</button>
+<button class="print-btn" onclick="window.print()"><i class="fas fa-print"></i> تحميل الصفحة كـ PDF</button>
 
-    <!-- الهيدر خاص بالمشروع -->
-    <header class="project-header">
-        <div class="header-content">
-            <h1>المشروع العملي: تطبيق Snort كنظام IDS/IPS</h1>
-            <p>دبلوم أمن المعلومات | مساق أمن الشبكات (SYBS-2304)</p>
+<header class="project-header">
+    <div class="header-content">
+        <h1>المشروع العملي: تطبيق Snort كنظام IDS/IPS</h1>
+        <p>دبلوم أمن المعلومات | مساق أمن الشبكات (SYBS-2304)</p>
+    </div>
+</header>
+
+<div class="container">
+    <!-- بطاقة تعريف المشروع -->
+    <div class="main-card">
+        <div class="card-header" style="background: #6f42c1;">
+            <h2>تعليمات المشروع</h2>
         </div>
-    </header>
-
-    <div class="container">
-        <!-- بطاقة تعريف المشروع -->
-        <div class="main-card">
-            <div class="card-header" style="background: #6f42c1;">
-                <h2>تعليمات المشروع</h2>
-            </div>
-            <div class="card-body">
-                <p><i class="fas fa-info-circle"></i> هذا المشروع يهدف إلى تطبيق عملي شامل لنظام كشف ومنع التسلل Snort على بيئة Ubuntu داخل VMware. يجب عليك تنفيذ الخطوات الموضحة، وتوثيق كل خطوة بصورة، والإجابة على الأسئلة المطروحة. في النهاية، قم بتحميل هذه الصفحة كملف PDF وتقديمه عبر المنصة التعليمية.</p>
-                <ul>
-                    <li><strong>درجة المشروع:</strong> 30% من التقييم النهائي.</li>
-                    <li><strong>المتطلبات:</strong> جهاز مثبت عليه VMware، ملف Ubuntu 20.04/22.04 ISO، اتصال بالإنترنت.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- بطاقة معلومات الطالب (منقولة من الهيدر) -->
-        <div class="student-info-card">
-            <div class="info-item">
-                <label>الاسم:</label>
-                <input type="text" id="studentName" placeholder="أدخل اسمك">
-                <span class="print-value" data-for="studentName"></span>
-            </div>
-            <div class="info-item">
-                <label>الرقم الجامعي:</label>
-                <input type="text" id="studentId" placeholder="أدخل رقمك الجامعي">
-                <span class="print-value" data-for="studentId"></span>
-            </div>
-        </div>
-
-        <!-- المهمة 1: إعداد البيئة -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 1: إعداد البيئة الافتراضية</h2>
-            </div>
-            <div class="card-body">
-                <ol>
-                    <li>قم بإنشاء آلة افتراضية جديدة في VMware باسم "Snort-Lab".</li>
-                    <li>اختر نظام التشغيل Linux (Ubuntu 64-bit).</li>
-                    <li>خصص الذاكرة 2GB على الأقل، والمعالج بنواة واحدة.</li>
-                    <li>أنشئ قرص صلب بسعة 20GB (موحد الملفات).</li>
-                    <li>قم بتثبيت Ubuntu على الآلة الافتراضية (استخدم إعدادات اللغة الإنجليزية، واسم المستخدم وكلمة المرور من اختيارك).</li>
-                </ol>
-                <div class="question">
-                    <p><strong>سؤال 1:</strong> لماذا نستخدم بيئة افتراضية بدلاً من التثبيت المباشر على الجهاز الفعلي؟ (اذكر سببين)</p>
-                    <textarea class="answer-textarea" id="q1" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q1"></span>
-                </div>
-                <div class="image-upload-area" data-id="upload1">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 2: تثبيت Snort -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 2: تثبيت Snort على Ubuntu</h2>
-            </div>
-            <div class="card-body">
-                <p>بعد تشغيل Ubuntu، قم بتحديث الحزم وتثبيت Snort باستخدام الأوامر التالية:</p>
-                <div class="command-box">
-sudo apt update<br>
-sudo apt install snort -y
-                </div>
-                <p>أثناء التثبيت، سيُطلب منك تحديد نطاق الشبكة الداخلية (HOME_NET). اكتب نطاق الشبكة الذي تستخدمه (مثلاً 192.168.1.0/24 إذا كانت واجهتك تحمل هذا النطاق). إذا كنت لا تعرف، استخدم الأمر <code>ip addr</code> لمعرفة عنوان IP الخاص بك.</p>
-                <div class="question">
-                    <p><strong>سؤال 2:</strong> ما هو عنوان IP الذي حصلت عليه واجهة الشبكة في Ubuntu؟ وما هو نطاق الشبكة الذي أدخلته أثناء تثبيت Snort؟</p>
-                    <textarea class="answer-textarea" id="q2" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q2"></span>
-                </div>
-                <div class="image-upload-area" data-id="upload2">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 3: التحقق من التثبيت وأوضاع Snort -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 3: التعرف على أوضاع Snort</h2>
-            </div>
-            <div class="card-body">
-                <p>Snort يمكن أن يعمل بعدة أوضاع. جرب الأمر التالي لعرض الحزم مباشرة (وضع الـ sniffer):</p>
-                <div class="command-box">
-sudo snort -v -i eth0   # تأكد من استبدال eth0 باسم واجهتك الصحيح
-                </div>
-                <p>اضغط Ctrl+C بعد رؤية بعض الحزم.</p>
-                <div class="question">
-                    <p><strong>سؤال 3:</strong> ما الفرق بين وضع الـ sniffer ووضع IDS في Snort؟</p>
-                    <textarea class="answer-textarea" id="q3" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q3"></span>
-                </div>
-                <div class="question">
-                    <p><strong>سؤال 4: (اختر)</strong> أي من الأوامر التالية يستخدم لتشغيل Snort في وضع IDS مع قراءة قواعد من ملف التكوين؟</p>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="q4_1"> <code>snort -v -i eth0</code>
-                        <span class="print-value" data-for="q4_1"></span>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="q4_2"> <code>snort -c /etc/snort/snort.conf -A console -i eth0</code>
-                        <span class="print-value" data-for="q4_2"></span>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="q4_3"> <code>snort -r snort.log</code>
-                        <span class="print-value" data-for="q4_3"></span>
-                    </div>
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="q4_4"> <code>snort -D -c /etc/snort/snort.conf</code>
-                        <span class="print-value" data-for="q4_4"></span>
-                    </div>
-                </div>
-                <div class="image-upload-area" data-id="upload3">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 4: بنية ملفات Snort وقواعده -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 4: استكشاف بنية Snort</h2>
-            </div>
-            <div class="card-body">
-                <p>الملفات الرئيسية لـ Snort موجودة في <code>/etc/snort</code>. استعرض محتويات المجلد:</p>
-                <div class="command-box">
-ls -la /etc/snort
-                </div>
-                <p>ملف القواعد المحلية هو <code>/etc/snort/rules/local.rules</code>. افتحه وأضف القاعدة التالية لكشف محاولات الاتصال على منفذ 22 (SSH):</p>
-                <div class="command-box">
-alert tcp any any -> $HOME_NET 22 (msg:"SSH connection detected"; sid:1000001; rev:1;)
-                </div>
-                <div class="question">
-                    <p><strong>سؤال 5:</strong> اشرح مكونات القاعدة السابقة: ماذا يعني <code>alert</code>، <code>tcp</code>، <code>$HOME_NET</code>، <code>sid:1000001</code>؟</p>
-                    <textarea class="answer-textarea" id="q5" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q5"></span>
-                </div>
-                <div class="image-upload-area" data-id="upload4">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 5: تشغيل Snort في وضع IDS واختبار القاعدة -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 5: اختبار القاعدة في وضع IDS</h2>
-            </div>
-            <div class="card-body">
-                <p>شغل Snort في وضع IDS مع تفعيل القواعد المحلية:</p>
-                <div class="command-box">
-sudo snort -c /etc/snort/snort.conf -A console -i eth0
-                </div>
-                <p>من جهاز آخر على نفس الشبكة (أو حتى من نفس الجهاز باستخدام <code>ssh localhost</code>) قم بمحاولة اتصال SSH على الجهاز المستضيف.</p>
-                <p>يجب أن ترى رسالة تنبيه "SSH connection detected" على شاشة Snort.</p>
-                <div class="question">
-                    <p><strong>سؤال 6:</strong> إذا لم تظهر أي تنبيهات، ما هي الأسباب المحتملة؟ اذكر ثلاثة أسباب.</p>
-                    <textarea class="answer-textarea" id="q6" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q6"></span>
-                </div>
-                <div class="image-upload-area" data-id="upload5">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 6: تسجيل التنبيهات في ملف -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 6: تسجيل التنبيهات في ملف</h2>
-            </div>
-            <div class="card-body">
-                <p>بدلاً من عرض التنبيهات على الشاشة، يمكن تسجيلها في ملف. جرب الأمر:</p>
-                <div class="command-box">
-sudo snort -c /etc/snort/snort.conf -l /var/log/snort -i eth0
-                </div>
-                <p>ثم قم بتكرار محاولة SSH. بعد ذلك، اقرأ ملف السجل باستخدام:</p>
-                <div class="command-box">
-sudo snort -r /var/log/snort/snort.log.xxxxxx
-                </div>
-                <div class="question">
-                    <p><strong>سؤال 7:</strong> ما الفرق بين الملفين <code>alert</code> و <code>snort.log.xxxxxx</code> داخل مجلد السجلات؟</p>
-                    <textarea class="answer-textarea" id="q7" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q7"></span>
-                </div>
-                <div class="image-upload-area" data-id="upload6">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 7: إنشاء قواعد إضافية -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 7: كتابة قواعد متقدمة</h2>
-            </div>
-            <div class="card-body">
-                <p>أضف القواعد التالية إلى local.rules:</p>
-                <div class="command-box">
-# كشف محاولات ping (ICMP echo requests)<br>
-alert icmp any any -> $HOME_NET any (msg:"ICMP Ping detected"; itype:8; sid:1000002; rev:1;)<br><br>
-# كشف محاولات مسح المنافذ (أكثر من 5 محاولات خلال ثانيتين)<br>
-alert tcp any any -> $HOME_NET any (msg:"Port scan detected"; flags:S; threshold:type both, track by_src, count 5, seconds 2; sid:1000003; rev:1;)
-                </div>
-                <div class="question">
-                    <p><strong>سؤال 8:</strong> ماذا تعني المعلمة <code>itype:8</code> في قاعدة ICMP؟</p>
-                    <textarea class="answer-textarea" id="q8" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q8"></span>
-                </div>
-                <div class="question">
-                    <p><strong>سؤال 9:</strong> اشرح كيف تعمل قاعدة كشف مسح المنافذ (sid:1000003). ما دور <code>threshold</code>؟</p>
-                    <textarea class="answer-textarea" id="q9" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q9"></span>
-                </div>
-                <div class="image-upload-area" data-id="upload7">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 8: اختبار القواعد الجديدة -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 8: اختبار القواعد الجديدة</h2>
-            </div>
-            <div class="card-body">
-                <p>أعد تشغيل Snort في وضع IDS، ثم من جهاز آخر (أو من نفس الجهاز) قم بتشغيل:</p>
-                <div class="command-box">
-ping 192.168.x.x   # عنوان الـ Ubuntu<br>
-nmap -sS 192.168.x.x
-                </div>
-                <p>لاحظ ظهور التنبيهات.</p>
-                <div class="question">
-                    <p><strong>سؤال 10:</strong> إذا أردت تحويل Snort إلى نظام IPS (Inline) بدلاً من IDS، ما هي المتطلبات الأساسية؟ (اذكر خطوة واحدة على الأقل).</p>
-                    <textarea class="answer-textarea" id="q10" placeholder="اكتب إجابتك هنا..."></textarea>
-                    <span class="print-value" data-for="q10"></span>
-                </div>
-                <div class="image-upload-area" data-id="upload8">
-                    <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                    <input type="file" accept="image/*" style="display: none;">
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 9: تحليل تنبيه معين -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 9: تحليل تنبيه</h2>
-            </div>
-            <div class="card-body">
-                <p>اختر أحد التنبيهات التي ظهرت (مثل تنبيه SSH) وانقل محتواه كاملاً هنا:</p>
-                <textarea class="answer-textarea" id="q11_text" placeholder="الصق محتوى التنبيه هنا..."></textarea>
-                <span class="print-value" data-for="q11_text"></span>
-                <div class="question">
-                    <p><strong>سؤال 11:</strong> من خلال قراءة سطر التنبيه، استخرج:</p>
-                    <ul>
-                        <li>البروتوكول: <input type="text" id="q11_proto" style="width:150px;"> <span class="print-value" data-for="q11_proto"></span></li>
-                        <li>عنوان IP المصدر: <input type="text" id="q11_src" style="width:150px;"> <span class="print-value" data-for="q11_src"></span></li>
-                        <li>عنوان IP الوجهة: <input type="text" id="q11_dst" style="width:150px;"> <span class="print-value" data-for="q11_dst"></span></li>
-                        <li>رقم القاعدة (SID): <input type="text" id="q11_sid" style="width:150px;"> <span class="print-value" data-for="q11_sid"></span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- المهمة 10: اقتراح قواعد -->
-        <div class="main-card">
-            <div class="card-header">
-                <h2>المهمة 10: تصميم قواعد مخصصة</h2>
-            </div>
-            <div class="card-body">
-                <p>بناءً على ما تعلمته، اكتب قواعد Snort مناسبة للسيناريوهات التالية (استخدم أرقام SID أعلى من 1000000):</p>
-                <ol>
-                    <li>كشف محاولة الوصول إلى موقع إداري (مثل /admin) على خادم ويب (منفذ 80).</li>
-                    <li>كشف محاولة تحميل ملف تنفيذي (مثل .exe) عبر HTTP.</li>
-                    <li>كشف هجوم SQL Injection بسيط يحتوي على عبارة ' OR 1=1 --.</li>
-                </ol>
-                <textarea class="answer-textarea" id="q12" placeholder="اكتب قواعدك هنا..." style="min-height: 150px;"></textarea>
-                <span class="print-value" data-for="q12"></span>
-            </div>
-        </div>
-
-        <!-- خاتمة -->
-        <div class="main-card">
-            <div class="card-header" style="background: #198754;">
-                <h2>انتهت المهام</h2>
-            </div>
-            <div class="card-body">
-                <p>يرجى مراجعة جميع الإجابات والتأكد من إرفاق الصور المطلوبة. بعد الانتهاء، استخدم زر "تحميل الصفحة كـ PDF" في أعلى الصفحة لحفظ المشروع كملف PDF، ثم قم برفعه على المنصة التعليمية.</p>
-                <p style="color: #dc3545;"><strong>ملاحظة:</strong> تأكد من ظهور الصور التي أرفقتها بشكل صحيح قبل الحفظ.</p>
-            </div>
+        <div class="card-body">
+            <p><i class="fas fa-info-circle"></i> هذا المشروع يهدف إلى تطبيق عملي شامل لنظام كشف ومنع التسلل Snort على بيئة Ubuntu داخل VMware. يجب عليك تنفيذ الخطوات الموضحة، وتوثيق كل خطوة بصورة، والإجابة على الأسئلة المطروحة. في النهاية، قم بتحميل هذه الصفحة كملف PDF وتقديمه عبر المنصة التعليمية.</p>
+            <ul>
+                <li><strong>درجة المشروع:</strong> 30% من التقييم النهائي.</li>
+                <li><strong>المتطلبات:</strong> جهاز مثبت عليه VMware، ملف Ubuntu 20.04/22.04 ISO، اتصال بالإنترنت.</li>
+                <li><strong>هام:</strong> يجب إدخال الاسم والرقم الجامعي ثم الضغط "بدء المشروع" لتمكين الإجابة.</li>
+            </ul>
         </div>
     </div>
 
-    <footer>
-        <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية | مساق أمن الشبكات (SYBS-2304)</p>
-        <div class="copyright">
-            © 2026 سايبر خليل - جميع الحقوق محفوظة.
+    <!-- بطاقة معلومات الطالب وزر البدء -->
+    <div class="student-info-card" id="studentInfoCard">
+        <div class="info-item">
+            <label>الاسم الكامل:</label>
+            <input type="text" id="studentName" placeholder="أدخل اسمك">
+            <span class="print-value" id="printNameSpan"></span>
         </div>
-    </footer>
+        <div class="info-item">
+            <label>الرقم الجامعي:</label>
+            <input type="text" id="studentId" placeholder="أدخل رقمك الجامعي">
+            <span class="print-value" id="printIdSpan"></span>
+        </div>
+        <div class="info-item">
+            <button id="startProjectBtn" class="start-btn"><i class="fas fa-play"></i> بدء المشروع</button>
+        </div>
+    </div>
 
-    <script>
-        // ========== إدارة رفع الصور (كما هي مع تحسين بسيط) ==========
-        let activeUploadArea = null;
-        const uploadAreas = document.querySelectorAll('.image-upload-area');
+    <!-- حاوية جميع الأسئلة والمهام (سيتم تفعيلها بعد البدء) -->
+    <div id="projectContent" style="opacity: 0.6; pointer-events: none;">
+        <div class="lock-message" id="lockMsg">
+            <i class="fas fa-lock"></i> المشروع مقفل. الرجاء إدخال الاسم والرقم الجامعي والضغط على "بدء المشروع".
+        </div>
 
-        function setActiveArea(area) {
-            uploadAreas.forEach(a => a.classList.remove('active'));
-            area.classList.add('active');
-            activeUploadArea = area;
+        <!-- المهمة 1 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 1: إعداد البيئة الافتراضية</h2></div>
+            <div class="card-body">
+                <ol><li>قم بإنشاء آلة افتراضية جديدة في VMware باسم "Snort-Lab".</li><li>اختر نظام التشغيل Linux (Ubuntu 64-bit).</li><li>خصص الذاكرة 2GB على الأقل، والمعالج بنواة واحدة.</li><li>أنشئ قرص صلب بسعة 20GB (موحد الملفات).</li><li>قم بتثبيت Ubuntu على الآلة الافتراضية (استخدم إعدادات اللغة الإنجليزية، واسم المستخدم وكلمة المرور من اختيارك).</li></ol>
+                <div class="question"><p><strong>سؤال 1:</strong> لماذا نستخدم بيئة افتراضية بدلاً من التثبيت المباشر على الجهاز الفعلي؟ (اذكر سببين)</p>
+                <textarea class="answer-textarea" id="q1" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q1"></div></div>
+                <div class="image-upload-area" data-id="upload1"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 2 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 2: تثبيت Snort على Ubuntu</h2></div>
+            <div class="card-body">
+                <div class="command-box">sudo apt update<br>sudo apt install snort -y</div>
+                <div class="question"><p><strong>سؤال 2:</strong> ما هو عنوان IP الذي حصلت عليه واجهة الشبكة في Ubuntu؟ وما هو نطاق الشبكة الذي أدخلته أثناء تثبيت Snort؟</p>
+                <textarea class="answer-textarea" id="q2" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q2"></div></div>
+                <div class="image-upload-area" data-id="upload2"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 3 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 3: التعرف على أوضاع Snort</h2></div>
+            <div class="card-body">
+                <div class="command-box">sudo snort -v -i eth0</div>
+                <div class="question"><p><strong>سؤال 3:</strong> ما الفرق بين وضع الـ sniffer ووضع IDS في Snort؟</p>
+                <textarea class="answer-textarea" id="q3" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q3"></div></div>
+                <div class="question"><p><strong>سؤال 4: (اختر)</strong> أي من الأوامر التالية يستخدم لتشغيل Snort في وضع IDS مع قراءة قواعد من ملف التكوين؟</p>
+                <div class="checkbox-item"><input type="checkbox" id="q4_1"> <code>snort -v -i eth0</code><span class="print-value" id="print_q4_1"></span></div>
+                <div class="checkbox-item"><input type="checkbox" id="q4_2"> <code>snort -c /etc/snort/snort.conf -A console -i eth0</code><span class="print-value" id="print_q4_2"></span></div>
+                <div class="checkbox-item"><input type="checkbox" id="q4_3"> <code>snort -r snort.log</code><span class="print-value" id="print_q4_3"></span></div>
+                <div class="checkbox-item"><input type="checkbox" id="q4_4"> <code>snort -D -c /etc/snort/snort.conf</code><span class="print-value" id="print_q4_4"></span></div></div>
+                <div class="image-upload-area" data-id="upload3"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 4 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 4: استكشاف بنية Snort</h2></div>
+            <div class="card-body">
+                <div class="command-box">ls -la /etc/snort</div>
+                <div class="command-box">alert tcp any any -> $HOME_NET 22 (msg:"SSH connection detected"; sid:1000001; rev:1;)</div>
+                <div class="question"><p><strong>سؤال 5:</strong> اشرح مكونات القاعدة السابقة: ماذا يعني <code>alert</code>، <code>tcp</code>، <code>$HOME_NET</code>، <code>sid:1000001</code>؟</p>
+                <textarea class="answer-textarea" id="q5" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q5"></div></div>
+                <div class="image-upload-area" data-id="upload4"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 5 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 5: اختبار القاعدة في وضع IDS</h2></div>
+            <div class="card-body">
+                <div class="command-box">sudo snort -c /etc/snort/snort.conf -A console -i eth0</div>
+                <div class="question"><p><strong>سؤال 6:</strong> إذا لم تظهر أي تنبيهات، ما هي الأسباب المحتملة؟ اذكر ثلاثة أسباب.</p>
+                <textarea class="answer-textarea" id="q6" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q6"></div></div>
+                <div class="image-upload-area" data-id="upload5"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 6 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 6: تسجيل التنبيهات في ملف</h2></div>
+            <div class="card-body">
+                <div class="command-box">sudo snort -c /etc/snort/snort.conf -l /var/log/snort -i eth0</div>
+                <div class="question"><p><strong>سؤال 7:</strong> ما الفرق بين الملفين <code>alert</code> و <code>snort.log.xxxxxx</code> داخل مجلد السجلات؟</p>
+                <textarea class="answer-textarea" id="q7" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q7"></div></div>
+                <div class="image-upload-area" data-id="upload6"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 7 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 7: كتابة قواعد متقدمة</h2></div>
+            <div class="card-body">
+                <div class="command-box">alert icmp any any -> $HOME_NET any (msg:"ICMP Ping detected"; itype:8; sid:1000002; rev:1;)<br>alert tcp any any -> $HOME_NET any (msg:"Port scan detected"; flags:S; threshold:type both, track by_src, count 5, seconds 2; sid:1000003; rev:1;)</div>
+                <div class="question"><p><strong>سؤال 8:</strong> ماذا تعني المعلمة <code>itype:8</code> في قاعدة ICMP؟</p>
+                <textarea class="answer-textarea" id="q8" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q8"></div></div>
+                <div class="question"><p><strong>سؤال 9:</strong> اشرح كيف تعمل قاعدة كشف مسح المنافذ (sid:1000003). ما دور <code>threshold</code>؟</p>
+                <textarea class="answer-textarea" id="q9" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q9"></div></div>
+                <div class="image-upload-area" data-id="upload7"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 8 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 8: اختبار القواعد الجديدة</h2></div>
+            <div class="card-body">
+                <div class="command-box">ping 192.168.x.x<br>nmap -sS 192.168.x.x</div>
+                <div class="question"><p><strong>سؤال 10:</strong> إذا أردت تحويل Snort إلى نظام IPS (Inline) بدلاً من IDS، ما هي المتطلبات الأساسية؟ (اذكر خطوة واحدة على الأقل).</p>
+                <textarea class="answer-textarea" id="q10" placeholder="اكتب إجابتك هنا..."></textarea>
+                <div class="print-value" id="print_q10"></div></div>
+                <div class="image-upload-area" data-id="upload8"><div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div><div class="placeholder-text">اسحب وأفلت الصورة هنا</div><input type="file" accept="image/*" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- المهمة 9 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 9: تحليل تنبيه</h2></div>
+            <div class="card-body">
+                <textarea class="answer-textarea" id="q11_text" placeholder="الصق محتوى التنبيه هنا..."></textarea>
+                <div class="print-value" id="print_q11_text"></div>
+                <div class="question"><p><strong>سؤال 11:</strong> من خلال قراءة سطر التنبيه، استخرج:</p>
+                <ul><li>البروتوكول: <input type="text" id="q11_proto" style="width:150px;"> <span class="print-value" id="print_q11_proto"></span></li>
+                <li>عنوان IP المصدر: <input type="text" id="q11_src" style="width:150px;"> <span class="print-value" id="print_q11_src"></span></li>
+                <li>عنوان IP الوجهة: <input type="text" id="q11_dst" style="width:150px;"> <span class="print-value" id="print_q11_dst"></span></li>
+                <li>رقم القاعدة (SID): <input type="text" id="q11_sid" style="width:150px;"> <span class="print-value" id="print_q11_sid"></span></li></ul></div>
+            </div>
+        </div>
+
+        <!-- المهمة 10 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 10: تصميم قواعد مخصصة</h2></div>
+            <div class="card-body">
+                <ol><li>كشف محاولة الوصول إلى موقع إداري (مثل /admin) على خادم ويب (منفذ 80).</li><li>كشف محاولة تحميل ملف تنفيذي (مثل .exe) عبر HTTP.</li><li>كشف هجوم SQL Injection بسيط يحتوي على عبارة ' OR 1=1 --.</li></ol>
+                <textarea class="answer-textarea" id="q12" placeholder="اكتب قواعدك هنا..." style="min-height: 150px;"></textarea>
+                <div class="print-value" id="print_q12"></div>
+            </div>
+        </div>
+
+        <div class="main-card">
+            <div class="card-header" style="background: #198754;"><h2>انتهت المهام</h2></div>
+            <div class="card-body"><p>يرجى مراجعة جميع الإجابات والتأكد من إرفاق الصور المطلوبة. بعد الانتهاء، استخدم زر "تحميل الصفحة كـ PDF" لحفظ المشروع كملف PDF.</p></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية | مساق أمن الشبكات (SYBS-2304)</p>
+    <div class="copyright">© 2026 سايبر خليل - جميع الحقوق محفوظة.</div>
+</footer>
+
+<script>
+    // -------------------- متغيرات الحالة --------------------
+    let projectStarted = false;
+    const STORAGE_PREFIX = "project_snort_";
+    const STARTED_FLAG = STORAGE_PREFIX + "started";
+    const NAME_KEY = STORAGE_PREFIX + "studentName";
+    const ID_KEY = STORAGE_PREFIX + "studentId";
+
+    // -------------------- دوال الحفظ والتحميل --------------------
+    function saveAllData() {
+        if (!projectStarted) return;
+        // حفظ النصوص
+        for (let i = 1; i <= 12; i++) {
+            let elem = document.getElementById(`q${i}`);
+            if (elem) localStorage.setItem(`${STORAGE_PREFIX}q${i}`, elem.value);
         }
-
-        uploadAreas.forEach(area => {
-            const fileInput = area.querySelector('input[type="file"]');
-
-            area.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'IMG' && e.target.tagName !== 'BUTTON') {
-                    setActiveArea(area);
-                    fileInput.click();
-                }
-            });
-
-            area.setAttribute('tabindex', '-1');
-            area.addEventListener('focus', () => setActiveArea(area));
-
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) handleImage(file, area);
-                fileInput.value = '';
-            });
-
-            area.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                area.classList.add('dragover');
-            });
-
-            area.addEventListener('dragleave', () => {
-                area.classList.remove('dragover');
-            });
-
-            area.addEventListener('drop', (e) => {
-                e.preventDefault();
-                area.classList.remove('dragover');
-                setActiveArea(area);
-                const file = e.dataTransfer.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    handleImage(file, area);
-                } else {
-                    alert('يرجى إفلات ملف صورة فقط.');
-                }
-            });
-        });
-
-        document.addEventListener('paste', (e) => {
-            if (!activeUploadArea) {
-                alert('الرجاء النقر على منطقة رفع الصورة أولاً قبل اللصق.');
-                return;
-            }
-            const items = e.clipboardData.items;
-            for (let i = 0; i < items.length; i++) {
-                if (items[i].type.indexOf('image') !== -1) {
-                    const blob = items[i].getAsFile();
-                    handleImage(blob, activeUploadArea);
-                    break;
-                }
+        // حفظ حقول الإدخال الإضافية (سؤال 11)
+        const proto = document.getElementById('q11_proto');
+        const src = document.getElementById('q11_src');
+        const dst = document.getElementById('q11_dst');
+        const sid = document.getElementById('q11_sid');
+        if(proto) localStorage.setItem(`${STORAGE_PREFIX}q11_proto`, proto.value);
+        if(src) localStorage.setItem(`${STORAGE_PREFIX}q11_src`, src.value);
+        if(dst) localStorage.setItem(`${STORAGE_PREFIX}q11_dst`, dst.value);
+        if(sid) localStorage.setItem(`${STORAGE_PREFIX}q11_sid`, sid.value);
+        // حفظ مربعات الاختيار
+        for(let i=1; i<=4; i++) {
+            let cb = document.getElementById(`q4_${i}`);
+            if(cb) localStorage.setItem(`${STORAGE_PREFIX}q4_${i}`, cb.checked);
+        }
+        // حفظ الصور (dataURL)
+        document.querySelectorAll('.image-upload-area').forEach((area, idx) => {
+            const img = area.querySelector('img');
+            if(img && img.src) {
+                localStorage.setItem(`${STORAGE_PREFIX}img_${idx}`, img.src);
+            } else {
+                localStorage.removeItem(`${STORAGE_PREFIX}img_${idx}`);
             }
         });
+    }
 
-        function handleImage(file, area) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
+    function loadAllData() {
+        // تحميل النصوص
+        for (let i = 1; i <= 12; i++) {
+            let saved = localStorage.getItem(`${STORAGE_PREFIX}q${i}`);
+            let elem = document.getElementById(`q${i}`);
+            if (elem && saved !== null) elem.value = saved;
+            let printSpan = document.getElementById(`print_q${i}`);
+            if(printSpan && saved) printSpan.innerText = saved;
+        }
+        // تحميل حقول السؤال 11
+        const proto = document.getElementById('q11_proto');
+        if(proto) { let v = localStorage.getItem(`${STORAGE_PREFIX}q11_proto`); if(v) proto.value = v; }
+        const src = document.getElementById('q11_src');
+        if(src) { let v = localStorage.getItem(`${STORAGE_PREFIX}q11_src`); if(v) src.value = v; }
+        const dst = document.getElementById('q11_dst');
+        if(dst) { let v = localStorage.getItem(`${STORAGE_PREFIX}q11_dst`); if(v) dst.value = v; }
+        const sid = document.getElementById('q11_sid');
+        if(sid) { let v = localStorage.getItem(`${STORAGE_PREFIX}q11_sid`); if(v) sid.value = v; }
+        // مربعات الاختيار
+        for(let i=1; i<=4; i++) {
+            let cb = document.getElementById(`q4_${i}`);
+            if(cb) {
+                let val = localStorage.getItem(`${STORAGE_PREFIX}q4_${i}`);
+                if(val !== null) cb.checked = (val === 'true');
+            }
+        }
+        // تحميل الصور
+        document.querySelectorAll('.image-upload-area').forEach((area, idx) => {
+            let savedSrc = localStorage.getItem(`${STORAGE_PREFIX}img_${idx}`);
+            if(savedSrc && savedSrc.startsWith('data:image')) {
+                // إعادة بناء الصورة
                 const img = document.createElement('img');
-                img.src = e.target.result;
-                img.alt = 'صورة مرفوعة';
+                img.src = savedSrc;
                 area.innerHTML = '';
                 area.appendChild(img);
                 const removeBtn = document.createElement('button');
@@ -653,50 +505,189 @@ nmap -sS 192.168.x.x
                 removeBtn.className = 'remove-btn';
                 removeBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    area.innerHTML = `
-                        <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                        <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
-                        <input type="file" accept="image/*" style="display: none;">
-                    `;
-                    const newFileInput = area.querySelector('input[type="file"]');
-                    newFileInput.addEventListener('change', (e) => {
-                        const file = e.target.files[0];
-                        if (file) handleImage(file, area);
-                        newFileInput.value = '';
-                    });
+                    resetImageArea(area);
+                    saveAllData();
                 });
                 area.appendChild(removeBtn);
-            };
-            reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    function resetImageArea(area) {
+        area.innerHTML = `
+            <div class="placeholder-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <div class="placeholder-text">اسحب وأفلت الصورة هنا أو انقر للاختيار<br>يمكنك أيضاً لصق الصورة (Ctrl+V)</div>
+            <input type="file" accept="image/*" style="display: none;">
+        `;
+        const fileInput = area.querySelector('input[type="file"]');
+        attachImageHandlers(area, fileInput);
+    }
+
+    function attachImageHandlers(area, fileInput) {
+        area.addEventListener('click', (e) => { if(e.target.tagName !== 'IMG' && e.target.tagName !== 'BUTTON') fileInput.click(); });
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if(file) handleImage(file, area);
+            fileInput.value = '';
+        });
+        area.addEventListener('dragover', (e) => { e.preventDefault(); area.classList.add('dragover'); });
+        area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+        area.addEventListener('drop', (e) => {
+            e.preventDefault();
+            area.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if(file && file.type.startsWith('image/')) handleImage(file, area);
+        });
+    }
+
+    function handleImage(file, area) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            area.innerHTML = '';
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            area.appendChild(img);
+            const removeBtn = document.createElement('button');
+            removeBtn.textContent = 'حذف الصورة';
+            removeBtn.className = 'remove-btn';
+            removeBtn.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                resetImageArea(area);
+                saveAllData();
+            });
+            area.appendChild(removeBtn);
+            saveAllData();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // منع اللصق في textareas (حسب الطلب)
+    function preventPasteOnTextareas() {
+        document.querySelectorAll('.answer-textarea').forEach(ta => {
+            ta.addEventListener('paste', (e) => { e.preventDefault(); alert("اللصق غير مسموح في الإجابات. يرجى الكتابة يدوياً."); });
+        });
+    }
+
+    // تفعيل / تعطيل واجهة المشروع
+    function setProjectEnabled(enabled) {
+        const container = document.getElementById('projectContent');
+        const lockMsgDiv = document.getElementById('lockMsg');
+        if (enabled) {
+            container.style.opacity = '1';
+            container.style.pointerEvents = 'auto';
+            if(lockMsgDiv) lockMsgDiv.style.display = 'none';
+            // تمكين جميع حقول الإدخال
+            document.querySelectorAll('.answer-textarea, .image-upload-area, .checkbox-item input, #q11_proto, #q11_src, #q11_dst, #q11_sid').forEach(el => {
+                if(el.classList && el.classList.contains('image-upload-area')) return;
+                el.disabled = false;
+            });
+            // إعادة رفع الصور (تمكين)
+            document.querySelectorAll('.image-upload-area').forEach(area => {
+                area.style.pointerEvents = 'auto';
+                area.style.cursor = 'pointer';
+            });
+        } else {
+            container.style.opacity = '0.6';
+            container.style.pointerEvents = 'none';
+            if(lockMsgDiv) lockMsgDiv.style.display = 'block';
         }
+    }
 
-        if (uploadAreas.length > 0) setActiveArea(uploadAreas[0]);
+    // بدء المشروع
+    function startProject() {
+        const nameInput = document.getElementById('studentName');
+        const idInput = document.getElementById('studentId');
+        const name = nameInput.value.trim();
+        const id = idInput.value.trim();
+        if(name === "" || id === "") {
+            alert("يرجى إدخال الاسم الكامل والرقم الجامعي قبل بدء المشروع.");
+            return;
+        }
+        // حفظ بيانات الطالب
+        localStorage.setItem(NAME_KEY, name);
+        localStorage.setItem(ID_KEY, id);
+        localStorage.setItem(STARTED_FLAG, "true");
+        projectStarted = true;
+        // عرض البيانات في الطباعة
+        document.getElementById('printNameSpan').innerText = name;
+        document.getElementById('printIdSpan').innerText = id;
+        // تعطيل حقول الاسم والرقم وزر البدء
+        nameInput.disabled = true;
+        idInput.disabled = true;
+        document.getElementById('startProjectBtn').disabled = true;
+        // تفعيل المحتوى
+        setProjectEnabled(true);
+        // تحميل أي بيانات محفوظة مسبقاً
+        loadAllData();
+        // ربط أحداث الحفظ التلقائي
+        attachAutoSave();
+        // منع اللصق
+        preventPasteOnTextareas();
+    }
 
-        // ========== إدارة حقول الطباعة (بدلاً from beforeprint) ==========
-        // ربط حقول الإدخال بالـ spans المخصصة للطباعة
-        document.querySelectorAll('input[type="text"], textarea').forEach(field => {
-            const printSpan = document.querySelector(`.print-value[data-for="${field.id}"]`);
-            if (printSpan) {
-                // تحديث span عند تغيير المحتوى
-                field.addEventListener('input', () => {
-                    printSpan.innerText = field.value;
-                });
-                // تعيين القيمة الأولية إن وجدت
-                if (field.value) printSpan.innerText = field.value;
-            }
+    function attachAutoSave() {
+        // حفظ عند تغيير أي حقل نصي
+        document.querySelectorAll('.answer-textarea, #q11_proto, #q11_src, #q11_dst, #q11_sid').forEach(el => {
+            el.addEventListener('input', () => saveAllData());
         });
+        // حفظ عند تغيير checkbox
+        for(let i=1;i<=4;i++) {
+            let cb = document.getElementById(`q4_${i}`);
+            if(cb) cb.addEventListener('change', () => saveAllData());
+        }
+        // الصور يتم حفظها داخل handleImage بالفعل
+    }
 
-        // معالجة مربعات الاختيار
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            const printSpan = document.querySelector(`.print-value[data-for="${checkbox.id}"]`);
-            if (printSpan) {
-                const updateCheckbox = () => {
-                    printSpan.innerText = checkbox.checked ? '✓' : '✗';
-                };
-                checkbox.addEventListener('change', updateCheckbox);
-                updateCheckbox(); // تعيين الحالة الأولية
-            }
+    // التحقق من حالة بدء سابقة عند تحميل الصفحة
+    function checkPreviousStart() {
+        const started = localStorage.getItem(STARTED_FLAG);
+        const savedName = localStorage.getItem(NAME_KEY);
+        const savedId = localStorage.getItem(ID_KEY);
+        if(started === "true" && savedName && savedId) {
+            document.getElementById('studentName').value = savedName;
+            document.getElementById('studentId').value = savedId;
+            document.getElementById('studentName').disabled = true;
+            document.getElementById('studentId').disabled = true;
+            document.getElementById('startProjectBtn').disabled = true;
+            document.getElementById('printNameSpan').innerText = savedName;
+            document.getElementById('printIdSpan').innerText = savedId;
+            projectStarted = true;
+            setProjectEnabled(true);
+            loadAllData();
+            attachAutoSave();
+            preventPasteOnTextareas();
+        } else {
+            // المشروع مقفل حتى البدء
+            setProjectEnabled(false);
+            // إعداد رفع الصور مع تعطيل مؤقت (سيتم تمكينها بعد البدء)
+            document.querySelectorAll('.image-upload-area').forEach(area => {
+                const fileInput = area.querySelector('input[type="file"]');
+                attachImageHandlers(area, fileInput);
+                area.style.pointerEvents = 'none';
+            });
+            // تعطيل جميع حقول النص
+            document.querySelectorAll('.answer-textarea, .checkbox-item input, #q11_proto, #q11_src, #q11_dst, #q11_sid').forEach(el => {
+                if(el.tagName === 'INPUT' && el.type === 'checkbox') el.disabled = true;
+                else if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.disabled = true;
+            });
+        }
+    }
+
+    // تهيئة جميع مناطق رفع الصور (حتى قبل البدء)
+    function initAllImageAreas() {
+        document.querySelectorAll('.image-upload-area').forEach(area => {
+            const fileInput = area.querySelector('input[type="file"]');
+            attachImageHandlers(area, fileInput);
         });
-    </script>
+    }
+
+    window.onload = () => {
+        initAllImageAreas();
+        checkPreviousStart();
+        document.getElementById('startProjectBtn').addEventListener('click', startProject);
+        // منع اللصق على الحقول حتى قبل البدء (احترازي)
+        preventPasteOnTextareas();
+    };
+</script>
 </body>
 </html>

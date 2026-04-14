@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نموذج إجابة المشروع: Snort IDS/IPS | دبلوم أمن المعلومات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .project-header {
+            background: linear-gradient(90deg, #6610f2 0%, #520dc2 100%);
+        }
+        .question {
+            background: #e9ecef;
+            border-right: 4px solid #198754;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        .command-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 6px;
+            direction: ltr;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+        }
+        .answer-box {
+            background: #f0f8ff;
+            border: 1px solid #b8daff;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 0.75rem;
+            text-align: right;
+        }
+        th {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <header class="project-header">
+        <div class="header-content">
+            <h1>نموذج إجابة المشروع: تطبيق Snort كنظام IDS/IPS</h1>
+            <p>دبلوم أمن المعلومات | مساق أمن الشبكات (SYBS-2304)</p>
+            <div class="course-info">
+                <strong>الاسم:</strong> [اسم الطالب] | <strong>الرقم الجامعي:</strong> [الرقم]
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-card">
+            <div class="card-header" style="background: #6f42c1;">
+                <h2>نموذج الإجابة (للأغراض التعليمية)</h2>
+            </div>
+            <div class="card-body">
+                <p>هذه الصفحة تحتوي على إجابات نموذجية لأسئلة المشروع. الصور غير مرفقة، والإجابات مختصرة ولكنها صحيحة.</p>
+            </div>
+        </div>
+
+        <!-- المهمة 1 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 1: إعداد البيئة الافتراضية</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 1:</strong> لماذا نستخدم بيئة افتراضية بدلاً من التثبيت المباشر على الجهاز الفعلي؟ (اذكر سببين)</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong><br>
+                        1. العزل: البيئة الافتراضية تعزل النظام المستهدف عن الجهاز المضيف، مما يمنع أي ضرر محتمل من الهجمات التجريبية أو الأخطاء.<br>
+                        2. المرونة: يمكن إنشاء لقطات (Snapshots) لحفظ حالة النظام والعودة إليها بسهولة في حال حدوث خطأ.<br>
+                        3. توفير الموارد: يمكن تشغيل عدة أنظمة على جهاز مادي واحد دون الحاجة إلى أجهزة إضافية.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 2 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 2: تثبيت Snort</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 2:</strong> ما هو عنوان IP الذي حصلت عليه واجهة الشبكة في Ubuntu؟ وما هو نطاق الشبكة الذي أدخلته أثناء تثبيت Snort؟</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong> عنوان IP هو 192.168.1.100 (مثال) والنطاق المدخل هو 192.168.1.0/24.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 3 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 3: التعرف على أوضاع Snort</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 3:</strong> ما الفرق بين وضع الـ sniffer ووضع IDS في Snort؟</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong> وضع الـ sniffer يعرض الحزم على الشاشة فقط ولا يقوم بأي تحليل أمني. أما وضع IDS فيستخدم قواعد لكشف الأنشطة الضارة ويمكنه تسجيل التنبيهات وإرسالها.
+                    </div>
+                </div>
+                <div class="question">
+                    <p><strong>سؤال 4: (اختر)</strong> أي من الأوامر التالية يستخدم لتشغيل Snort في وضع IDS مع قراءة قواعد من ملف التكوين؟</p>
+                    <div class="checkbox-item"><input type="checkbox"> <code>snort -v -i eth0</code></div>
+                    <div class="checkbox-item"><input type="checkbox" checked> <code>snort -c /etc/snort/snort.conf -A console -i eth0</code></div>
+                    <div class="checkbox-item"><input type="checkbox"> <code>snort -r snort.log</code></div>
+                    <div class="checkbox-item"><input type="checkbox"> <code>snort -D -c /etc/snort/snort.conf</code></div>
+                    <div class="answer-box">الإجابة الصحيحة هي الخيار الثاني.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 4 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 4: استكشاف بنية Snort</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 5:</strong> اشرح مكونات القاعدة السابقة: ماذا يعني <code>alert</code>، <code>tcp</code>، <code>$HOME_NET</code>، <code>sid:1000001</code>؟</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong><br>
+                        - <code>alert</code>: إجراء القاعدة، أي توليد تنبيه عند التطابق.<br>
+                        - <code>tcp</code>: البروتوكول المستهدف.<br>
+                        - <code>$HOME_NET</code>: متغير يعبّر عن الشبكة الداخلية (التي تم تعريفها أثناء التثبيت).<br>
+                        - <code>sid:1000001</code>: معرف فريد للقاعدة (يجب أن يكون أكبر من 1,000,000 للقواعد المخصصة).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 5 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 5: اختبار القاعدة في وضع IDS</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 6:</strong> إذا لم تظهر أي تنبيهات، ما هي الأسباب المحتملة؟ اذكر ثلاثة أسباب.</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong><br>
+                        1. الواجهة المستخدمة غير صحيحة (ليست الواجهة التي تمر عليها الحركة).<br>
+                        2. القاعدة لم تُفعّل أو يوجد خطأ في صياغتها.<br>
+                        3. الـ HOME_NET غير مضبوط بشكل صحيح، فلا تعتبر الحركة واردة إلى الشبكة الداخلية.<br>
+                        4. جدار الحماية يمنع وصول الحركة إلى Snort.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 6 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 6: تسجيل التنبيهات في ملف</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 7:</strong> ما الفرق بين الملفين <code>alert</code> و <code>snort.log.xxxxxx</code> داخل مجلد السجلات؟</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong> ملف <code>alert</code> يحتوي على التنبيهات بنص مقروء. ملف <code>snort.log.xxxxxx</code> هو ملف ثنائي (binary) يمكن قراءته باستخدام الأمر <code>snort -r</code> ويعرض تفاصيل الحزم التي سببت التنبيه.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 7 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 7: كتابة قواعد متقدمة</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 8:</strong> ماذا تعني المعلمة <code>itype:8</code> في قاعدة ICMP؟</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong> <code>itype:8</code> تعني نوع رسالة ICMP التي يتم الكشف عنها، والرقم 8 يشير إلى طلب الصدى (Echo Request) أي الـ ping.
+                    </div>
+                </div>
+                <div class="question">
+                    <p><strong>سؤال 9:</strong> اشرح كيف تعمل قاعدة كشف مسح المنافذ (sid:1000003). ما دور <code>threshold</code>؟</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong> القاعدة تكشف حزم TCP SYN (flags:S) القادمة إلى أي منفذ على الشبكة الداخلية. تستخدم <code>threshold</code> لتحديد أنه في حالة حدوث 5 محاولات خلال ثانيتين من نفس المصدر، يتم توليد تنبيه واحد فقط. هذا يقلل من عدد التنبيهات الكاذبة (False Positives) الناتجة عن المسح البسيط.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 8 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 8: اختبار القواعد الجديدة</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 10:</strong> إذا أردت تحويل Snort إلى نظام IPS (Inline) بدلاً من IDS، ما هي المتطلبات الأساسية؟ (اذكر خطوة واحدة على الأقل).</p>
+                    <div class="answer-box">
+                        <strong>الإجابة:</strong> يجب تشغيل Snort في وضع inline عبر استخدام <code>nfqueue</code> أو <code>afpacket</code> مع تكوين القواعد بإجراء <code>drop</code> بدلاً من <code>alert</code>. كما يحتاج النظام إلى ضبط إعدادات الشبكة لتمرير الحزم عبر Snort.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 9 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 9: تحليل تنبيه</h2></div>
+            <div class="card-body">
+                <div class="question">
+                    <p><strong>سؤال 11:</strong> من خلال قراءة سطر التنبيه، استخرج:</p>
+                    <ul>
+                        <li>البروتوكول: <input type="text" value="TCP" readonly style="width:150px;"></li>
+                        <li>عنوان IP المصدر: <input type="text" value="192.168.1.50" readonly style="width:150px;"></li>
+                        <li>عنوان IP الوجهة: <input type="text" value="192.168.1.100" readonly style="width:150px;"></li>
+                        <li>رقم القاعدة (SID): <input type="text" value="1000001" readonly style="width:150px;"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- المهمة 10 -->
+        <div class="main-card">
+            <div class="card-header"><h2>المهمة 10: تصميم قواعد مخصصة</h2></div>
+            <div class="card-body">
+                <div class="answer-box">
+                    <strong>الإجابات النموذجية:</strong><br><br>
+                    <strong>1. كشف محاولة الوصول إلى /admin:</strong><br>
+                    <code>alert tcp any any -> $HOME_NET 80 (msg:"Admin page access"; content:"/admin"; sid:1000004; rev:1;)</code><br><br>
+                    <strong>2. كشف تحميل ملف .exe عبر HTTP:</strong><br>
+                    <code>alert tcp any any -> $HOME_NET 80 (msg:"EXE download detected"; content:".exe"; nocase; sid:1000005; rev:1;)</code><br><br>
+                    <strong>3. كشف SQL Injection بسيط:</strong><br>
+                    <code>alert tcp any any -> $HOME_NET 80 (msg:"SQL Injection attempt"; content:"' OR 1=1 --"; nocase; sid:1000006; rev:1;)</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- خاتمة -->
+        <div class="main-card">
+            <div class="card-header" style="background: #198754;">
+                <h2>انتهى نموذج الإجابة</h2>
+            </div>
+            <div class="card-body">
+                <p>هذه الإجابات مقدمة كمرجع. يرجى من الطلاب تنفيذ المشروع عملياً بأنفسهم والتأكد من فهمهم للمفاهيم.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>دبلوم أمن المعلومات | الكلية الجامعية للعلوم التطبيقية | مساق أمن الشبكات (SYBS-2304)</p>
+        <div class="copyright">© 2026 سايبر خليل - جميع الحقوق محفوظة.</div>
+    </footer>
+</body>
+</html>
