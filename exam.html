@@ -1,0 +1,2529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>SYBS-2304 | الاختبار النهائي – أمن الشبكات (النموذج أ)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* ========== GLOBAL RESET & BASE ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: #0b1120;
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            user-select: none;
+            -webkit-user-select: none;
+            direction: rtl;
+            text-align: right;
+        }
+
+        input,
+        textarea,
+        select {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(30, 50, 80, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30, 50, 80, 0.15) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 24px 50px;
+        }
+
+        /* ========== HEADER ========== */
+        .exam-header {
+            background: rgba(18, 25, 45, 0.92);
+            backdrop-filter: blur(2px);
+            border: 1px solid #2d3a5e;
+            border-radius: 1.2rem;
+            padding: 28px 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .exam-header .badge {
+            display: inline-block;
+            background: #1e3a5f;
+            color: #7dd3fc;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 4px 16px;
+            border-radius: 30px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .exam-header .badge i {
+            margin-right: 6px;
+        }
+
+        .exam-header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f0f9ff;
+            margin-bottom: 6px;
+        }
+
+        .exam-header .sub {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .exam-header .sub i {
+            color: #7dd3fc;
+            margin-right: 6px;
+        }
+
+        .instructor-panel {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 32px;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 0.75rem;
+            padding: 14px 22px;
+            margin-top: 16px;
+            border: 1px solid #1e2d4a;
+        }
+
+        .instructor-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .instructor-item i {
+            color: #7dd3fc;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ========== STUDENT INFO ========== */
+        .student-info-card {
+            background: rgba(18, 25, 45, 0.92);
+            backdrop-filter: blur(2px);
+            border: 1px solid #2d3a5e;
+            border-radius: 1rem;
+            padding: 22px 28px;
+            margin-bottom: 28px;
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .info-item {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .info-item label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .info-item input {
+            width: 100%;
+            padding: 10px 14px;
+            background: #0b1120;
+            border: 1.5px solid #2d3a5e;
+            border-radius: 0.6rem;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .info-item input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .info-item input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ========== TIMER BAR ========== */
+        .timer-bar {
+            background: rgba(18, 25, 45, 0.92);
+            backdrop-filter: blur(2px);
+            border: 1px solid #2d3a5e;
+            border-radius: 1rem;
+            padding: 16px 28px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .timer-bar .label {
+            font-weight: 600;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .timer-bar .label i {
+            color: #fbbf24;
+            margin-right: 8px;
+        }
+
+        .timer {
+            font-family: 'Courier New', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: #0b1120;
+            color: #fbbf24;
+            padding: 4px 22px;
+            border-radius: 50px;
+            letter-spacing: 3px;
+            border: 1px solid #2d3a5e;
+        }
+
+        .timer-bar .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Inter', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+        .btn-success:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+        .btn-danger:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: #fff;
+        }
+        .btn-warning:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+        .btn-warning:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #475569;
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background: #334155;
+            transform: translateY(-2px);
+        }
+
+        .expired-msg {
+            color: #fca5a5;
+            font-weight: 600;
+            background: rgba(220, 38, 38, 0.15);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        #finishExamBtn,
+        #downloadPdfBtn {
+            display: none;
+        }
+
+        /* ========== EXAM CONTAINER ========== */
+        .exam-container {
+            background: rgba(18, 25, 45, 0.92);
+            backdrop-filter: blur(2px);
+            border: 1px solid #2d3a5e;
+            border-radius: 1.2rem;
+            padding: 24px 28px;
+            min-height: 300px;
+        }
+
+        .exam-placeholder {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+        }
+
+        .exam-placeholder i {
+            font-size: 3rem;
+            color: #3b82f6;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .exam-placeholder p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ========== QUESTION CARDS ========== */
+        .question-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #2d3a5e;
+            border-radius: 0.9rem;
+            margin-bottom: 24px;
+            overflow: visible;
+            transition: 0.2s;
+        }
+        .question-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .question-card .q-header {
+            background: rgba(15, 25, 45, 0.7);
+            padding: 14px 22px;
+            border-bottom: 1px solid #2d3a5e;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .question-card .q-header .q-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #2563eb;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.8rem;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .question-card .q-header .q-label {
+            font-weight: 600;
+            color: #7dd3fc;
+            font-size: 0.95rem;
+        }
+
+        .question-card .q-header .q-chapter {
+            margin-left: 0;
+            margin-right: auto;
+            font-size: 0.75rem;
+            background: rgba(59, 130, 246, 0.15);
+            padding: 2px 12px;
+            border-radius: 20px;
+            color: #94a3b8;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .question-card .q-body {
+            padding: 20px 24px;
+        }
+
+        .question-card .q-text {
+            background: rgba(0, 0, 0, 0.25);
+            border-left: 4px solid #3b82f6;
+            padding: 16px 20px;
+            border-radius: 0.5rem;
+            margin-bottom: 18px;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: #e2e8f0;
+            unicode-bidi: plaintext;
+            position: relative;
+            overflow: hidden;
+            min-height: 80px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .question-card .q-text strong {
+            color: #b9e6ff;
+        }
+
+        .question-card .q-text code {
+            background: rgba(0, 0, 0, 0.4);
+            color: #fbbf24;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        /* ===== TRAP TEXT AS WATERMARK ===== */
+        .trap-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0b1120;
+            opacity: 0.08;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            white-space: nowrap;
+            letter-spacing: 2px;
+            text-align: center;
+            width: 90%;
+            z-index: 0;
+            font-family: 'Inter', sans-serif;
+            text-shadow: none;
+            direction: rtl;
+        }
+
+        @media print {
+            .trap-text {
+                color: #ccc !important;
+                opacity: 0.2 !important;
+            }
+        }
+
+        /* ----- MC / TF Options ----- */
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 12px 0 6px 0;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 6px 10px;
+            border-radius: 0.4rem;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+
+        .option-item:hover {
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .option-item input[type="radio"] {
+            margin-top: 4px;
+            flex-shrink: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+            cursor: pointer;
+        }
+
+        .option-item label {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #e2e8f0;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .option-item .option-label {
+            font-weight: 600;
+            color: #94a3b8;
+            margin-right: 6px;
+        }
+
+        .tf-group {
+            display: flex;
+            gap: 24px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tf-group .tf-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 12px 4px 8px;
+            border-radius: 0.4rem;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+
+        .tf-group .tf-item:hover {
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .tf-group .tf-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .tf-group .tf-item label {
+            font-weight: 500;
+            color: #cbd5e1;
+            cursor: pointer;
+        }
+
+        .tf-group .tf-true label {
+            color: #34d399;
+        }
+        .tf-group .tf-false label {
+            color: #f87171;
+        }
+
+        .question-card .answer-area label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .question-card .answer-area label i {
+            color: #7dd3fc;
+            margin-right: 6px;
+        }
+
+        .question-card textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 14px 16px;
+            background: #0b1120;
+            border: 1.5px solid #2d3a5e;
+            border-radius: 0.6rem;
+            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            resize: vertical;
+            transition: 0.2s;
+            unicode-bidi: plaintext;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 400px;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .question-card textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+        }
+
+        .question-card textarea:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .question-card textarea::placeholder {
+            color: #475569;
+        }
+
+        .print-answer {
+            display: none;
+            background: #0b1120;
+            border: 1px solid #2d3a5e;
+            border-radius: 0.5rem;
+            padding: 14px 18px;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #e2e8f0;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .print-student-data {
+            display: none;
+        }
+
+        /* ========== INTEGRITY HASH BOX ========== */
+        .integrity-hash-box {
+            margin-top: 30px;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .integrity-hash-textarea {
+            width: 100%;
+            min-height: 60px;
+            background: #0b1120;
+            border: 1px solid #2d3a5e;
+            color: #131e38;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            padding: 10px;
+            border-radius: 0.5rem;
+            resize: none;
+        }
+
+        .print-integrity-hash {
+            display: none;
+        }
+
+        /* ========== BOTTOM BUTTON ========== */
+        .bottom-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .bottom-actions .btn {
+            padding: 12px 40px;
+            font-size: 1rem;
+        }
+
+        /* ========== FOOTER ========== */
+        .exam-footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #2d3a5e;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .exam-footer strong {
+            color: #94a3b8;
+        }
+
+        /* ========== PASTE WARNING ========== */
+        .paste-warning {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #dc2626;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            z-index: 9999;
+            animation: fadeOut 3.5s forwards;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            70% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(20px);
+            }
+        }
+
+        .fullscreen-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #b91c1c;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            z-index: 9999;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* ========== CONFIRMATION MODAL ========== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #1e293b;
+            border: 1px solid #2d3a5e;
+            border-radius: 1rem;
+            padding: 32px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            animation: modalIn 0.25s ease-out;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-icon {
+            font-size: 2.8rem;
+            color: #fbbf24;
+            margin-bottom: 16px;
+        }
+
+        .modal-box h3 {
+            color: #f0f9ff;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        .modal-box p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-actions .btn {
+            padding: 10px 28px;
+            font-size: 0.95rem;
+        }
+
+        /* ========== RETAKE NOTICE ========== */
+        .retake-notice {
+            background: rgba(30, 58, 95, 0.4);
+            border: 1px solid #1e3a5f;
+            border-radius: 0.75rem;
+            padding: 14px 20px;
+            margin-bottom: 20px;
+            color: #7dd3fc;
+            font-size: 0.9rem;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .retake-notice i {
+            color: #fbbf24;
+            font-size: 1.1rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 780px) {
+            .container {
+                padding: 16px 12px 30px;
+            }
+            .exam-header {
+                padding: 20px 18px;
+            }
+            .exam-header h1 {
+                font-size: 1.5rem;
+            }
+            .student-info-card {
+                padding: 16px 18px;
+                gap: 16px;
+            }
+            .timer-bar {
+                padding: 14px 18px;
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+            .timer-bar .actions {
+                justify-content: center;
+            }
+            .timer {
+                font-size: 1.4rem;
+                padding: 4px 14px;
+            }
+            .exam-container {
+                padding: 16px 14px;
+            }
+            .question-card .q-body {
+                padding: 14px 16px;
+            }
+            .question-card .q-text {
+                padding: 12px 14px;
+                font-size: 0.92rem;
+                unicode-bidi: plaintext;
+            }
+            .question-card textarea {
+                min-height: 110px;
+                font-size: 0.88rem;
+            }
+            .instructor-panel {
+                gap: 10px 20px;
+                padding: 12px 16px;
+                font-size: 0.8rem;
+            }
+            .bottom-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .question-card .q-header .q-chapter {
+                margin-left: 0;
+                margin-right: auto;
+                width: 100%;
+                text-align: left;
+            }
+            .option-item {
+                gap: 10px;
+                padding: 4px 6px;
+            }
+            .tf-group {
+                gap: 12px;
+            }
+            .trap-text {
+                font-size: 1.5rem;
+                opacity: 0.06;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .exam-header h1 {
+                font-size: 1.25rem;
+            }
+            .info-item {
+                min-width: 100%;
+            }
+            .btn {
+                font-size: 0.8rem;
+                padding: 6px 16px;
+            }
+            .timer {
+                font-size: 1.2rem;
+            }
+            .option-item label {
+                font-size: 0.88rem;
+            }
+            .tf-group .tf-item label {
+                font-size: 0.88rem;
+            }
+            .trap-text {
+                font-size: 1.2rem;
+                opacity: 0.05;
+            }
+        }
+
+        /* ========== PRINT STYLES ========== */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: #fff !important;
+                color: #0b1120 !important;
+            }
+
+            .bg-grid {
+                display: none !important;
+            }
+
+            .fullscreen-warning,
+            .modal-overlay,
+            .paste-warning {
+                display: none !important;
+            }
+
+            .container {
+                padding: 20px !important;
+                max-width: 100% !important;
+            }
+
+            .exam-header {
+                background: #f0f4fa !important;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                color: #0b1120 !important;
+            }
+
+            .exam-header h1 {
+                color: #0b1120 !important;
+            }
+
+            .exam-header .sub {
+                color: #334155 !important;
+            }
+
+            .exam-header .badge {
+                background: #2563eb !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .instructor-panel {
+                background: #e9edf4 !important;
+                border-color: #ccc !important;
+            }
+
+            .instructor-item {
+                color: #1e293b !important;
+            }
+
+            .instructor-item i {
+                color: #2563eb !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .student-info-card {
+                background: #f8fafc !important;
+                border: 1px solid #ccc !important;
+            }
+
+            .info-item label {
+                color: #1e293b !important;
+            }
+
+            .info-item input {
+                background: #fff !important;
+                border: 1px solid #aaa !important;
+                color: #0b1120 !important;
+            }
+
+            .timer-bar {
+                background: #f8fafc !important;
+                border: 1px solid #ccc !important;
+            }
+
+            .timer {
+                background: #e9edf4 !important;
+                color: #0b1120 !important;
+                border: 1px solid #aaa !important;
+            }
+
+            .exam-container {
+                background: #fff !important;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                padding: 16px !important;
+            }
+
+            .question-card {
+                background: #fafcff !important;
+                border: 1px solid #d0d7e2 !important;
+                page-break-inside: avoid;
+            }
+
+            .question-card .q-header {
+                background: #e9edf4 !important;
+                border-bottom: 1px solid #ccc !important;
+            }
+
+            .question-card .q-header .q-label {
+                color: #1e3a5f !important;
+            }
+
+            .question-card .q-header .q-num {
+                background: #2563eb !important;
+                color: #fff !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .question-card .q-header .q-chapter {
+                color: #475569 !important;
+                border-color: #aaa !important;
+                background: #e9edf4 !important;
+            }
+
+            .question-card .q-text {
+                background: #f1f5f9 !important;
+                border-left-color: #2563eb !important;
+                color: #0b1120 !important;
+            }
+
+            .question-card .q-text strong {
+                color: #1e3a5f !important;
+            }
+
+            .question-card textarea {
+                background: #f8fafc !important;
+                border: 1px solid #ccc !important;
+                color: #0b1120 !important;
+                min-height: 100px !important;
+            }
+
+            .question-card textarea:disabled {
+                opacity: 1 !important;
+                background: #f8fafc !important;
+            }
+
+            .print-answer {
+                display: block !important;
+                background: #f8fafc !important;
+                border: 1px solid #ccc !important;
+                color: #0b1120 !important;
+                unicode-bidi: plaintext;
+            }
+
+            .print-student-data {
+                display: block !important;
+                font-weight: 600;
+                color: #0b1120;
+                padding: 4px 0;
+            }
+
+            .exam-footer {
+                border-top-color: #ccc !important;
+                color: #475569 !important;
+            }
+
+            .expired-msg {
+                background: #fee2e2 !important;
+                color: #991b1b !important;
+                border-color: #fca5a5 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .retake-notice {
+                background: #dbeafe !important;
+                color: #1e3a8a !important;
+                border-color: #93c5fd !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .option-item input[type="radio"],
+            .tf-item input[type="radio"] {
+                accent-color: #2563eb !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .option-item label,
+            .tf-item label {
+                color: #0b1120 !important;
+            }
+
+            .integrity-hash-box {
+                display: block !important;
+            }
+
+            .integrity-hash-textarea {
+                display: none !important;
+            }
+
+            .print-integrity-hash {
+                display: block !important;
+                background: #f8fafc !important;
+                border: 1px solid #ccc !important;
+                color: #0b1120 !important;
+                font-family: 'Courier New', monospace;
+                font-size: 0.8rem;
+                padding: 10px;
+                border-radius: 0.5rem;
+                word-break: break-all;
+            }
+
+            .trap-text {
+                color: #ccc !important;
+                opacity: 0.2 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+    <div class="fullscreen-warning" id="fullscreenWarning">
+        <i class="fas fa-exclamation-triangle"></i> لقد خرجت من وضع ملء الشاشة. يرجى العودة فورًا (اضغط F11 أو اسمح بالعودة).
+    </div>
+
+    <!-- ===== CONFIRMATION MODAL ===== -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-box">
+            <div class="modal-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <h3>إنهاء الاختبار؟</h3>
+            <p>هل أنت متأكد من رغبتك في إنهاء الاختبار النهائي؟ لن تتمكن من تغيير إجاباتك بعد ذلك. سيتم حفظ إجاباتك ويمكنك طباعتها/حفظها كملف PDF.</p>
+            <div class="modal-actions">
+                <button id="cancelEndBtn" class="btn btn-secondary"><i class="fas fa-times"></i> إلغاء</button>
+                <button id="confirmEndBtn" class="btn btn-danger"><i class="fas fa-check"></i> نعم، إنهاء الاختبار</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- ===== HEADER ===== -->
+        <header class="exam-header">
+            <div class="badge"><i class="fas fa-graduation-cap"></i>الاختبار النهائي (النموذج أ)</div>
+            <h1>الاختبار النهائي – أمن الشبكات</h1>
+            <div class="sub"><i class="fas fa-book-open"></i> Network Security · SYBS-2304 · 60 دقيقة · 60 درجة</div>
+            <div class="instructor-panel">
+                <span class="instructor-item"><i class="fas fa-chalkboard-user"></i> أ. محمود الشيخ خليل</span>
+                <span class="instructor-item"><i class="fas fa-envelope"></i> mahmoud@ucas.edu.ps</span>
+                <span class="instructor-item"><i class="fas fa-calendar-alt"></i> 3 ساعات معتمدة</span>
+                <span class="instructor-item"><i class="fas fa-shield-alt"></i> ممنوع النسخ/اللصق · تحت المراقبة</span>
+                <span class="instructor-item"><i class="fas fa-clock"></i> 60 دقيقة</span>
+            </div>
+        </header>
+
+        <!-- ===== RETAKE NOTICE ===== -->
+        <div class="retake-notice" id="retakeNotice">
+            <i class="fas fa-info-circle"></i>
+            <span id="retakeNoticeText"></span>
+        </div>
+
+        <!-- ===== STUDENT INFO ===== -->
+        <div class="student-info-card">
+            <div class="info-item">
+                <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                <input type="text" id="studentName" placeholder="أدخل اسمك الكامل" />
+                <div class="print-student-data" id="printName"></div>
+            </div>
+            <div class="info-item">
+                <label><i class="fas fa-id-card"></i> الرقم الجامعي</label>
+                <input type="text" id="studentId" placeholder="أدخل رقمك الجامعي" inputmode="numeric" />
+                <div class="print-student-data" id="printId"></div>
+            </div>
+        </div>
+
+        <!-- ===== TIMER BAR ===== -->
+        <div class="timer-bar no-print">
+            <span class="label"><i class="fas fa-hourglass-half"></i> الوقت المتبقي</span>
+            <span class="timer" id="timerDisplay">01:00:00</span>
+            <div class="actions">
+                <button id="startExamBtn" class="btn btn-success"><i class="fas fa-play"></i> بدء الاختبار</button>
+                <button id="finishExamBtn" class="btn btn-danger"><i class="fas fa-stop"></i> إنهاء الاختبار</button>
+                <button id="retakeExamBtn" class="btn btn-warning" style="display: none;"><i class="fas fa-redo-alt"></i> إعادة الاختبار</button>
+            </div>
+        </div>
+
+        <!-- ===== EXAM CONTAINER ===== -->
+        <div id="examContainer" class="exam-container">
+            <div class="exam-placeholder">
+                <i class="fas fa-lock"></i>
+                <p><strong>أدخل اسمك ورقمك الجامعي</strong> أعلاه، ثم انقر على <strong>"بدء الاختبار"</strong> للبدء.<br />
+                    لديك <strong>60 دقيقة</strong> لإكمال الاختبار النهائي في أمن الشبكات.<br />
+                    يتم حفظ الإجابات تلقائيًا محليًا – يمكنك إغلاق الصفحة والاستئناف لاحقًا.</p>
+                <p style="margin-top: 16px; font-size: 0.9rem; color: #64748b;">
+                    <i class="fas fa-info-circle"></i> 20 سؤال اختيار من متعدد/صح أو خطأ (20 درجة) + 5 أسئلة مقالية (40 درجة).
+                </p>
+            </div>
+        </div>
+
+        <!-- ===== EXAM INTEGRITY HASH ===== -->
+        <div class="integrity-hash-box">
+            <textarea id="integrityHash" class="integrity-hash-textarea" readonly disabled placeholder="سيظهر تجزئة سلامة الاختبار هنا بعد انتهاء الاختبار."></textarea>
+            <div class="print-integrity-hash" id="printIntegrityHash"></div>
+        </div>
+
+        <!-- ===== PRINT / SAVE AS PDF BUTTON ===== -->
+        <div class="bottom-actions no-print">
+            <button id="downloadPdfBtn" class="btn btn-primary">
+                <i class="fas fa-print"></i> طباعة / حفظ PDF
+            </button>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="exam-footer">
+            <p><i class="fas fa-university"></i> الكلية الجامعية للعلوم التطبيقية · قسم أمن المعلومات</p>
+            <p>استنادًا إلى <strong>Network Security Essentials</strong> – SYBS-2304 &nbsp;|&nbsp; المدرس: <strong>أ. محمود الشيخ خليل</strong></p>
+            <p style="margin-top: 6px; font-size: 0.75rem; color: #475569;">© <span id="current-year"></span> Cyber Khalil – جميع الحقوق محفوظة</p>
+        </footer>
+    </div>
+
+    <script>
+        // ================================================================
+        //  1.  ANTI‑CHEAT: block copy, cut, paste, context menu, drag/drop
+        // ================================================================
+        document.addEventListener('copy', (e) => e.preventDefault());
+        document.addEventListener('cut', (e) => e.preventDefault());
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.addEventListener('dragstart', (e) => e.preventDefault());
+        document.addEventListener('drop', (e) => e.preventDefault());
+        document.addEventListener('dragover', (e) => e.preventDefault());
+        document.addEventListener('paste', (e) => e.preventDefault());
+
+        // ================================================================
+        //  2.  QUESTION DATA (Network Security · SYBS-2304)
+        //  Difficulty: 30% Easy · 50% Medium · 20% Hard
+        // ================================================================
+
+        // ---- Multiple Choice (10 questions) ----
+        const mcQuestions = [{
+            id: 'mc1',
+            chapter: 'الأسبوع 1 – مفاهيم أساسية',
+            text: 'ما المقصود بمبدأ <strong>السرية (Confidentiality)</strong> في نموذج CIA؟',
+            options: [
+                'ضمان دقة واكتمال المعلومات وعدم تغييرها',
+                'ضمان أن المعلومات لا تُكشف إلا للأشخاص المصرح لهم',
+                'ضمان أن الأنظمة متاحة للمستخدمين عند الحاجة',
+                'التحقق من هوية المستخدم قبل منحه الصلاحيات'
+            ],
+            correct: 1
+        }, {
+            id: 'mc2',
+            chapter: 'الأسبوع 1 – التهديدات',
+            text: 'أي من التالي يُعد مثالاً على <strong>التهديدات السلبية (Passive Threats)</strong>؟',
+            options: [
+                'هجوم حقن SQL يعدل بيانات قاعدة البيانات',
+                'هجوم حجب الخدمة DoS',
+                'التنصت (Eavesdropping) على حركة المرور',
+                'تغيير صفحات موقع إلكتروني'
+            ],
+            correct: 2
+        }, {
+            id: 'mc3',
+            chapter: 'الأسبوع 2 – الأمن اللاسلكي',
+            text: 'ما هو بروتوكول الأمن اللاسلكي الأكثر أماناً والأحدث في الوقت الحالي؟',
+            options: [
+                'WEP',
+                'WPA',
+                'WPA2',
+                'WPA3'
+            ],
+            correct: 3
+        }, {
+            id: 'mc4',
+            chapter: 'الأسبوع 4 – IDS/IPS',
+            text: 'ما الفرق الأساسي بين <strong>IDS</strong> و <strong>IPS</strong>؟',
+            options: [
+                'IDS يعمل على الشبكة فقط، بينما IPS يعمل على الأجهزة فقط',
+                'IDS يكشف فقط، بينما IPS يكشف ويمنع الهجمات تلقائياً',
+                'IDS يستخدم التوقيعات، بينما IPS يستخدم الشذوذ فقط',
+                'لا يوجد فرق جوهري بينهما'
+            ],
+            correct: 1
+        }, {
+            id: 'mc5',
+            chapter: 'الأسبوع 2 – بروتوكولات الأمن',
+            text: 'ما خوارزمية التشفير المعتمدة في بروتوكول <strong>WPA2</strong>؟',
+            options: [
+                'RC4',
+                'TKIP',
+                'AES-CCMP',
+                'DES'
+            ],
+            correct: 2
+        }, {
+            id: 'mc6',
+            chapter: 'الأسبوع 3 – جدران الحماية',
+            text: 'ما الهدف الأساسي من استخدام منطقة <strong>DMZ (Demilitarized Zone)</strong> في تصميم الشبكات؟',
+            options: [
+                'زيادة سرعة الاتصال بالإنترنت',
+                'عزل الخدمات العامة (مثل خوادم الويب) عن الشبكة الداخلية',
+                'تشفير جميع الاتصالات الداخلية',
+                'منع الموظفين من الوصول للإنترنت'
+            ],
+            correct: 1
+        }, {
+            id: 'mc7',
+            chapter: 'الأسبوع 2 – مصادقة 802.1X',
+            text: 'في إطار مصادقة <strong>802.1X</strong>، ما هو العنصر الذي يمثل خادم المصادقة المركزي؟',
+            options: [
+                'Supplicant',
+                'Authenticator',
+                'Authentication Server (RADIUS)',
+                'Switch'
+            ],
+            correct: 2
+        }, {
+            id: 'mc8',
+            chapter: 'الأسبوع 3 – تقنيات الفلترة',
+            text: 'أي من العبارات التالية تصف بشكل صحيح جدار الحماية <strong>Stateful</strong>؟',
+            options: [
+                'يفحص كل حزمة بشكل مستقل دون تتبع حالة الاتصال',
+                'يتتبع حالة الاتصالات ويسمح بردود TCP القادمة فقط إذا كان هناك طلب مسبق',
+                'يعمل فقط على الطبقة السابعة (Application Layer)',
+                'لا يمكنه التعامل مع بروتوكول TCP'
+            ],
+            correct: 1
+        }, {
+            id: 'mc9',
+            chapter: 'الأسبوع 3 – NGFW',
+            text: 'ما الميزة الأساسية التي تميز جدران الحماية من الجيل التالي <strong>(NGFW)</strong> عن الجدران التقليدية؟',
+            options: [
+                'القدرة على فحص رؤوس الحزم فقط',
+                'الاعتماد على قواعد ثابتة دون تحديثات',
+                'فحص الحزم العميق (DPI) والتحكم في التطبيقات بغض النظر عن المنفذ',
+                'العمل بدون الحاجة إلى كهرباء'
+            ],
+            correct: 2
+        }, {
+            id: 'mc10',
+            chapter: 'الأسبوع 4 – Snort',
+            text: 'في قاعدة Snort التالية: <code>threshold:type both, track by_src, count 5, seconds 60</code> — ماذا يعني ذلك؟',
+            options: [
+                'تنبيه فقط إذا تكررت الحركة من نفس المصدر أكثر من 5 مرات في 60 ثانية',
+                'حظر جميع الحركة من المصدر لمدة 60 ثانية',
+                'تسجيل جميع الحزم لمدة 5 ثوانٍ فقط',
+                'السماح بـ 60 اتصالاً من 5 مصادر مختلفة'
+            ],
+            correct: 0
+        }];
+
+        // ---- True/False (10 questions) ----
+        const tfQuestions = [{
+            id: 'tf1',
+            chapter: 'الأسبوع 1 – CIA',
+            text: 'يتكون نموذج <strong>CIA</strong> من ثلاثة مبادئ رئيسية هي: السرية والسلامة والتوفر.',
+            correct: true
+        }, {
+            id: 'tf2',
+            chapter: 'الأسبوع 2 – WEP',
+            text: 'يُعد بروتوكول <strong>WEP</strong> آمناً وموصى به للاستخدام في الشبكات اللاسلكية الحديثة.',
+            correct: false
+        }, {
+            id: 'tf3',
+            chapter: 'الأسبوع 4 – IDS',
+            text: 'يقوم نظام <strong>IDS</strong> بمنع الهجمات وإسقاط الحزم الضارة تلقائياً.',
+            correct: false
+        }, {
+            id: 'tf4',
+            chapter: 'الأسبوع 3 – Firewalls',
+            text: 'يتتبع جدار الحماية <strong>Stateful</strong> حالة الاتصالات الشبكية ويصنع قراراته بناءً على سياق الاتصال.',
+            correct: true
+        }, {
+            id: 'tf5',
+            chapter: 'الأسبوع 2 – DHCP Snooping',
+            text: 'تُستخدم ميزة <strong>DHCP Snooping</strong> لمنع هجمات خوادم DHCP المزيفة (Rogue DHCP Servers).',
+            correct: true
+        }, {
+            id: 'tf6',
+            chapter: 'الأسبوع 2 – MAC Spoofing',
+            text: 'توفر تصفية عناوين MAC حماية قوية ضد هجمات <strong>MAC Spoofing</strong> ولا يمكن تجاوزها.',
+            correct: false
+        }, {
+            id: 'tf7',
+            chapter: 'الأسبوع 4 – Snort',
+            text: 'يمكن تشغيل <strong>Snort</strong> في وضع <strong>Inline Mode</strong> ليعمل كنظام IPS وليس فقط IDS.',
+            correct: true
+        }, {
+            id: 'tf8',
+            chapter: 'الأسبوع 4 – NIDS',
+            text: 'يعاني نظام <strong>NIDS</strong> من صعوبة في فحص حركة المرور المشفرة (مثل HTTPS).',
+            correct: true
+        }, {
+            id: 'tf9',
+            chapter: 'الأسبوع 1 – تصنيف التهديدات',
+            text: 'يُصنَّف هجوم <strong>الرجل في المنتصف (MITM)</strong> كتهديد نشط (Active Threat).',
+            correct: true
+        }, {
+            id: 'tf10',
+            chapter: 'الأسبوع 3 – Stateless',
+            text: 'يقوم جدار الحماية <strong>Stateless</strong> بتتبع حالة كل جلسة اتصال على حدة لاتخاذ قرار الفلترة.',
+            correct: false
+        }];
+
+        // ---- Essay Questions (5 questions · 8 pts each) ----
+        const essayQuestions = [{
+            id: 'essay1',
+            chapter: 'الأسبوع 1 – نموذج CIA',
+            text: 'اشرح مبادئ <strong>نموذج CIA</strong> الثلاثة (السرية، السلامة، التوفر) بالتفصيل، ثم اذكر <strong>مثالاً عملياً</strong> لكل مبدأ من بيئة الشبكات. وأخيراً، اذكر بُعدين إضافيين من أبعاد الأمن.'
+        }, {
+            id: 'essay2',
+            chapter: 'الأسبوع 2 – بروتوكولات الأمن اللاسلكي',
+            text: 'قارن بين بروتوكولات الأمن اللاسلكي <strong>WEP</strong> و <strong>WPA</strong> و <strong>WPA2</strong> من حيث: خوارزمية التشفير، إدارة المفاتيح، ومستوى الأمان. ثم اشرح <strong>لماذا يُعد WEP غير آمن</strong> مع ذكر سببين تقنيين على الأقل.'
+        }, {
+            id: 'essay3',
+            chapter: 'الأسبوع 3 – جدران الحماية',
+            text: 'اشرح الفرق بين <strong>Stateful Firewall</strong> و <strong>Stateless Firewall</strong> من حيث: آلية اتخاذ القرار، الأداء، مستوى الأمان، والتعقيد في التكوين. ثم اذكر مثالاً عملياً يوضح كيف يتعامل كل نوع مع اتصال TCP وارد.'
+        }, {
+            id: 'essay4',
+            chapter: 'الأسبوع 2 – هجمات الشبكات',
+            text: 'اشرح آلية عمل هجوم <strong>MAC Spoofing</strong> في الشبكات العامة (مثل شبكات المقاهي والفنادق) بالتفصيل، موضحاً الخطوات التي يقوم بها المهاجم. ثم اذكر <strong>ثلاث آليات حماية</strong> فعالة للوقاية من هذا الهجوم.'
+        }, {
+            id: 'essay5',
+            chapter: 'الأسبوع 4 – تحليل قواعد Snort',
+            text: 'لديك قاعدة Snort التالية:<br><br><code>alert tcp any any -> 192.168.1.0/24 22 (msg:"SSH Scan Detected"; flags:S; threshold:type both, track by_src, count 5, seconds 60; sid:1000001; rev:1;)</code><br><br>حلّل هذه القاعدة بشرح <strong>كل جزء</strong> منها (نوع الإجراء، بروتوكول، المصدر، الوجهة، الخيارات، sid). ثم اقترح <strong>تعديلاً</strong> على القاعدة لكشف هجمات <strong>Ping Flood</strong> بدلاً من SSH Scan.'
+        }];
+
+        // ================================================================
+        //  3.  CONSTANTS & STATE
+        // ================================================================
+        const EXAM_ID = 'network_security_final_exam_sybs2304_variant_a';
+        const STATUS_KEY = EXAM_ID + '_status';
+        const FINISHED_AT_KEY = EXAM_ID + '_finishedAt';
+        const RETAKE_DELAY = 4 * 60 * 60 * 1000; // 4 hours
+        const EXAM_DURATION_MS = 60 * 60 * 1000;  // 60 minutes
+
+        let examStarted = false;
+        let restoringAnswers = false;
+        let timerInterval = null;
+        let endTime = null;
+        let pollingInterval = null;
+        let autoSaveInterval = null;
+        let visibilityViolations = 0;
+        const MAX_VISIBILITY_VIOLATIONS = 10;
+        let fullscreenActive = false;
+        let fullscreenViolations = 0;
+        const MAX_FULLSCREEN_VIOLATIONS = 10;
+
+        const startBtn = document.getElementById('startExamBtn');
+        const finishExamBtn = document.getElementById('finishExamBtn');
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+        const examContainer = document.getElementById('examContainer');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const studentNameInput = document.getElementById('studentName');
+        const studentIdInput = document.getElementById('studentId');
+        const printNameSpan = document.getElementById('printName');
+        const printIdSpan = document.getElementById('printId');
+        const fullscreenWarning = document.getElementById('fullscreenWarning');
+        const confirmModal = document.getElementById('confirmModal');
+        const cancelEndBtn = document.getElementById('cancelEndBtn');
+        const confirmEndBtn = document.getElementById('confirmEndBtn');
+        const retakeNotice = document.getElementById('retakeNotice');
+        const retakeNoticeText = document.getElementById('retakeNoticeText');
+        const retakeExamBtn = document.getElementById('retakeExamBtn');
+
+        const lastValues = new Map();
+
+        // ================================================================
+        //  4.  INTEGRITY HASH GENERATOR
+        // ================================================================
+        let generateIntegrityHash = async function() {
+            const name = document.getElementById('studentName')?.value?.trim() || '';
+            const id = document.getElementById('studentId')?.value?.trim() || '';
+            const answers = [];
+            for (let i = 1; i <= mcQuestions.length; i++) {
+                const el = document.querySelector(`input[name="mc${i}"]:checked`);
+                answers.push(el ? el.value : '');
+            }
+            for (let i = 1; i <= tfQuestions.length; i++) {
+                const el = document.querySelector(`input[name="tf${i}"]:checked`);
+                answers.push(el ? el.value : '');
+            }
+            for (let i = 1; i <= essayQuestions.length; i++) {
+                const ta = document.getElementById(`essay_${i}`);
+                answers.push(ta ? ta.value.trim() : '');
+            }
+            const dataStr = name + '|' + id + '|' + answers.join('|');
+            const encoder = new TextEncoder();
+            const data = encoder.encode(dataStr);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        };
+
+        let _integrityHashUsed = false;
+        async function getExamHash() {
+            if (_integrityHashUsed) return null;
+            _integrityHashUsed = true;
+            if (typeof generateIntegrityHash !== 'function') return null;
+            try {
+                const hash = await generateIntegrityHash();
+                generateIntegrityHash = null;
+                return hash;
+            } catch (e) {
+                console.error('Hash generation failed:', e);
+                return '⚠️ HASH UNAVAILABLE (not served over HTTPS/localhost)';
+            }
+        }
+
+        // ================================================================
+        //  5.  PASTE WARNING
+        // ================================================================
+        function showPasteWarning() {
+            const div = document.createElement('div');
+            div.className = 'paste-warning';
+            div.innerHTML = '<i class="fas fa-ban"></i> تم حظر اللصق – اكتب إجابتك.';
+            document.body.appendChild(div);
+            setTimeout(() => { if (div && div.remove) div.remove(); }, 3500);
+        }
+
+        // ================================================================
+        //  6.  POLLING & AUTO‑SAVE
+        // ================================================================
+        function startPastePolling() {
+            if (pollingInterval) clearInterval(pollingInterval);
+            pollingInterval = setInterval(() => {
+                if (!examStarted) return;
+                const textareas = document.querySelectorAll('#examContainer textarea:not([disabled])');
+                for (const ta of textareas) {
+                    const currentVal = ta.value;
+                    const previousVal = lastValues.get(ta) || '';
+                    const currentLen = currentVal.length;
+                    const previousLen = previousVal.length;
+                    if (!restoringAnswers && (currentLen - previousLen > 20)) {
+                        ta.value = previousVal;
+                        const match = ta.id.match(/essay_(\d+)/);
+                        if (match) {
+                            const printSpan = document.getElementById(`print_essay_${match[1]}`);
+                            if (printSpan) printSpan.innerText = previousVal;
+                            if (examStarted) localStorage.setItem(`essay_${match[1]}`, previousVal);
+                        }
+                        lastValues.set(ta, previousVal);
+                        showPasteWarning();
+                        return;
+                    }
+                    lastValues.set(ta, currentVal);
+                }
+            }, 100);
+        }
+
+        function stopPastePolling() {
+            if (pollingInterval) { clearInterval(pollingInterval);
+                pollingInterval = null; }
+        }
+
+        function startAutoSave() {
+            if (autoSaveInterval) return;
+            autoSaveInterval = setInterval(() => {
+                if (!examStarted) return;
+                for (let i = 1; i <= mcQuestions.length; i++) {
+                    const el = document.querySelector(`input[name="mc${i}"]:checked`);
+                    localStorage.setItem(`mc_${i}`, el ? el.value : '');
+                }
+                for (let i = 1; i <= tfQuestions.length; i++) {
+                    const el = document.querySelector(`input[name="tf${i}"]:checked`);
+                    localStorage.setItem(`tf_${i}`, el ? el.value : '');
+                }
+                for (let i = 1; i <= essayQuestions.length; i++) {
+                    const ta = document.getElementById(`essay_${i}`);
+                    if (ta) localStorage.setItem(`essay_${i}`, ta.value);
+                }
+            }, 5000);
+        }
+
+        function stopAutoSave() {
+            if (autoSaveInterval) { clearInterval(autoSaveInterval);
+                autoSaveInterval = null; }
+        }
+
+        // ================================================================
+        //  7.  ENABLE / DISABLE ANSWERS
+        // ================================================================
+        function enableAnswers(enable) {
+            for (let i = 1; i <= mcQuestions.length; i++) {
+                document.querySelectorAll(`input[name="mc${i}"]`).forEach(r => r.disabled = !enable);
+            }
+            for (let i = 1; i <= tfQuestions.length; i++) {
+                document.querySelectorAll(`input[name="tf${i}"]`).forEach(r => r.disabled = !enable);
+            }
+            const textareas = document.querySelectorAll('#examContainer textarea');
+            textareas.forEach(ta => {
+                ta.disabled = !enable;
+                if (enable) lastValues.set(ta, ta.value);
+            });
+            if (enable) { startPastePolling();
+                startAutoSave(); } else { stopPastePolling();
+                stopAutoSave(); }
+        }
+
+        // ================================================================
+        //  8.  BUILD QUESTIONS UI
+        // ================================================================
+        function buildQuestionsUI() {
+            examContainer.innerHTML = '';
+
+            // --- Multiple Choice ---
+            const mcSection = document.createElement('div');
+            mcSection.style.marginBottom = '32px';
+            const mcTitle = document.createElement('h3');
+            mcTitle.style.cssText = 'color: #7dd3fc; font-size: 1.3rem; margin-bottom: 16px; border-bottom: 1px solid #2d3a5e; padding-bottom: 8px;';
+            mcTitle.innerHTML = '<i class="fas fa-list-ul"></i> الجزء الأول: اختيار من متعدد (10 أسئلة · 10 درجات)';
+            mcSection.appendChild(mcTitle);
+
+            mcQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.setAttribute('data-qid', q.id);
+
+                const header = document.createElement('div');
+                header.className = 'q-header';
+                header.innerHTML = `
+                    <span class="q-num">${idx + 1}</span>
+                    <span class="q-label">سؤال ${idx + 1} من ${mcQuestions.length}</span>
+                    <span class="q-chapter"><i class="fas fa-book"></i> ${q.chapter}</span>
+                `;
+                card.appendChild(header);
+
+                const body = document.createElement('div');
+                body.className = 'q-body';
+
+                const textDiv = document.createElement('div');
+                textDiv.setAttribute('dir', 'auto');
+                textDiv.className = 'q-text';
+                textDiv.innerHTML = `<p>${q.text}</p>`;
+                body.appendChild(textDiv);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options-group';
+                const labels = ['أ', 'ب', 'ج', 'د'];
+                q.options.forEach((opt, oi) => {
+                    const item = document.createElement('div');
+                    item.className = 'option-item';
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `mc${idx + 1}`;
+                    radio.value = String(oi);
+                    radio.disabled = true;
+                    const label = document.createElement('label');
+                    label.innerHTML = `<span class="option-label">${labels[oi]}.</span> ${opt}`;
+                    label.prepend(radio);
+                    item.appendChild(label);
+                    item.addEventListener('click', function(e) {
+                        if (e.target.tagName !== 'INPUT') {
+                            const radioBtn = this.querySelector('input[type="radio"]');
+                            if (radioBtn && !radioBtn.disabled) {
+                                radioBtn.checked = true;
+                                radioBtn.dispatchEvent(new Event('change', { bubbles: true }));
+                            }
+                        }
+                    });
+                    optionsDiv.appendChild(item);
+                });
+                body.appendChild(optionsDiv);
+
+                const printDiv = document.createElement('div');
+                printDiv.className = 'print-answer';
+                printDiv.id = `print_mc_${idx + 1}`;
+                printDiv.textContent = '(لم يتم اختيار إجابة)';
+                body.appendChild(printDiv);
+
+                card.appendChild(body);
+                mcSection.appendChild(card);
+            });
+            examContainer.appendChild(mcSection);
+
+            // --- True/False ---
+            const tfSection = document.createElement('div');
+            tfSection.style.marginBottom = '32px';
+            const tfTitle = document.createElement('h3');
+            tfTitle.style.cssText = 'color: #7dd3fc; font-size: 1.3rem; margin-bottom: 16px; border-bottom: 1px solid #2d3a5e; padding-bottom: 8px;';
+            tfTitle.innerHTML = '<i class="fas fa-check-double"></i> الجزء الثاني: صح / خطأ (10 أسئلة · 10 درجات)';
+            tfSection.appendChild(tfTitle);
+
+            tfQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.setAttribute('data-qid', q.id);
+
+                const header = document.createElement('div');
+                header.className = 'q-header';
+                header.innerHTML = `
+                    <span class="q-num">${idx + 1}</span>
+                    <span class="q-label">صح/خطأ ${idx + 1} من ${tfQuestions.length}</span>
+                    <span class="q-chapter"><i class="fas fa-book"></i> ${q.chapter}</span>
+                `;
+                card.appendChild(header);
+
+                const body = document.createElement('div');
+                body.className = 'q-body';
+
+                const textDiv = document.createElement('div');
+                textDiv.setAttribute('dir', 'auto');
+                textDiv.className = 'q-text';
+                textDiv.innerHTML = `<p>${q.text}</p>`;
+                body.appendChild(textDiv);
+
+                const tfGroup = document.createElement('div');
+                tfGroup.className = 'tf-group';
+
+                const trueItem = document.createElement('div');
+                trueItem.className = 'tf-item tf-true';
+                const trueRadio = document.createElement('input');
+                trueRadio.type = 'radio';
+                trueRadio.name = `tf${idx + 1}`;
+                trueRadio.value = 'true';
+                trueRadio.disabled = true;
+                const trueLabel = document.createElement('label');
+                trueLabel.textContent = ' صح';
+                trueItem.appendChild(trueRadio);
+                trueItem.appendChild(trueLabel);
+                trueItem.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'INPUT') {
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio && !radio.disabled) {
+                            radio.checked = true;
+                            radio.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    }
+                });
+                tfGroup.appendChild(trueItem);
+
+                const falseItem = document.createElement('div');
+                falseItem.className = 'tf-item tf-false';
+                const falseRadio = document.createElement('input');
+                falseRadio.type = 'radio';
+                falseRadio.name = `tf${idx + 1}`;
+                falseRadio.value = 'false';
+                falseRadio.disabled = true;
+                const falseLabel = document.createElement('label');
+                falseLabel.textContent = ' خطأ';
+                falseItem.appendChild(falseRadio);
+                falseItem.appendChild(falseLabel);
+                falseItem.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'INPUT') {
+                        const radio = this.querySelector('input[type="radio"]');
+                        if (radio && !radio.disabled) {
+                            radio.checked = true;
+                            radio.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                    }
+                });
+                tfGroup.appendChild(falseItem);
+
+                body.appendChild(tfGroup);
+
+                const printDiv = document.createElement('div');
+                printDiv.className = 'print-answer';
+                printDiv.id = `print_tf_${idx + 1}`;
+                printDiv.textContent = '(لم يتم اختيار إجابة)';
+                body.appendChild(printDiv);
+
+                card.appendChild(body);
+                tfSection.appendChild(card);
+            });
+            examContainer.appendChild(tfSection);
+
+            // --- Essay ---
+            const essaySection = document.createElement('div');
+            const essayTitle = document.createElement('h3');
+            essayTitle.style.cssText = 'color: #7dd3fc; font-size: 1.3rem; margin-bottom: 16px; border-bottom: 1px solid #2d3a5e; padding-bottom: 8px;';
+            essayTitle.innerHTML = '<i class="fas fa-pen"></i> الجزء الثالث: أسئلة مقالية (5 أسئلة · 40 درجة)';
+            essaySection.appendChild(essayTitle);
+
+            essayQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.setAttribute('data-qid', q.id);
+
+                const header = document.createElement('div');
+                header.className = 'q-header';
+                header.innerHTML = `
+                    <span class="q-num">${idx + 1}</span>
+                    <span class="q-label">مقالي ${idx + 1} من ${essayQuestions.length}</span>
+                    <span class="q-chapter"><i class="fas fa-book"></i> ${q.chapter}</span>
+                `;
+                card.appendChild(header);
+
+                const body = document.createElement('div');
+                body.className = 'q-body';
+
+                const textDiv = document.createElement('div');
+                textDiv.setAttribute('dir', 'auto');
+                textDiv.className = 'q-text';
+                textDiv.innerHTML = `<p>${q.text}</p>`;
+
+                // ===== TRAP TEXT AS WATERMARK =====
+                const trapSpan = document.createElement('span');
+                trapSpan.className = 'trap-text';
+                trapSpan.textContent = "راجع إجابتك – الدقة في المصطلحات التقنية";
+                textDiv.appendChild(trapSpan);
+                // ==================================
+
+                body.appendChild(textDiv);
+
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'answer-area';
+                answerDiv.innerHTML = `<label><i class="fas fa-pen"></i> إجابتك (8 درجات):</label>`;
+
+                const textarea = document.createElement('textarea');
+                textarea.setAttribute('dir', 'auto');
+                textarea.id = `essay_${idx + 1}`;
+                textarea.placeholder = 'اكتب إجابتك المختصرة هنا… (استخدم المصطلحات التقنية الصحيحة، كن دقيقًا، أضف أمثلة إذا لزم الأمر)';
+                textarea.rows = 6;
+                textarea.style.minHeight = '150px';
+                textarea.disabled = true;
+                answerDiv.appendChild(textarea);
+
+                const printDiv = document.createElement('div');
+                printDiv.className = 'print-answer';
+                printDiv.id = `print_essay_${idx + 1}`;
+                answerDiv.appendChild(printDiv);
+
+                body.appendChild(answerDiv);
+                card.appendChild(body);
+                essaySection.appendChild(card);
+
+                lastValues.set(textarea, '');
+
+                let lastValue = '';
+                let lastLen = 0;
+                textarea.addEventListener('paste', (e) => { e.preventDefault();
+                    showPasteWarning(); });
+                textarea.addEventListener('drop', (e) => { e.preventDefault();
+                    showPasteWarning(); });
+                textarea.addEventListener('beforeinput', (e) => {
+                    if (e.inputType === 'insertFromPaste' || e.inputType === 'insertFromDrop') {
+                        e.preventDefault();
+                        showPasteWarning();
+                    }
+                });
+                textarea.addEventListener('input', () => {
+                    const currentVal = textarea.value;
+                    const currentLen = currentVal.length;
+                    if (!restoringAnswers && (currentLen - lastLen) > 5) {
+                        textarea.value = lastValue;
+                        const printSpan = document.getElementById(`print_essay_${idx + 1}`);
+                        if (printSpan) printSpan.innerText = lastValue;
+                        if (examStarted) localStorage.setItem(`essay_${idx + 1}`, lastValue);
+                        lastValues.set(textarea, lastValue);
+                        showPasteWarning();
+                        lastLen = textarea.value.length;
+                        lastValue = textarea.value;
+                        return;
+                    }
+                    lastLen = currentLen;
+                    lastValue = currentVal;
+                });
+                textarea._resetPasteState = () => { lastLen = 0;
+                    lastValue = ''; };
+                textarea.addEventListener('focus', () => {
+                    if (textarea.value === '') { lastLen = 0;
+                        lastValue = ''; }
+                });
+            });
+            examContainer.appendChild(essaySection);
+        }
+
+        // ================================================================
+        //  9.  TIMER
+        // ================================================================
+        function updateTimerDisplay() {
+            if (!endTime) return;
+            const remaining = Math.max(0, endTime - Date.now());
+            const hours = Math.floor(remaining / 3600000);
+            const minutes = Math.floor((remaining % 3600000) / 60000);
+            const seconds = Math.floor((remaining % 60000) / 1000);
+            timerDisplay.innerText =
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (remaining <= 0) {
+                endExamAutomatically();
+            }
+        }
+
+        function startTimer() {
+            endTime = Date.now() + EXAM_DURATION_MS;
+            updateTimerDisplay();
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(updateTimerDisplay, 1000);
+        }
+
+        // ================================================================
+        //  10.  END EXAM
+        // ================================================================
+        function endExamAutomatically() {
+            if (!examStarted) return;
+            localStorage.setItem(STATUS_KEY, 'finished');
+            localStorage.setItem(FINISHED_AT_KEY, Date.now());
+            clearInterval(timerInterval);
+            enableAnswers(false);
+            examStarted = false;
+            startBtn.disabled = true;
+            startBtn.style.display = 'none';
+            finishExamBtn.style.display = 'none';
+            downloadPdfBtn.style.display = 'inline-flex';
+            downloadPdfBtn.disabled = false;
+            retakeExamBtn.style.display = 'inline-flex';
+            retakeExamBtn.disabled = false;
+
+            (async () => {
+                const hash = await getExamHash();
+                if (hash) {
+                    const hashTextarea = document.getElementById('integrityHash');
+                    const printHash = document.getElementById('printIntegrityHash');
+                    if (hashTextarea) hashTextarea.value = 'SHA256:' + hash;
+                    if (printHash) printHash.innerText = 'SHA256:' + hash;
+                }
+            })();
+
+            const bar = document.querySelector('.timer-bar');
+            if (bar && !bar.querySelector('.expired-msg')) {
+                const msg = document.createElement('span');
+                msg.className = 'expired-msg';
+                msg.innerHTML = '<i class="fas fa-hourglass-end"></i> انتهى الوقت! للمراجعة فقط.';
+                bar.appendChild(msg);
+            }
+
+            if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+            stopDevToolsMonitoring();
+            alert('⏰ انتهى الوقت! تم قفل الإجابات. يمكنك المراجعة والطباعة/الحفظ كملف PDF.');
+        }
+
+        function endExamManually() {
+            if (!examStarted) return;
+            localStorage.setItem(STATUS_KEY, 'finished');
+            localStorage.setItem(FINISHED_AT_KEY, Date.now());
+            clearInterval(timerInterval);
+            enableAnswers(false);
+            examStarted = false;
+            startBtn.disabled = true;
+            startBtn.style.display = 'none';
+            finishExamBtn.style.display = 'none';
+            downloadPdfBtn.style.display = 'inline-flex';
+            downloadPdfBtn.disabled = false;
+            retakeExamBtn.style.display = 'inline-flex';
+            retakeExamBtn.disabled = false;
+
+            (async () => {
+                const hash = await getExamHash();
+                if (hash) {
+                    const hashTextarea = document.getElementById('integrityHash');
+                    const printHash = document.getElementById('printIntegrityHash');
+                    if (hashTextarea) hashTextarea.value = 'SHA256:' + hash;
+                    if (printHash) printHash.innerText = 'SHA256:' + hash;
+                }
+            })();
+
+            timerDisplay.innerText = '00:00:00';
+            const bar = document.querySelector('.timer-bar');
+            if (bar && !bar.querySelector('.expired-msg')) {
+                const msg = document.createElement('span');
+                msg.className = 'expired-msg';
+                msg.innerHTML = '<i class="fas fa-check-circle"></i> انتهى الاختبار. للمراجعة فقط.';
+                bar.appendChild(msg);
+            }
+
+            if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+            stopDevToolsMonitoring();
+        }
+
+        // ================================================================
+        //  11.  CONFIRMATION MODAL
+        // ================================================================
+        function showConfirmModal() { confirmModal.classList.add('active'); }
+
+        function hideConfirmModal() { confirmModal.classList.remove('active'); }
+
+        cancelEndBtn.addEventListener('click', hideConfirmModal);
+        confirmEndBtn.addEventListener('click', () => { hideConfirmModal();
+            endExamManually(); });
+        confirmModal.addEventListener('click', (e) => { if (e.target === confirmModal) hideConfirmModal(); });
+
+        // ================================================================
+        //  12.  PRINT / SAVE AS PDF
+        // ================================================================
+        function printExamAsPDF() {
+            for (let i = 1; i <= mcQuestions.length; i++) {
+                const el = document.querySelector(`input[name="mc${i}"]:checked`);
+                const printSpan = document.getElementById(`print_mc_${i}`);
+                if (printSpan) {
+                    const labels = ['أ', 'ب', 'ج', 'د'];
+                    if (el) {
+                        const idx = parseInt(el.value);
+                        printSpan.textContent = 'المختار: ' + labels[idx] + ' – ' + mcQuestions[i - 1].options[idx];
+                    } else {
+                        printSpan.textContent = '(لم يتم اختيار إجابة)';
+                    }
+                }
+            }
+            for (let i = 1; i <= tfQuestions.length; i++) {
+                const el = document.querySelector(`input[name="tf${i}"]:checked`);
+                const printSpan = document.getElementById(`print_tf_${i}`);
+                if (printSpan) {
+                    printSpan.textContent = el ? 'المختار: ' + (el.value === 'true' ? 'صح' : 'خطأ') : '(لم يتم اختيار إجابة)';
+                }
+            }
+            for (let i = 1; i <= essayQuestions.length; i++) {
+                const ta = document.getElementById(`essay_${i}`);
+                const printSpan = document.getElementById(`print_essay_${i}`);
+                if (printSpan && ta) {
+                    printSpan.innerText = ta.value.trim() || '(لم يتم تقديم إجابة)';
+                }
+            }
+            const hashTextarea = document.getElementById('integrityHash');
+            const printHash = document.getElementById('printIntegrityHash');
+            if (hashTextarea && printHash) {
+                printHash.innerText = hashTextarea.value || printHash.innerText;
+            }
+            printNameSpan.innerText = studentNameInput.value;
+            printIdSpan.innerText = studentIdInput.value;
+            window.print();
+        }
+
+        downloadPdfBtn.addEventListener('click', printExamAsPDF);
+
+        // ================================================================
+        //  13.  FULLSCREEN MANAGEMENT
+        // ================================================================
+        function requestFullscreen() {
+            const elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().then(() => {
+                    fullscreenActive = true;
+                    fullscreenWarning.style.display = 'none';
+                }).catch(() => {
+                    alert('الرجاء تمكين وضع ملء الشاشة (F11) لضمان نزاهة الاختبار.');
+                });
+            }
+        }
+
+        function onFullscreenChange() {
+            if (!examStarted) return;
+            if (!document.fullscreenElement) {
+                fullscreenActive = false;
+                fullscreenWarning.style.display = 'block';
+                setTimeout(() => {
+                    if (!document.fullscreenElement && examStarted) {
+                        fullscreenViolations++;
+                        if (fullscreenViolations >= MAX_FULLSCREEN_VIOLATIONS) {
+                            terminateExam('لقد تجاوزت الحد الأقصى المسموح به للخروج من ملء الشاشة.');
+                        } else {
+                            alert('⚠️ لقد خرجت من وضع ملء الشاشة! يرجى العودة إلى ملء الشاشة. (' + fullscreenViolations + '/' +
+                                MAX_FULLSCREEN_VIOLATIONS + ')');
+                        }
+                    }
+                }, 8000);
+            } else {
+                fullscreenActive = true;
+                fullscreenWarning.style.display = 'none';
+            }
+        }
+
+        // ================================================================
+        //  14.  VISIBILITY API MONITORING
+        // ================================================================
+        function onVisibilityChange() {
+            if (!examStarted) return;
+            if (document.visibilityState === 'hidden') {
+                visibilityViolations++;
+                if (visibilityViolations >= MAX_VISIBILITY_VIOLATIONS) {
+                    terminateExam('لقد تجاوزت الحد الأقصى المسموح به لتبديل علامات التبويب.');
+                } else {
+                    alert('⚠️ لقد تركت علامة تبويب الاختبار! (' + visibilityViolations + '/' + MAX_VISIBILITY_VIOLATIONS + ')');
+                }
+            }
+        }
+
+        function terminateExam(reason) {
+            alert(reason + ' تم إنهاء الاختبار.');
+            localStorage.setItem(STATUS_KEY, 'terminated');
+            localStorage.setItem(FINISHED_AT_KEY, Date.now());
+            enableAnswers(false);
+            examStarted = false;
+            startBtn.disabled = true;
+            startBtn.style.display = 'none';
+            finishExamBtn.style.display = 'none';
+            downloadPdfBtn.style.display = 'inline-flex';
+            downloadPdfBtn.disabled = false;
+            retakeExamBtn.style.display = 'inline-flex';
+            retakeExamBtn.disabled = false;
+
+            (async () => {
+                const hash = await getExamHash();
+                if (hash) {
+                    const hashTextarea = document.getElementById('integrityHash');
+                    const printHash = document.getElementById('printIntegrityHash');
+                    if (hashTextarea) hashTextarea.value = 'SHA256:' + hash;
+                    if (printHash) printHash.innerText = 'SHA256:' + hash;
+                }
+            })();
+
+            if (timerInterval) clearInterval(timerInterval);
+            timerDisplay.innerText = '00:00:00';
+            const bar = document.querySelector('.timer-bar');
+            if (bar && !bar.querySelector('.expired-msg')) {
+                const msg = document.createElement('span');
+                msg.className = 'expired-msg';
+                msg.innerHTML = '<i class="fas fa-times-circle"></i> تم إنهاء الاختبار.';
+                bar.appendChild(msg);
+            }
+            if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+            stopDevToolsMonitoring();
+        }
+
+        // ================================================================
+        //  15.  KEYBOARD SHORTCUT BLOCKING
+        // ================================================================
+        function onKeyDown(e) {
+            if (!examStarted) return;
+            if (e.key === 'F12') { e.preventDefault(); return; }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) { e.preventDefault(); return; }
+            if (e.ctrlKey && e.key === 'U') { e.preventDefault(); return; }
+            if (e.ctrlKey && e.key === 'S') { e.preventDefault();
+                alert('الحفظ معطل أثناء الاختبار.'); return; }
+            if (e.ctrlKey && e.key === 'P') { e.preventDefault();
+                alert('تنزيل PDF متاح فقط بعد انتهاء الاختبار.'); return; }
+            if (e.ctrlKey && e.key === 'F4') { e.preventDefault(); return; }
+        }
+
+        // ================================================================
+        //  16.  DEVTOOLS DETECTION
+        // ================================================================
+        function detectDevTools() {
+            if (!examStarted) return;
+            const diff = window.outerWidth - window.innerWidth;
+            if (diff > 160 && !fullscreenActive) {
+                visibilityViolations++;
+                if (visibilityViolations >= MAX_VISIBILITY_VIOLATIONS) {
+                    terminateExam('تم اكتشاف استخدام أدوات المطور.');
+                } else {
+                    alert('⚠️ تم اكتشاف نشاط مشبوه. (' + visibilityViolations + '/' + MAX_VISIBILITY_VIOLATIONS +
+                        ')');
+                }
+            }
+        }
+
+        let devToolsCheckInterval = null;
+
+        function startDevToolsMonitoring() {
+            if (devToolsCheckInterval) return;
+            devToolsCheckInterval = setInterval(detectDevTools, 3000);
+        }
+
+        function stopDevToolsMonitoring() {
+            if (devToolsCheckInterval) { clearInterval(devToolsCheckInterval);
+                devToolsCheckInterval = null; }
+        }
+
+        // ================================================================
+        //  17.  UPDATE PRINT STUDENT DATA
+        // ================================================================
+        function updatePrintStudentData() {
+            printNameSpan.innerText = studentNameInput.value;
+            printIdSpan.innerText = studentIdInput.value;
+        }
+
+        // ================================================================
+        //  18.  CLEAR EXAM DATA (retake)
+        // ================================================================
+        function clearExamData() {
+            localStorage.removeItem(STATUS_KEY);
+            localStorage.removeItem(FINISHED_AT_KEY);
+            localStorage.removeItem('examStartTime');
+            localStorage.removeItem('examStudentName');
+            localStorage.removeItem('examStudentId');
+            for (let i = 1; i <= mcQuestions.length; i++) localStorage.removeItem('mc_' + i);
+            for (let i = 1; i <= tfQuestions.length; i++) localStorage.removeItem('tf_' + i);
+            for (let i = 1; i <= essayQuestions.length; i++) localStorage.removeItem('essay_' + i);
+        }
+
+        // ================================================================
+        //  19.  SHOW EXAM ENDED STATE
+        // ================================================================
+        function showExamEndedState() {
+            if (examContainer.children.length === 0 || examContainer.querySelector('.exam-placeholder'))
+                buildQuestionsUI();
+
+            for (let i = 1; i <= mcQuestions.length; i++) {
+                const saved = localStorage.getItem('mc_' + i);
+                if (saved !== null) {
+                    const el = document.querySelector(`input[name="mc${i}"][value="${saved}"]`);
+                    if (el) el.checked = true;
+                }
+            }
+            for (let i = 1; i <= tfQuestions.length; i++) {
+                const saved = localStorage.getItem('tf_' + i);
+                if (saved !== null) {
+                    const el = document.querySelector(`input[name="tf${i}"][value="${saved}"]`);
+                    if (el) el.checked = true;
+                }
+            }
+            for (let i = 1; i <= essayQuestions.length; i++) {
+                const saved = localStorage.getItem('essay_' + i);
+                if (saved !== null) {
+                    const ta = document.getElementById('essay_' + i);
+                    if (ta) {
+                        ta.value = saved;
+                        const ps = document.getElementById('print_essay_' + i);
+                        if (ps) ps.innerText = saved;
+                        lastValues.set(ta, saved);
+                    }
+                }
+            }
+
+            studentNameInput.value = localStorage.getItem('examStudentName') || '';
+            studentIdInput.value = localStorage.getItem('examStudentId') || '';
+            enableAnswers(false);
+            studentNameInput.disabled = true;
+            studentIdInput.disabled = true;
+            timerDisplay.innerText = '00:00:00';
+            startBtn.disabled = true;
+            startBtn.style.display = 'none';
+            finishExamBtn.style.display = 'none';
+            downloadPdfBtn.style.display = 'inline-flex';
+            downloadPdfBtn.disabled = false;
+            retakeExamBtn.style.display = 'inline-flex';
+            retakeExamBtn.disabled = false;
+
+            (async () => {
+                const hash = await getExamHash();
+                if (hash) {
+                    const hashTextarea = document.getElementById('integrityHash');
+                    const printHash = document.getElementById('printIntegrityHash');
+                    if (hashTextarea) hashTextarea.value = 'SHA256:' + hash;
+                    if (printHash) printHash.innerText = 'SHA256:' + hash;
+                }
+            })();
+
+            examStarted = false;
+            stopDevToolsMonitoring();
+
+            const bar = document.querySelector('.timer-bar');
+            if (bar && !bar.querySelector('.expired-msg')) {
+                const msg = document.createElement('span');
+                msg.className = 'expired-msg';
+                msg.innerHTML = '<i class="fas fa-check-circle"></i> اكتمل الاختبار – للمراجعة فقط.';
+                bar.appendChild(msg);
+            }
+        }
+
+        // ================================================================
+        //  20.  START EXAM
+        // ================================================================
+        function startExam() {
+            const name = studentNameInput.value.trim();
+            const id = studentIdInput.value.trim();
+            if (name === '' || id === '') {
+                alert('الرجاء إدخال اسمك الكامل ورقمك الجامعي قبل البدء.');
+                return;
+            }
+            if (examContainer.children.length === 0 || examContainer.querySelector('.exam-placeholder')) {
+                buildQuestionsUI();
+            }
+            if (examStarted) return;
+
+            studentNameInput.disabled = true;
+            studentIdInput.disabled = true;
+            retakeExamBtn.style.display = 'none';
+            updatePrintStudentData();
+
+            enableAnswers(true);
+            startTimer();
+            examStarted = true;
+
+            startBtn.style.display = 'none';
+            finishExamBtn.style.display = 'inline-flex';
+            finishExamBtn.disabled = false;
+            downloadPdfBtn.style.display = 'none';
+            retakeNotice.style.display = 'none';
+
+            localStorage.setItem(STATUS_KEY, 'running');
+            localStorage.setItem('examStartTime', Date.now());
+            localStorage.setItem('examStudentName', name);
+            localStorage.setItem('examStudentId', id);
+
+            requestFullscreen();
+            startDevToolsMonitoring();
+
+            restoringAnswers = true;
+            for (let i = 1; i <= mcQuestions.length; i++) {
+                const saved = localStorage.getItem('mc_' + i);
+                if (saved !== null) {
+                    const el = document.querySelector(`input[name="mc${i}"][value="${saved}"]`);
+                    if (el) el.checked = true;
+                }
+            }
+            for (let i = 1; i <= tfQuestions.length; i++) {
+                const saved = localStorage.getItem('tf_' + i);
+                if (saved !== null) {
+                    const el = document.querySelector(`input[name="tf${i}"][value="${saved}"]`);
+                    if (el) el.checked = true;
+                }
+            }
+            for (let i = 1; i <= essayQuestions.length; i++) {
+                const saved = localStorage.getItem('essay_' + i);
+                if (saved !== null) {
+                    const ta = document.getElementById('essay_' + i);
+                    if (ta && ta.value !== saved) {
+                        ta.value = saved;
+                        const ps = document.getElementById('print_essay_' + i);
+                        if (ps) ps.innerText = saved;
+                        lastValues.set(ta, saved);
+                    }
+                }
+            }
+            restoringAnswers = false;
+            visibilityViolations = 0;
+            fullscreenViolations = 0;
+        }
+
+        // ================================================================
+        //  21.  RESTORE STATE ON LOAD
+        // ================================================================
+        function restoreExamState() {
+            const status = localStorage.getItem(STATUS_KEY);
+            const finishedAt = parseInt(localStorage.getItem(FINISHED_AT_KEY), 10);
+
+            if ((status === 'finished' || status === 'terminated') && finishedAt) {
+                const elapsed = Date.now() - finishedAt;
+                if (elapsed >= RETAKE_DELAY) {
+                    clearExamData();
+                    retakeNotice.style.display = 'flex';
+                    retakeNoticeText.innerText = 'انتهت جلسة الاختبار السابقة. يمكنك بدء محاولة جديدة.';
+                    examContainer.innerHTML = `
+                        <div class="exam-placeholder">
+                            <i class="fas fa-lock"></i>
+                            <p><strong>أدخل اسمك ورقمك الجامعي</strong> أعلاه، ثم انقر على <strong>"بدء الاختبار"</strong> للبدء.<br />
+                            لديك <strong>60 دقيقة</strong> لإكمال الاختبار النهائي في أمن الشبكات.<br />
+                            يتم حفظ الإجابات تلقائيًا محليًا – يمكنك إغلاق الصفحة والاستئناف لاحقًا.</p>
+                            <p style="margin-top: 16px; font-size: 0.9rem; color: #64748b;">
+                                <i class="fas fa-info-circle"></i> 20 سؤال اختيار من متعدد/صح أو خطأ (20 درجة) + 5 أسئلة مقالية (40 درجة).
+                            </p>
+                        </div>
+                    `;
+                    startBtn.style.display = 'inline-flex';
+                    startBtn.disabled = false;
+                    finishExamBtn.style.display = 'none';
+                    downloadPdfBtn.style.display = 'none';
+                    studentNameInput.disabled = false;
+                    studentIdInput.disabled = false;
+                    studentNameInput.value = '';
+                    studentIdInput.value = '';
+                    timerDisplay.innerText = '01:00:00';
+                    return;
+                } else {
+                    showExamEndedState();
+                    const remainingMin = Math.ceil((RETAKE_DELAY - elapsed) / 60000);
+                    retakeNotice.style.display = 'flex';
+                    retakeNoticeText.innerText = 'يمكنك إعادة الاختبار بعد ' + remainingMin + ' دقيقة.';
+                    return;
+                }
+            }
+
+            if (status === 'running') {
+                const startTime = parseInt(localStorage.getItem('examStartTime'), 10);
+                const elapsed = Date.now() - startTime;
+                const duration = EXAM_DURATION_MS;
+                if (elapsed < duration) {
+                    const savedName = localStorage.getItem('examStudentName') || '';
+                    const savedId = localStorage.getItem('examStudentId') || '';
+                    studentNameInput.value = savedName;
+                    studentIdInput.value = savedId;
+                    studentNameInput.disabled = true;
+                    studentIdInput.disabled = true;
+                    updatePrintStudentData();
+                    buildQuestionsUI();
+                    enableAnswers(true);
+                    endTime = startTime + duration;
+                    updateTimerDisplay();
+                    if (timerInterval) clearInterval(timerInterval);
+                    timerInterval = setInterval(updateTimerDisplay, 1000);
+                    examStarted = true;
+                    startBtn.style.display = 'none';
+                    finishExamBtn.style.display = 'inline-flex';
+                    finishExamBtn.disabled = false;
+                    downloadPdfBtn.style.display = 'none';
+                    retakeNotice.style.display = 'none';
+
+                    restoringAnswers = true;
+                    for (let i = 1; i <= mcQuestions.length; i++) {
+                        const saved = localStorage.getItem('mc_' + i);
+                        if (saved !== null) {
+                            const el = document.querySelector(`input[name="mc${i}"][value="${saved}"]`);
+                            if (el) el.checked = true;
+                        }
+                    }
+                    for (let i = 1; i <= tfQuestions.length; i++) {
+                        const saved = localStorage.getItem('tf_' + i);
+                        if (saved !== null) {
+                            const el = document.querySelector(`input[name="tf${i}"][value="${saved}"]`);
+                            if (el) el.checked = true;
+                        }
+                    }
+                    for (let i = 1; i <= essayQuestions.length; i++) {
+                        const saved = localStorage.getItem('essay_' + i);
+                        if (saved !== null) {
+                            const ta = document.getElementById('essay_' + i);
+                            if (ta) {
+                                ta.value = saved;
+                                const ps = document.getElementById('print_essay_' + i);
+                                if (ps) ps.innerText = saved;
+                                lastValues.set(ta, saved);
+                            }
+                        }
+                    }
+                    restoringAnswers = false;
+
+                    startDevToolsMonitoring();
+                    visibilityViolations = 0;
+                    fullscreenViolations = 0;
+                    requestFullscreen();
+                } else {
+                    localStorage.setItem(STATUS_KEY, 'finished');
+                    localStorage.setItem(FINISHED_AT_KEY, startTime + duration);
+                    showExamEndedState();
+                    const bar = document.querySelector('.timer-bar');
+                    if (bar && !bar.querySelector('.expired-msg')) {
+                        const msg = document.createElement('span');
+                        msg.className = 'expired-msg';
+                        msg.innerHTML = '<i class="fas fa-hourglass-end"></i> انتهى الوقت أثناء الغياب.';
+                        bar.appendChild(msg);
+                    }
+                }
+            } else {
+                examContainer.innerHTML = `
+                    <div class="exam-placeholder">
+                        <i class="fas fa-lock"></i>
+                        <p><strong>أدخل اسمك ورقمك الجامعي</strong> أعلاه، ثم انقر على <strong>"بدء الاختبار"</strong> للبدء.<br />
+                        لديك <strong>60 دقيقة</strong> لإكمال الاختبار النهائي في أمن الشبكات.<br />
+                        يتم حفظ الإجابات تلقائيًا محليًا – يمكنك إغلاق الصفحة والاستئناف لاحقًا.</p>
+                        <p style="margin-top: 16px; font-size: 0.9rem; color: #64748b;">
+                            <i class="fas fa-info-circle"></i> 20 سؤال اختيار من متعدد/صح أو خطأ (20 درجة) + 5 أسئلة مقالية (40 درجة).
+                        </p>
+                    </div>
+                `;
+                startBtn.style.display = 'inline-flex';
+                startBtn.disabled = false;
+                finishExamBtn.style.display = 'none';
+                downloadPdfBtn.style.display = 'none';
+            }
+        }
+
+        // ================================================================
+        //  22.  EVENT BINDINGS & INIT
+        // ================================================================
+        function clearExamDataAndReload() {
+            const keys = [STATUS_KEY, FINISHED_AT_KEY, 'examStartTime', 'examStudentName', 'examStudentId'];
+            for (let i = 1; i <= mcQuestions.length; i++) keys.push('mc_' + i);
+            for (let i = 1; i <= tfQuestions.length; i++) keys.push('tf_' + i);
+            for (let i = 1; i <= essayQuestions.length; i++) keys.push('essay_' + i);
+            keys.forEach(k => localStorage.removeItem(k));
+            document.cookie.split(';').forEach(c => {
+                document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() +
+                ';path=/');
+            });
+            location.reload();
+        }
+
+        window.onload = () => {
+            restoreExamState();
+
+            startBtn.addEventListener('click', startExam);
+            retakeExamBtn.addEventListener('click', clearExamDataAndReload);
+
+            finishExamBtn.addEventListener('click', () => {
+                if (examStarted) showConfirmModal();
+            });
+
+            studentNameInput.addEventListener('input', () => {
+                updatePrintStudentData();
+                if (examStarted) localStorage.setItem('examStudentName', studentNameInput.value.trim());
+            });
+            studentIdInput.addEventListener('input', () => {
+                updatePrintStudentData();
+                if (examStarted) localStorage.setItem('examStudentId', studentIdInput.value.trim());
+            });
+
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            document.addEventListener('fullscreenchange', onFullscreenChange);
+            document.addEventListener('visibilitychange', onVisibilityChange);
+            document.addEventListener('keydown', onKeyDown);
+        };
+
+        window.addEventListener('beforeunload', () => {
+            if (!examStarted) return;
+            for (let i = 1; i <= mcQuestions.length; i++) {
+                const el = document.querySelector(`input[name="mc${i}"]:checked`);
+                localStorage.setItem('mc_' + i, el ? el.value : '');
+            }
+            for (let i = 1; i <= tfQuestions.length; i++) {
+                const el = document.querySelector(`input[name="tf${i}"]:checked`);
+                localStorage.setItem('tf_' + i, el ? el.value : '');
+            }
+            for (let i = 1; i <= essayQuestions.length; i++) {
+                const ta = document.getElementById('essay_' + i);
+                if (ta) localStorage.setItem('essay_' + i, ta.value);
+            }
+        });
+
+        window.addEventListener('unload', () => {
+            stopPastePolling();
+            stopAutoSave();
+            stopDevToolsMonitoring();
+        });
+    </script>
+</body>
+
+</html>
